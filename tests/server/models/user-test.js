@@ -1,4 +1,4 @@
-var dbURI = 'mongodb://localhost:27017/testingDB';
+ var dbURI = 'mongodb://localhost:27017/testingDB';
 var clearDB = require('mocha-mongoose')(dbURI);
 
 var sinon = require('sinon');
@@ -22,6 +22,12 @@ describe('User model', function () {
 
     it('should exist', function () {
         expect(User).to.be.a('function');
+    });
+
+    describe('address model', function () {
+        it('should exist', function () {
+            expect(User.address).to.be.a('function');
+        });
     });
 
     describe('password encryption', function () {
