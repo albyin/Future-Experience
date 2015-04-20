@@ -42,4 +42,5 @@ describe('Category model', function () {
     it('should have name', function() {
         expect(testCategory.name).to.equal('Penta Kill');
     });
+
 });
