@@ -24,12 +24,6 @@ describe('User model', function () {
         expect(User).to.be.a('function');
     });
 
-    describe('address model', function () {
-        it('should exist', function () {
-            expect(User.address).to.be.a('function');
-        });
-    });
-
     describe('password encryption', function () {
 
         describe('generateSalt method', function () {
