@@ -6,16 +6,29 @@ var clearDB = require('mocha-mongoose')(dbURI);
 var sinon = require('sinon');
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
+var Promise = require('bluebird');
 
 require('../../../server/db/models/category');
 
-var Category = mongoose.model('Category');
+var Category = Promise.promisifyAll(mongoose.model('Category'));
 
 describe('Category model', function () {
+    var testCategory;
 
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
         mongoose.connect(dbURI, done);
+    });
+
+    beforeEach('Create a category', function(done) {
+        Category.createAsync({
+            name : "Penta Kill"
+        }).then(function(category_item) {
+            testCategory = category_item;
+            done();
+        }).catch(function(err) {
+            done(err);
+        });
     });
 
     afterEach('Clear test database', function (done) {
@@ -27,6 +40,7 @@ describe('Category model', function () {
     });
 
     it('should have name', function() {
-        expect(Category.name).to.be.a('string');
+        expect(testCategory.name).to.equal('Penta Kill');
     });
+
 });

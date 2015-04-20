@@ -19,24 +19,6 @@ describe('ListItem model', function () {
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
         mongoose.connect(dbURI, done);
-
-        // Product
-        //     .create({name:"shovel"})
-        //     .then(function (err, savedProduct){
-        //         test = {
-        //             productID : savedProduct._id,
-        //             quantity: 3,
-        //             price: 300
-        //         };
-        //         console.log("SAVEDPRODUCT, ", savedProduct);
-        //         return ListItem.create(test);
-        //     })
-        //     .then(function (err, savedListItem){
-        //         testListItem = savedListItem;
-        //         done();
-        //     }).then(function (err){
-        //         console.log(err);
-        //     });
     });
 
     afterEach('Clear test database', function (done) {
@@ -46,17 +28,4 @@ describe('ListItem model', function () {
     it('should exist', function () {
         expect(ListItem).to.be.a('function');
     });
-
-    xit('should quantity and price', function() {
-        console.log("ListItem, ", testListItem);
-        expect(testListItem.quantity).to.equal(test.quantity);
-        expect(testListItem.price).to.equal(test.price);
-    });
-
-    xit('should have a productID associated', function() {
-        expect(testListItem.productID).to.equal(test.productID);
-    });
-
-
-
 });
