@@ -34,15 +34,12 @@ var userSchema = new mongoose.Schema({
     google: {
         id: String
     },
-    orders: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Order'
-    }],
     address: [addressSchema],
     userType: {
         type: String
     }
 });
+
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
