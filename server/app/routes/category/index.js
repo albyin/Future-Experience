@@ -1,14 +1,12 @@
 'use strict';
 var router = require('express').Router();
-var Category = require('mongoose').model("Category");
-var ListItem = require('mongoose').model("ListItem");
-var Product = require('mongoose').model('Product');
+var mongoose = require('mongoose');
+var Category = mongoose.model("Category");
+var ListItem = mongoose.model("ListItem");
+var Product = mongoose.model('Product');
 module.exports = router;
 var _ = require('lodash');
 var Promise = require('bluebird'); //TODO refactor the routes to be promises instead of callbacks
-
-require("../../../db/models/category.js");
-require("../../../db/models/listitem.js");
 
 // var Category = Promise.promisifyAll(Category);
 // var ListItem = Promise.promisifyAll(ListItem);
