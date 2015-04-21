@@ -10,7 +10,8 @@ module.exports = function (app) {
     // When passport.authenticate('local') is used, this function will receive
     // the email and password to run the actual authentication logic.
     var strategyFn = function (email, password, done) {
-        UserModel.findOne({ email: email }, function (err, user) {
+    // select comes from userModel and it set to false initially. '+' overrides the boolean and selects the property
+        UserModel.findOne({ email: email }).select('email +salt +password').exec(function (err, user) {
             if (err) return done(err);
             // user.correctPassword is a method from our UserModel schema.
             if (!user || !user.correctPassword(password)) return done(null, false);
@@ -38,13 +39,37 @@ module.exports = function (app) {
             req.logIn(user, function (err) {
                 if (err) return next(err);
                 // We respond with a reponse object that has user with _id and email.
-                res.status(200).send({ user: _.omit(user.toJSON(), ['password', 'salt']) });
+                res.status(200).send({ user: user });
             });
 
         };
 
         passport.authenticate('local', authCb)(req, res, next);
 
+    });
+
+    // sign up
+    app.post('/signup', function(req, res, next) {
+        var newUser = req.body;
+
+        if (newUser.password !== newUser.passwordConfirm) {
+            var error = new Error('Passwords do not match');
+            error.status = 401;
+            return next(error);
+        }
+
+        delete newUser.passwordConfirm;
+
+        UserModel.create(newUser, function(err, returnedUser) {
+            if (err) return next(err);
+
+            req.logIn(returnedUser, function (err) {
+                if (err) return next(err);
+                // We respond with a reponse object that has user with _id and email.
+                res.status(200).send({ user: _.omit(returnedUser.toJSON(), ['password', 'salt']) });
+            });
+
+        });
     });
 
 };

@@ -24,5 +24,4 @@ describe('UserOrders model', function () {
     afterEach('Clear test database', function (done) {
         clearDB(done);
     });
- 
 });
