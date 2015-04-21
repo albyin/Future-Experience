@@ -29,4 +29,4 @@ describe('Order model', function () {
     it('should exist', function () {
         expect(Order).to.be.a('function');
     });
-};
+});

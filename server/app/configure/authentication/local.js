@@ -47,4 +47,15 @@ module.exports = function (app) {
 
     });
 
+    // sign up
+    //app.post('/signup', function(req, res, next) {
+    //    var newUser = req.body;
+    //
+    //    if (newUser.password !== newUser.passwordConfirm) {
+    //        var error = new Error('Passwords do not match');
+    //        error.status = 401;
+    //        return next(error);
+    //    }
+    //});
+
 };
