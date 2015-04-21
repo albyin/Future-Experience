@@ -48,14 +48,22 @@ module.exports = function (app) {
     });
 
     // sign up
-    //app.post('/signup', function(req, res, next) {
-    //    var newUser = req.body;
-    //
-    //    if (newUser.password !== newUser.passwordConfirm) {
-    //        var error = new Error('Passwords do not match');
-    //        error.status = 401;
-    //        return next(error);
-    //    }
-    //});
+    app.post('/signup', function(req, res, next) {
+        var newUser = req.body;
+
+        if (newUser.password !== newUser.passwordConfirm) {
+            var error = new Error('Passwords do not match');
+            error.status = 401;
+            return next(error);
+        }
+
+        delete newUser.passwordConfirm;
+
+        UserModel.create(newUser, function(err, returnedUser) {
+            if (err) return next(err);
+
+            res.send(returnedUser);
+        });
+    });
 
 };
