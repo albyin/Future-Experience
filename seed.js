@@ -32,11 +32,13 @@ var getCurrentUserData = function () {
 var seedUsers = function () {
 
     var users = [
-        {
+        {   firstName: 'Vasya',
+            lastName: 'Smith',
             email: 'testing@fsa.com',
             password: 'password'
         },
-        {
+        {   firstName: 'Barack',
+            lastName: 'Obama',
             email: 'obama@gmail.com',
             password: 'potus'
         }
