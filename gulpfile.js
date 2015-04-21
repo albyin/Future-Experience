@@ -47,7 +47,7 @@ gulp.task('buildJS', function () {
 
 gulp.task('testServerJS', function () {
     return gulp.src('./tests/server/**/*.js', {read: false})
-        .pipe(mocha({reporter: 'spec'}));
+        .pipe(mocha({reporter: 'nyan'}));
 });
 
 gulp.task('testBrowserJS', function (done) {
