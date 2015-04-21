@@ -1,5 +1,8 @@
 'use strict';
 var router = require('express').Router();
+var bluebird = require('bluebird');
+var mongoose = require('mongoose');
+var ListItem = bluebird.promisifyAll(mongoose.model('ListItem'));
 module.exports = router;
 var _ = require('lodash');
 
@@ -11,6 +14,13 @@ var _ = require('lodash');
 //     }
 // };
 
-router.get('/search', function (req, res) {
+router.get('/search', function (req, res, next) {
+	var filterOption = req.query;
 
+	ListItem
+	.searchList(filterOption, function(err, lists) {
+		if (err) return next(err);
+
+		res.json(lists);
+	});
 });
