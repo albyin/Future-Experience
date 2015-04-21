@@ -23,9 +23,11 @@ var ensureAdmin = function (req, res, next) {
     }
 };
 
-router.get('/', function (req, res) {
+router.get('/', function (req, res, next) {
     //find all categories
-    Category.find({}, function (err, categoryObjArr){
+    Category.find({}, function (err, categoryObjArr) {
+        if (err) return next(err);
+        //console.log("category Object: ", categoryObjArr);
         //send array of all categories back
         res.send(categoryObjArr);
     });
@@ -33,15 +35,11 @@ router.get('/', function (req, res) {
 });
 router.get('/:cat_id', function (req, res) {
 
-        console.log("GOT HERE, ", req.params.cat_id);
-    //search for category based on provided category name
-    Product.find({}, function (err, categoryObj) {
-        //given a category object, use the _id to find all list items with that cat
-        //console.log("GOT categories, ", categoryObj);
-         ListItem.find({category: categoryObj._id}, function (err, listItemArr){
-             //return array of list items of the specified cat
+    ListItem.find({category: req.params.cat_id}, function (err, listItemArr) {
+        //return array of list items of the specified cat
+        //console.log("server side listItem: ", listItemArr)
+        res.send(listItemArr);
 
-         });
     });
 
 });

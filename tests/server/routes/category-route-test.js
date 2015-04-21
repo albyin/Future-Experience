@@ -5,6 +5,8 @@ var clearDB = require('mocha-mongoose')(dbURI);
 
 var expect = require('chai').expect;
 var assert = require("chai").assert;
+var should = require('chai').should();
+//chai.use(require('chai-things'));
 
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
@@ -32,40 +34,34 @@ describe('Category route', function () {
         mongoose.connect(dbURI, done);
     });
 
-    beforeEach('Create a category', function(done) {
-        Category.createAsync({
+    beforeEach('Create a category, product and listitem', function(done) {
+
+        var promises = [];
+        promises.push(Category.createAsync({
             name : "space"
-        }).then(function(mongoCategoryObj) {
-            testCategory = mongoCategoryObj;
-            done();
-        }).catch(function(err) {
-            done(err);
-        });
-    });
+        }));
+        promises.push( Product.createAsync({
+            name : "Space Toilet Paper"
+        }));
 
-    beforeEach("Create a Product", function (done){
-        Product.createAsync({
-            name : "Space Toilet Paper",
-            category: testCategory._id
-        }).then(function(mongoProductObj) {
-            testProduct = mongoProductObj;
-            done();
-        }).catch(function(err) {
-            done(err);
-        });
-    });
-
-    beforeEach("Create a List Item", function (done){
-        ListItem.createAsync({
-            quantity : 5,
-            price: 800, //we are storing this in cents
-            productID : testProduct._id
-        }).then(function(mongoLIObj) {
-            testListItem = mongoLIObj;
-            done();
-        }).catch(function(err) {
-            done(err);
-        });
+        Promise
+            .all(promises)
+            .then( function (array) {
+                testCategory = array[0];
+                testProduct = array[1];
+                //console.log("category: ", testCategory, "product: ", testProduct);
+                return ListItem.createAsync({
+                    quantity : 5,
+                    price: 800, //we are storing this in cents
+                    product : testProduct._id,
+                    category: testCategory._id
+                });
+            }).then(function (listitem) {
+                testListItem = listitem;
+                done();
+            }).catch(function(err) {
+                done(err);
+            });
     });
 
     after('Clear test database', function (done) {
@@ -73,12 +69,14 @@ describe('Category route', function () {
     });
 
 
-    it('should return list of categories for plain get', function () {
+    it('should return list of categories for plain get', function (done) {
         request(app)
             .get("/api/category")
             .end( function (err, data) {
-                // console.log("CALLBACK DATA res,", data.body);
+                if (err) console.log('ERR:', err);
+                //console.log("CALLBACK DATA res,", data.body);
                 assert.equal(data.body[0].name, testCategory.name);
+                done();
             });
     });
 
@@ -86,9 +84,10 @@ describe('Category route', function () {
     it('should return list item array if given category name', function () {
         request(app)
             .get("/api/category/" + testCategory._id)
-            .end( function (err, data){
-                console.log("CAT List Item Arr, ", data.body);
-                assert.equal(data.body[0].quantity, testListItem.quantity);
+            //receive array of itmes with category === category we submitted
+            .end( function (err, data){pau
+                data.res.body.should.all.have.property('category', testCategory._id);
+                //assert.equal(data.body[0].category, testCategory._id);
             });
     });
 
