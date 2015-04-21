@@ -6,7 +6,8 @@ var Schema = mongoose.Schema;
 var ListItemSchema = new mongoose.Schema({
     quantity : Number,
     price    : Number,
-    productID: {type : Schema.Types.ObjectId, ref : 'Product'}
+    product: {type : Schema.Types.ObjectId, ref : 'Product'},
+    category: {type: Schema.Types.ObjectId, ref: 'Category'}
 });
 
 mongoose.model('ListItem', ListItemSchema);

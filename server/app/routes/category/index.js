@@ -2,6 +2,7 @@
 var router = require('express').Router();
 var Category = require('mongoose').model("Category");
 var ListItem = require('mongoose').model("ListItem");
+var Product = require('mongoose').model('Product');
 module.exports = router;
 var _ = require('lodash');
 var Promise = require('bluebird'); //TODO refactor the routes to be promises instead of callbacks
@@ -30,17 +31,17 @@ router.get('/', function (req, res) {
     });
 
 });
-router.get('/:cat', function (req, res) {
+router.get('/:cat_id', function (req, res) {
 
-        console.log("GOT HERE, ", req.params.cat);
+        console.log("GOT HERE, ", req.params.cat_id);
     //search for category based on provided category name
-    Category.find({}, function (err, categoryObj){
+    Product.find({}, function (err, categoryObj) {
         //given a category object, use the _id to find all list items with that cat
-        console.log("GOT categories, ", categoryObj);
-        // ListItem.find({category: categoryObj._id}, function (err, listItemArr){
-        //     //return array of list items of the specified cat
-        //     res.send(listItemArr);
-        // });
+        //console.log("GOT categories, ", categoryObj);
+         ListItem.find({category: categoryObj._id}, function (err, listItemArr){
+             //return array of list items of the specified cat
+
+         });
     });
 
 });

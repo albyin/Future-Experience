@@ -4,12 +4,14 @@ var dbURI = 'mongodb://localhost:27017/testingDB';
 var clearDB = require('mocha-mongoose')(dbURI);
 
 var expect = require('chai').expect;
+var assert = require("chai").assert;
+
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var http = require("http");
 var app = require("../../../server/app");
 var request = require("supertest");
-var assert = require("chai").assert;
+
 
 require('../../../server/db/models/category');
 require('../../../server/db/models/listitem');
@@ -66,7 +68,7 @@ describe('Category route', function () {
         });
     });
 
-    afterEach('Clear test database', function (done) {
+    after('Clear test database', function (done) {
         clearDB(done);
     });
 
@@ -83,7 +85,7 @@ describe('Category route', function () {
 
     it('should return list item array if given category name', function () {
         request(app)
-            .get("/api/category/" + testCategory.name)
+            .get("/api/category/" + testCategory._id)
             .end( function (err, data){
                 console.log("CAT List Item Arr, ", data.body);
                 assert.equal(data.body[0].quantity, testListItem.quantity);
