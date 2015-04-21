@@ -1,7 +1,6 @@
 var dbURI = 'mongodb://localhost:27017/testingDB';
 var clearDB = require('mocha-mongoose')(dbURI);
 
-var sinon = require('sinon');
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
 
@@ -29,4 +28,4 @@ describe('Order model', function () {
     it('should exist', function () {
         expect(Order).to.be.a('function');
     });
-};
+});
