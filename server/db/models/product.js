@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 
 var ProductSchema = new mongoose.Schema({
     name : String,
-    categoryID: {type : Schema.Types.ObjectId, ref : 'Category'}
+    picture: String,
+    details: String
 });
 
 mongoose.model('Product', ProductSchema);
