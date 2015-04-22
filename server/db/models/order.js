@@ -18,7 +18,7 @@ var userIdFilter = function(orders, id) {
     });
 };
 
-ListItemSchema.statics.searchOrder = function(filterOption, cb) {
+orderSchema.statics.searchOrder = function(filterOption, cb) {
     var queryObj = {};
 
     // go through the filter Option and create new query object
