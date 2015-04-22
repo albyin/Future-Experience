@@ -13,28 +13,4 @@ var orderSchema = new mongoose.Schema({
     status: { type : Number, default : 1 }
 });
 
-var userIdFilter = function(orders, id) {
-    return orders.filter(function(order) {
-        return order.id === id;
-    });
-};
-
-orderSchema.statics.searchOrder = function(filterOption, cb) {
-    var queryObj = {};
-
-    // go through the filter Option and create new query object
-    this.find({})
-        .populate('listitems')
-        .exec(function(err, orders) {
-            if (err) return cb(err);
-
-            if (filterOption.user_id) {
-                orders = userIdFilter(orders, filterOption.user_id);
-            }
-
-            cb(null, orders);
-        });
-};
-
-
 mongoose.model('Order', orderSchema);
