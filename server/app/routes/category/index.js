@@ -34,19 +34,39 @@ router.get('/:cat_id', function (req, res) {
 
     ListItem.find({category: req.params.cat_id}, function (err, listItemArr) {
         //return array of list items of the specified cat
-        //console.log("server side listItem: ", listItemArr)
         res.send(listItemArr);
-
     });
 
 });
 
-router.post('/', ensureAdmin, function (req, res) {
+router.post('/', function (req, res, next) {
+
+    Category.create({name: req.body.name}, function (err, category){
+        if (err) return next(err);
+        res.send(category);
+    });
 
 });
-router.put('/', ensureAdmin, function (req, res) {
+router.put('/', function (req, res) {
+
+    console.log("PUT BODY,",req.body);
+
+    var id = req.body._id;
+    var name = req.body.name;
+
+    Category.findOneAndUpdate({_id: req.body._id}, {name: req.body.name}, function (err, updatedObj){
+        if(err) return next(err);
+        res.send(updatedObj);
+    });
 
 });
-router.delete('/', ensureAdmin, function (req, res) {
-
+router.delete('/', function (req, res, next) {
+    Category.remove({_id: req.body._id}, function (err, numRemoved){
+        if (err) return next(err);
+        console.log('numRemoved, ', numRemoved);
+        //TODO we think that the remove callback gives number of removed documents
+        //as the parameter. We are getting 0 for when we delete, so that is confusing
+        //document is removed successfully, however, so yeah confusing
+        res.send(numRemoved);
+    });
 });
