@@ -108,8 +108,7 @@ describe('Category GET, POST, PUT, DELETE routes', function () {
             request(app)
                 .get("/api/category")
                 .end( function (err, data) {
-                    if (err) console.log('ERR:', err);
-                    //console.log("CALLBACK DATA res,", data.body);
+                    if (err) done(err);
                     assert.equal(data.body[0].name, testCategory.name);
                     done();
                 });
@@ -163,13 +162,6 @@ describe('Category GET, POST, PUT, DELETE routes', function () {
 
             var newCatName = "Global Warming";
 
-            // request(app).get("/api/category/").end (function (err, response){
-            //     //all categories array returned
-            //     if(err) return done(err);
-            //     console.log("WHAT IS OUR CATEGORIES??",response.body);
-            //     done();
-            // });
-
             //TODO test is not working, but visually confirmed put is working properly
 
             request(app).put("/api/category/").send({_id: testCategory._id, name: newCatName})
@@ -181,7 +173,6 @@ describe('Category GET, POST, PUT, DELETE routes', function () {
                     request(app).get("/api/category/").end (function (err, response){
                         //all categories array returned
                         if(err) return done(err);
-                        console.log("RESPONSE RES BODY,", response.res.body);
                         response.res.body
                             .should.contain
                             .a.thing.to.include

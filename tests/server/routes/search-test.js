@@ -85,7 +85,7 @@ describe('Search route', function () {
     	.end(function(err, data){
     		var allItems = data.body;
     		assert.equal(allItems.length, 2);
-    		console.log(allItems);
+    		//console.log(allItems);
     		done();
     	});
     });
