@@ -3,10 +3,11 @@
 var dbURI = 'mongodb://localhost:27017/testingDB';
 var clearDB = require('mocha-mongoose')(dbURI);
 
-var expect = require('chai').expect;
-var assert = require("chai").assert;
-var should = require('chai').should();
-//chai.use(require('chai-things'));
+var chai = require('chai');
+var expect = chai.expect;
+var assert = chai.assert;
+var should = chai.should();
+chai.use(require('chai-things'));
 
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
@@ -28,6 +29,9 @@ describe('Category route', function () {
     var testCategory;
     var testProduct;
     var testListItem;
+    var altTestCategory;
+    var altTestProduct;
+    var altTestListItem;
 
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
@@ -63,6 +67,35 @@ describe('Category route', function () {
                 done(err);
             });
     });
+    beforeEach('Create a category, product and listitem', function(done) {
+
+        var altPromises = [];
+        altPromises.push(Category.createAsync({
+            name : "flood"
+        }));
+        altPromises.push( Product.createAsync({
+            name : "WaterProof Toilet Paper"
+        }));
+
+        Promise
+            .all(altPromises)
+            .then( function (array) {
+                altTestCategory = array[0];
+                altTestProduct = array[1];
+                //console.log("category: ", testCategory, "product: ", testProduct);
+                return ListItem.createAsync({
+                    quantity : 5,
+                    price: 800, //we are storing this in cents
+                    product : altTestProduct._id,
+                    category: altTestCategory._id
+                });
+            }).then(function (listitem) {
+                altTestListItem = listitem;
+                done();
+            }).catch(function(err) {
+                done(err);
+            });
+    });
 
     after('Clear test database', function (done) {
         clearDB(done);
@@ -81,18 +114,15 @@ describe('Category route', function () {
     });
 
 
-    it('should return list item array if given category name', function () {
+    it('should return list item array if given category name AND only that category', function () {
         request(app)
             .get("/api/category/" + testCategory._id)
             //receive array of itmes with category === category we submitted
-            .end( function (err, data){pau
-                data.res.body.should.all.have.property('category', testCategory._id);
+            .end( function (err, data){
+                //data.res.body[0].should.have.property('category', testCategory._id.toString());
+                data.res.body.should.all.have.property('category', testCategory._id.toString());
                 //assert.equal(data.body[0].category, testCategory._id);
             });
-    });
-
-    xit('should return only list items of correct category', function() {
-        expect(testCategory.name).to.equal('Penta Kill');
     });
 
 });

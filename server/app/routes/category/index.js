@@ -25,7 +25,6 @@ router.get('/', function (req, res, next) {
     //find all categories
     Category.find({}, function (err, categoryObjArr) {
         if (err) return next(err);
-        //console.log("category Object: ", categoryObjArr);
         //send array of all categories back
         res.send(categoryObjArr);
     });
