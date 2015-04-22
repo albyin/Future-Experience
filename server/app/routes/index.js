@@ -10,6 +10,7 @@ router.use('/search', require('./search'));
 // router.use('/tutorial', require('./tutorial'));
 // router.use('/members', require('./members'));
 router.use('/user', require('./user'));
+router.use('/order', require('./order'));
 
 // Make sure this is after all of
 // the registered routes!

@@ -32,7 +32,6 @@ ListItemSchema.statics.searchList = function(filterOption, cb){
 
 		cb(null, listItems);
 	});
-
-}
+};
 
 mongoose.model('ListItem', ListItemSchema); 
