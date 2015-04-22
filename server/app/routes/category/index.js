@@ -63,10 +63,6 @@ router.put('/', function (req, res) {
 router.delete('/', function (req, res, next) {
     Category.remove({_id: req.body._id}, function (err, numRemoved){
         if (err) return next(err);
-        console.log('numRemoved, ', numRemoved);
-        //TODO we think that the remove callback gives number of removed documents
-        //as the parameter. We are getting 0 for when we delete, so that is confusing
-        //document is removed successfully, however, so yeah confusing
-        res.send(numRemoved);
+        res.sendStatus(200);
     });
 });
