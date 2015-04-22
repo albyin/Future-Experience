@@ -41,6 +41,8 @@ app.run(function ($rootScope, AuthService, $state) {
             // otherwise, if no user is logged in, go to "login" state.
             if (user) {
                 $state.go(toState.name, toParams);
+                // the required rank to access that page and return true or forbidden
+                // .authorize
             } else {
                 $state.go('login');
             }

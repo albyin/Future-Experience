@@ -80,6 +80,8 @@
             // Make request GET /session.
             // If it returns a user, call onSuccessfulLogin with the response.
             // If it returns a 401 response, we catch it and instead resolve to null.
+            // We are going to send where we are going (e.i /membersOnly) and the backend will determine
+            // the required rank to access that page and return true or forbidden
             return $http.get('/session').then(onSuccessfulLogin).catch(function () {
                 return null;
             });
