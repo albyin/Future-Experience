@@ -14,9 +14,8 @@ var _ = require('lodash');
 //     }
 // };
 
-router.get('/search', function (req, res, next) {
+router.get('/', function (req, res, next) {
 	var filterOption = req.query;
-
 	ListItem
 	.searchList(filterOption, function(err, lists) {
 		if (err) return next(err);
