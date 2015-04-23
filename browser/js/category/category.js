@@ -10,14 +10,16 @@ app.config(function ($stateProvider) {
 app.controller("CategoryController", function($scope, ListItemFactory, $stateParams){
 	$scope.id = $stateParams.cat_id;
 	// console.log($scope.id);
-	ListItemFactory.getListItemsForCategory($stateParams.cat_id).then(function(listitems){
-		$scope.listitems = listitems.map(function(el){
-			return { name: el.name, 
-					 // details: el.details, 
-					 price: el.price, 
-					 picture: el.picture 
-			};
-		});
+	ListItemFactory.getListItemsForCategory($stateParams.cat_id).then(function(listItems){
+		console.log(listItems);
+		$scope.listItems = listItems;
+		// $scope.listitems = listitems.map(function(el){
+		// 	return { product: el.product, 
+		// 			 // details: el.details, 
+		// 			 price: el.price, 
+		// 			 // picture: el.picture 
+		// 	};
+		// });
 	});	
 });
 

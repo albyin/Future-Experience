@@ -28,8 +28,8 @@ router.get('/', function (req, res, next) {
 
 //Get all items in a category
 router.get('/category/:cat_id', function (req, res, next) {
+
     ListItem.find({category: req.params.cat_id}, function (err, listItemArr) {
-        //return array of list items of the specified category
         res.send(listItemArr);
     });
 });
