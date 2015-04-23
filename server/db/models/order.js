@@ -42,16 +42,16 @@ orderSchema.statics.findByIdAndUpdateOrder = function(id, updateOption, cb) {
             if (err) return cb(err);
             if (!order._id) return new Error("Order Not Found");
 
-            console.log(Object);
-            //Object.keys(updateOption).forEach(function(key) {
-            //    order[key] = updateOption[key];
-            //});
+            _.keys(updateOption).forEach(function(key) {
+                console.log(order[key])
+                order[key] = updateOption[key];
+            });
 
-            //order.save(cb);
-            cb(null, order);
+            order.save(cb);
         });
 };
 
+// This pre-save will automatically calculate the totalPrice
 orderSchema.pre('save', function (next) {
     var Order = this;
     Order.totalPrice = 0;

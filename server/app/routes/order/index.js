@@ -72,47 +72,25 @@ router.put('/:order_id', function(req, res, next) {
 
     var updateOption = req.body._update;
     Order
-    .findByIdAndUpdateOrder(order_id, updateOption, function(err, savedData) {
+    .findByIdAndUpdateOrder(order_id, updateOption, function(err, saved) {
         if (err) return next(err);
 
-        res.json(savedData);
+        if (saved) {
+            res.sendStatus(200);
+        } else {
+            next(new Error("API error has occured"));
+        }
     });
 });
 
-//router.delete('/', function(req, res, next) {
-//    var deleteOrderId = req.query.order_id;
-//    if (!deleteOrderId) return next(new Error("No Order ID Specified"));
-//
-//    UserOrders.findOneAndRemoveAsync({ order : deleteOrderId })
-//    .then(function(deletedUserOrder) {
-//        return Order
-//            .findByIdAndRemoveAsync(deletedUserOrder.order.toString())
-//            .then(function(deletedOrder) {
-//                res.json(deletedOrder);
-//            });
-//    })
-//    .catch(function(err) {
-//        next(err);
-//    });
-//});
-//
-//// ?order_id
-//router.put('/', function(req, res, next){
-//    var queryId = req.query.order_id;
-//    if(!queryId) return next(new Error("Please specify an Order Id"));
-//
-//    req.body.modifiedTime = new Date();
-//
-//    UserOrders
-//        .findOneAsync({ order : queryId})
-//        .then(function(userOrder) {
-//            return Order.findByIdAndUpdateAsync(userOrder.order, req.body);
-//        })
-//        .then(function(updatedOrder){
-//            res.send(updatedOrder);
-//        }).catch(function(err){
-//            next(err);
-//        });
-//});
+// delete an existing Order
+router.delete('/:order_id', function(req, res, next) {
+    var order_id = req.params.order_id;
+    if (!order_id) return next(new Error("Order ID is not specified on the URL"));
 
+    Order.remove({_id: order_id}, function (err){
+        if (err) return next(err);
+        res.sendStatus(200);
+    });
+});
 
