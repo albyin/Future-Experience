@@ -21,11 +21,12 @@ Refer to the q documentation for why and how q.invoke is used.
 
 var mongoose = require('mongoose');
 var connectToDb = require('./server/db');
-var User = mongoose.model('User');
 var Promise = require('bluebird');
+var User = Promise.promisifyAll(mongoose.model('User'));
 var ListItem = Promise.promisifyAll(mongoose.model('ListItem'));
 var Category = Promise.promisifyAll(mongoose.model('Category'));
 var Product = Promise.promisifyAll(mongoose.model('Product'));
+var Order = Promise.promisifyAll(mongoose.model('Order'));
 var q = require('q');
 var chalk = require('chalk');
 
@@ -35,6 +36,10 @@ var getCurrentUserData = function () {
 
 var getCurrentListItems = function () {
     return ListItem.findAsync({});
+};
+
+var getCurrentOrders = function () {
+    return Order.findAsync({});
 };
 
 var seedUsers = function () {
@@ -52,8 +57,7 @@ var seedUsers = function () {
         }
     ];
 
-    return q.invoke(User, 'create', users);
-
+    return User.createAsync(users);
 };
 
 var seedListItems = function() {
@@ -92,20 +96,55 @@ connectToDb.then(function () {
         } else {
             console.log(chalk.magenta('Seems to already be user data, exiting!'));
         }
-    }).then(function() {
-        return getCurrentListItems();
-    }).then(function(items) {
-        if (items.length === 0) {
-            return seedListItems();
-        } else {
-            console.log(chalk.magenta('Seems to already be user data, exiting!'));
-            process.kill(0);
-        }
-    }).then(function () {
-        console.log(chalk.green('Seed successful!'));
-        process.kill(0);
+    }).then(function(users) {
+        return getCurrentListItems()
+            .then(function (items) {
+                if (items.length === 0) {
+                    return seedListItems();
+                } else {
+                    console.log(chalk.magenta('Seems to already be list data, exiting!'));
+                    process.kill(0);
+                }
+            }).then(function (listItems) {
+                return getCurrentOrders()
+                    .then(function (orders) {
+                        if (orders.length === 0) {
+                            return listItems;
+                        } else {
+                            console.log(chalk.magenta('Seems to already be orders data, exiting!'));
+                            process.kill(0);
+                        }
+                    });
+            }).then(function (listItems) {
+                console.log(users);
+                return Order.createAsync([
+                    {
+                        listitems: [{
+                            item: listItems[0],
+                            quantity: 2
+                        }],
+                        user: users[0].id
+                    },
+                    {
+                        listitems: [{
+                            item: listItems[1],
+                            quantity: 2
+                        }],
+                        user: users[1].id
+                    }
+                ]);
+            }).then(function () {
+                console.log(chalk.green('Seed successful!'));
+                process.kill(0);
+            }).catch(function (err) {
+                console.error(err);
+                process.kill(1);
+            });
     }).catch(function (err) {
         console.error(err);
         process.kill(1);
     });
+}).catch(function (err) {
+    console.error(err);
+    process.kill(1);
 });
