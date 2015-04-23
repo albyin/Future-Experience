@@ -1,6 +1,8 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var findOrCreate = require('mongoose-findorcreate');
+
 
 var addressSchema = new mongoose.Schema({
     line1: String,
@@ -76,6 +78,7 @@ userSchema.pre('save', function (next) {
 
 });
 
+userSchema.plugin(findOrCreate);
 userSchema.statics.generateSalt = generateSalt;
 userSchema.statics.encryptPassword = encryptPassword;
 
