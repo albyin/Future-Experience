@@ -61,13 +61,13 @@ router.post('/', function (req, res, next) {
     });
 });
 
-router.put('/', function (req, res, next) {
-    Review.findOneAndUpdate({_id: req.body._id}, req.body, function (err, updatedObj){
+//Updated to take ID as a param
+router.put('/:id', function (req, res, next) {
+    Review.findOneAndUpdate({_id: req.params.id}, req.body, function (err, updatedObj){
         if(err) return next(err);
         console.log("updatedReview: ", updatedObj);
         res.send(updatedObj);
     });
-
 });
 
 router.delete('/', function (req, res, next) {

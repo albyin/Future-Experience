@@ -16,14 +16,12 @@ require('../../../server/db/models/listitem');
 require('../../../server/db/models/product');
 require('../../../server/db/models/order');
 require('../../../server/db/models/user');
-require('../../../server/db/models/userOrders');
 
 var Category = Promise.promisifyAll(mongoose.model('Category'));
 var ListItem = Promise.promisifyAll(mongoose.model('ListItem'));
 var Product = Promise.promisifyAll(mongoose.model('Product'));
 var Order = Promise.promisifyAll(mongoose.model('Order'));
 var User = Promise.promisifyAll(mongoose.model('User'));
-var UserOrders = Promise.promisifyAll(mongoose.model('UserOrders'));
 
 describe('Cart and Order route', function () {
     var listItem;
