@@ -30,14 +30,6 @@ router.get('/', function (req, res, next) {
     });
 
 });
-router.get('/:cat_id', function (req, res) {
-
-    ListItem.find({category: req.params.cat_id}, function (err, listItemArr) {
-        //return array of list items of the specified cat
-        res.send(listItemArr);
-    });
-
-});
 
 router.post('/', function (req, res, next) {
 
