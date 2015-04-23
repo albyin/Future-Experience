@@ -27,13 +27,13 @@ orderSchema.plugin(findOrCreate);
 orderSchema.statics.getOrdersByUserId = function(id, cb) {
     return this.find({
         user : id
-    }).deepPopulate('user listitems.item listitems.item.product listitems.item.category').exec(cb);
+    }).deepPopulate('user listitems.item  listitems.item.creator listitems.item.product listitems.item.category').exec(cb);
 };
 
 orderSchema.statics.getOrdersByOrderId = function(id, cb) {
     return this
         .findById(id)
-        .deepPopulate('user listitems.item listitems.item.product listitems.item.category').exec(cb);
+        .deepPopulate('user listitems.item listitems.item.creator listitems.item.product listitems.item.category').exec(cb);
 };
 
 orderSchema.statics.findByIdAndUpdateOrder = function(id, updateOption, cb) {

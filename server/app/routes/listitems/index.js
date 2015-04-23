@@ -20,7 +20,7 @@ var ensureAdmin = function (req, res, next) {
 // Get all items
 // TODO make available to admin only
 router.get('/', function (req, res, next) {
-    ListItem.find({}, function (err, listItemArr) {
+    ListItem.find({}).populate('product category creator').exec(function (err, listItemArr) {
         if (err) next(err);
         res.send(listItemArr);
     });
@@ -28,7 +28,7 @@ router.get('/', function (req, res, next) {
 
 //Get all items in a category
 router.get('/category/:cat_id', function (req, res, next) {
-    ListItem.find({category: req.params.cat_id}, function (err, listItemArr) {
+    ListItem.find({category: req.params.cat_id}).populate('product category creator').exec(function (err, listItemArr) {
         //return array of list items of the specified category
         res.send(listItemArr);
     });
@@ -37,7 +37,7 @@ router.get('/category/:cat_id', function (req, res, next) {
 //Get all items created by a user
 //TODO make available to admins and superusers only
 router.get('/user/:user_id', function (req, res, next) {
-    ListItem.find({creator: req.params.user_id}, function (err, listItemArr) {
+    ListItem.find({creator: req.params.user_id}).populate('product category creator').exec(function (err, listItemArr) {
         //return array of list items of the specified user
         res.send(listItemArr);
     });
@@ -46,7 +46,7 @@ router.get('/user/:user_id', function (req, res, next) {
 //Get all items based on a product
 //TODO make available to admins only
 router.get('/product/:prod_id', function (req, res, next) {
-    ListItem.find({product: req.params.prod_id}, function (err, listItemArr) {
+    ListItem.find({product: req.params.prod_id}).populate('product category creator').exec(function (err, listItemArr) {
         if (err) return next(err);
         //return array of list items of the specified user
         res.send(listItemArr);
@@ -55,7 +55,7 @@ router.get('/product/:prod_id', function (req, res, next) {
 
 //Get single item
 router.get('/item/:item_id', function (req, res, next) {
-    ListItem.findOne({_id: req.params.item_id}, function (err, listItem) {
+    ListItem.findOne({_id: req.params.item_id}).populate('product category creator').exec(function (err, listItem) {
         if (err) return next(err);
         res.send(listItem);
     });
