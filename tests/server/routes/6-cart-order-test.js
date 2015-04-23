@@ -22,7 +22,6 @@ var Category = Promise.promisifyAll(mongoose.model('Category'));
 var ListItem = Promise.promisifyAll(mongoose.model('ListItem'));
 var Product = Promise.promisifyAll(mongoose.model('Product'));
 var Order = Promise.promisifyAll(mongoose.model('Order'));
-//var Cart = Promise.promisifyAll(mongoose.model('Cart'));
 var User = Promise.promisifyAll(mongoose.model('User'));
 var UserOrders = Promise.promisifyAll(mongoose.model('UserOrders'));
 

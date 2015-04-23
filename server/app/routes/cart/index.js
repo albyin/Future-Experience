@@ -3,7 +3,6 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var Order =  Promise.promisifyAll(mongoose.model("Order"));
-//var Cart =  Promise.promisifyAll(mongoose.model("Cart"));
 var User = Promise.promisifyAll(mongoose.model("User"));
 var UserOrders = Promise.promisifyAll(mongoose.model("UserOrders"));
 module.exports = router;
