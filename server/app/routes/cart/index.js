@@ -3,6 +3,7 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var Order =  Promise.promisifyAll(mongoose.model("Order"));
+//var Cart =  Promise.promisifyAll(mongoose.model("Cart"));
 var User = Promise.promisifyAll(mongoose.model("User"));
 var UserOrders = Promise.promisifyAll(mongoose.model("UserOrders"));
 module.exports = router;
@@ -30,19 +31,21 @@ router.param('user_id', function(req, res, next, user_id) {
 
 // get the current user's order
 router.get('/:user_id', function (req, res, next) {
+    var filterOption = {
+        user_id : req.userID
+    };
+
     var order_id = req.query.order_id;
-    if (!order_id) return next(new Error("No Order ID Specified"));
+    if (order_id) {
+        filterOption.order_id = order_id;
+    }
 
     UserOrders
-    .findOneAsync({ user : req.userID, order : order_id })
-    .then(function(userOrder) {
-        if (!userOrder) throw new Error("Result is empty");
+        .searchOrder(filterOption, function(err, orders) {
+            if (err) return next(err);
 
-        res.json(userOrder);
-    })
-    .catch(function(err) {
-        next(err);
-    });
+            res.json(orders);
+        });
 });
 
 // create current user's order
@@ -87,7 +90,7 @@ router.delete('/:user_id', function(req, res, next) {
     UserOrders.findOneAndRemoveAsync({ user : req.userID, order : order_id })
         .then(function(deletedUserOrder) {
             return Order
-            .findByIdAndRemoveAsync(req.params.order_id)
+            .findByIdAndRemoveAsync(deletedUserOrder.order.toString())
             .then(function(deletedOrder) {
                 res.json(deletedOrder);
             });
@@ -101,10 +104,12 @@ router.put('/:user_id', function(req, res, next) {
     var order_id = req.query.order_id;
     if (!order_id) return next(new Error("No Order ID Specified"));
 
+    req.body.modifiedTime = new Date();
+
     UserOrders.findOneAsync({ user : req.userID, order : order_id })
-    .then(function(UserOrder) {
+    .then(function(userOrder) {
         Order
-            .findByIdAndUpdateAsync(req.params.order_id, req.body)
+            .findByIdAndUpdateAsync(userOrder.order.toString(), req.body)
             .then(function(updatedOrder) {
                 res.json(updatedOrder);
             });
