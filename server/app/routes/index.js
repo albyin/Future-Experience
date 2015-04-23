@@ -7,7 +7,7 @@ router.use('/product', require('./product'));
 router.use('/search', require('./search'));
 router.use('/user', require('./user'));
 router.use('/order', require('./order'));
-router.use('/cart', require('./cart'));
+//router.use('/cart', require('./cart'));
 router.use('/review', require('./review'));
 
 // Make sure this is after all of

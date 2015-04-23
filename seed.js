@@ -94,7 +94,8 @@ connectToDb.then(function () {
         if (users.length === 0) {
             return seedUsers();
         } else {
-            console.log(chalk.magenta('Seems to already be user data, exiting!'));
+            console.log(chalk.magenta('Seems to already be user data!'));
+            return users;
         }
     }).then(function(users) {
         return getCurrentListItems()
@@ -102,8 +103,8 @@ connectToDb.then(function () {
                 if (items.length === 0) {
                     return seedListItems();
                 } else {
-                    console.log(chalk.magenta('Seems to already be list data, exiting!'));
-                    process.kill(0);
+                    console.log(chalk.magenta('Seems to already be list data!'));
+                    return items;
                 }
             }).then(function (listItems) {
                 return getCurrentOrders()
@@ -111,12 +112,11 @@ connectToDb.then(function () {
                         if (orders.length === 0) {
                             return listItems;
                         } else {
-                            console.log(chalk.magenta('Seems to already be orders data, exiting!'));
+                            console.log(chalk.magenta('Seems to already be orders data! Exiting!'));
                             process.kill(0);
                         }
                     });
             }).then(function (listItems) {
-                console.log(users);
                 return Order.createAsync([
                     {
                         listitems: [{

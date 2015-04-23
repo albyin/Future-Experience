@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
     });
 
 });
-router.get('/:cat_id', function (req, res) {
+router.get('/:cat_id', function (req, res, next) {
 
     ListItem.find({category: req.params.cat_id}, function (err, listItemArr) {
         //return array of list items of the specified cat
@@ -47,7 +47,7 @@ router.post('/', function (req, res, next) {
     });
 
 });
-router.put('/', function (req, res) {
+router.put('/', function (req, res, next) {
 
     console.log("PUT BODY,",req.body);
 
