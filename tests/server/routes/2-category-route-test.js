@@ -113,19 +113,6 @@ describe('Category GET, POST, PUT, DELETE routes', function () {
                     done();
                 });
         });
-
-
-        it('should return list item array if given category name AND only that category', function () {
-            request(app)
-                .get("/api/category/" + testCategory._id)
-                //receive array of itmes with category === category we submitted
-                .end( function (err, data){
-                    //data.res.body[0].should.have.property('category', testCategory._id.toString());
-                    data.res.body.should.all.have.property('category', testCategory._id.toString());
-                    //assert.equal(data.body[0].category, testCategory._id);
-                });
-        });
-
     });
 
     describe ("POST functions: ", function (){
