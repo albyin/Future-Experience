@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var findOrCreate = require('mongoose-findorcreate');
+
 
 var ReviewSchema = new mongoose.Schema({
     user : {type : Schema.Types.ObjectId, ref : 'User'},
@@ -10,4 +12,5 @@ var ReviewSchema = new mongoose.Schema({
     stars : Number
 });
 
+ReviewSchema.plugin(findOrCreate);
 mongoose.model('Review', ReviewSchema);

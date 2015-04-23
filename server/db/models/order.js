@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var deepPopulate = require('mongoose-deep-populate');
 var Schema = mongoose.Schema;
+var findOrCreate = require('mongoose-findorcreate');
 
 var orderSchema = new mongoose.Schema({
     // deleted "product" key to be "listitems" for consistency
@@ -15,5 +16,6 @@ var orderSchema = new mongoose.Schema({
 });
 
 orderSchema.plugin(deepPopulate);
+orderSchema.plugin(findOrCreate);
 
 mongoose.model('Order', orderSchema);
