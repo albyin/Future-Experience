@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var findOrCreate = require('mongoose-findorcreate');
+var deepPopulate = require('mongoose-deep-populate');
 
 var ListItemSchema = new mongoose.Schema({
     quantity : Number,
@@ -73,4 +74,6 @@ ListItemSchema.statics.searchList = function(filterOption, cb){
 };
 
 ListItemSchema.plugin(findOrCreate);
+ListItemSchema.plugin(deepPopulate);
+
 mongoose.model('ListItem', ListItemSchema); 
