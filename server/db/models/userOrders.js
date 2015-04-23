@@ -1,14 +1,15 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate');
 var Schema = mongoose.Schema;
 
 var userOrdersSchema = new mongoose.Schema({
-    user : [{type: Schema.Types.ObjectId, ref:'User'}],
-    order : [{type: Schema.Types.ObjectId, ref:'Order'}]
+    user : {type: Schema.Types.ObjectId, ref:'User'},
+    order : {type: Schema.Types.ObjectId, ref:'Order'}
 });
 
-mongoose.model('UserOrders', userOrdersSchema);
+userOrdersSchema.plugin(deepPopulate);
 
 var userIdFilter = function(orders, id) {
     return orders.filter(function(order) {
@@ -21,7 +22,7 @@ userOrdersSchema.statics.searchOrder = function(filterOption, cb) {
 
     // go through the filter Option and create new query object
     this.find({})
-        .populate('order user')
+        .deepPopulate('order user order.listitems order.listitems.product order.listitems.category')
         .exec(function(err, orders) {
             if (err) return cb(err);
 
@@ -32,3 +33,5 @@ userOrdersSchema.statics.searchOrder = function(filterOption, cb) {
             cb(null, orders);
         });
 };
+
+mongoose.model('UserOrders', userOrdersSchema);

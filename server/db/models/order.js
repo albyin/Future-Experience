@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate');
 var Schema = mongoose.Schema;
 
 var orderSchema = new mongoose.Schema({
@@ -12,5 +13,7 @@ var orderSchema = new mongoose.Schema({
    //number refering to 1,2,3,4: 1 - pending, 2 - paid; 3 - shipped; 4 - delivered;
     status: { type : Number, default : 1 }
 });
+
+orderSchema.plugin(deepPopulate);
 
 mongoose.model('Order', orderSchema);
