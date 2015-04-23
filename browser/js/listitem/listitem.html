@@ -1,0 +1,8 @@
+<section id="listItem" ng-controller="ListItemController">
+	<h1>Welcome! {{ listitem.name }}</h1>
+	<ul class = "eachItem">
+		<li ng-repeat="data in listitem">{{ data }}</li>
+	</ul>
+	<button id="addToCart">Add To Cart</button>
+	<button id="addReview">Add Review</button>
+</section>
