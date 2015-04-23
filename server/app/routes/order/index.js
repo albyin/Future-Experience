@@ -2,9 +2,8 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
-var Order =  Promise.promisifyAll(mongoose.model("Order"));
+var Order = mongoose.model("Order");
 var ListItem = Promise.promisifyAll(mongoose.model("ListItem"));
-var UserOrders = Promise.promisifyAll(mongoose.model("UserOrders"));
 module.exports = router;
 var _ = require('lodash');
 
@@ -18,10 +17,10 @@ var _ = require('lodash');
 //};
 
 // retrieve all or specific to an id using ?user_id=
-router.get('/', function (req, res, next) {
-    var filterOption = req.query;
-    UserOrders
-    .searchOrder(filterOption, function(err, orders) {
+router.get('/user/:user_id', function (req, res, next) {
+    var user_id = req.params.user_id
+    Order
+    .getOrdersById(user_id, function(err, orders) {
         if (err) return next(err);
 
         res.json(orders);
