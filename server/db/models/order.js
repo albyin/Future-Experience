@@ -7,7 +7,11 @@ var findOrCreate = require('mongoose-findorcreate');
 
 var orderSchema = new mongoose.Schema({
     // deleted "product" key to be "listitems" for consistency
-    listitems : [{type: Schema.Types.ObjectId, ref:'ListItem'}],
+    listitems : [{
+        item : {type: Schema.Types.ObjectId, ref:'ListItem'},
+        quantity : {type: Number, default : 0}
+    }],
+    user           : {type: Schema.Types.ObjectId, ref:'User'},
     createdTime    : { type : Date, default : Date.now },
     modifiedTime   : { type : Date, default : Date.now },
     totalPrice: Number,
@@ -17,5 +21,11 @@ var orderSchema = new mongoose.Schema({
 
 orderSchema.plugin(deepPopulate);
 orderSchema.plugin(findOrCreate);
+
+orderSchema.statics.getOrdersById = function(id) {
+    this.find({
+        user : id
+    }).deepPopulate('user listitems.item listitems.item.product listitems.item.category').exec();
+};
 
 mongoose.model('Order', orderSchema);

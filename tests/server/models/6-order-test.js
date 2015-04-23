@@ -18,7 +18,6 @@ describe('Order model', function () {
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
         mongoose.connect(dbURI, done);
-
     });
 
     afterEach('Clear test database', function (done) {

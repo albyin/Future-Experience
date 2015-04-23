@@ -119,7 +119,7 @@ describe('Cart and Order route', function () {
     });
 
     describe('/order Route', function() {
-        it('Calling the route /order GET Should return all orders', function (done) {
+        xit('Calling the route /order GET Should return all orders', function (done) {
             request(app)
                 .get("/api/order")
                 .end(function (err, data) {
@@ -129,7 +129,7 @@ describe('Cart and Order route', function () {
                 });
         });
 
-        it('Calling the route /order GET with a specfic id should return orders that have this id', function (done) {
+        xit('Calling the route /order GET with a specfic id should return orders that have this id', function (done) {
             request(app)
                 .get("/api/order?user_id=" + Obama.id)
                 .end(function (err, data) {
@@ -138,7 +138,7 @@ describe('Cart and Order route', function () {
                 });
         });
 
-        it('Calling the route /order PUT with a specfic id should return orders that have this id', function (done) {
+        xit('Calling the route /order PUT with a specfic id should return orders that have this id', function (done) {
             request(app)
                 .put("/api/order?order_id=" + testUserOrders[0].order)
                 .send({status: 2})
@@ -149,7 +149,7 @@ describe('Cart and Order route', function () {
                 });
         });
 
-        it('Calling the route /order DELETE with a specific id should return orders that have this id', function (done) {
+        xit('Calling the route /order DELETE with a specific id should return orders that have this id', function (done) {
             request(app)
                 .delete("/api/order?order_id=" + testUserOrders[0].order)
                 .send({status: 2})
@@ -161,7 +161,7 @@ describe('Cart and Order route', function () {
     });
 
     describe('/cart Route', function() {
-        it('Calling the route /cart GET Should return all orders of the user', function (done) {
+        xit('Calling the route /cart GET Should return all orders of the user', function (done) {
             request(app)
                 .get("/api/cart/" + Obama.id)
                 .end(function (err, data) {
@@ -170,7 +170,7 @@ describe('Cart and Order route', function () {
                 });
         });
 
-        it('Calling the route /cart GET Should return specific order of the user', function (done) {
+        xit('Calling the route /cart GET Should return specific order of the user', function (done) {
             request(app)
                 .get("/api/cart/" + Obama.id + "/?order_id=" + testOrders[0].id)
                 .end(function (err, data) {
@@ -179,7 +179,7 @@ describe('Cart and Order route', function () {
                 });
         });
 
-        it('Calling the route /cart POST should create and return the new order', function (done) {
+        xit('Calling the route /cart POST should create and return the new order', function (done) {
             request(app)
                 .post("/api/cart/" + Obama.id)
                 .send(listItem)
@@ -194,7 +194,7 @@ describe('Cart and Order route', function () {
                 });
         });
 
-        it('Calling the route /cart PUT should create and return the adjusted order', function(done) {
+        xit('Calling the route /cart PUT should create and return the adjusted order', function(done) {
             request(app)
                 .put("/api/cart/" + Obama.id + "?order_id=" + testUserOrders[0].order)
                 .send({status: 2})
@@ -205,7 +205,7 @@ describe('Cart and Order route', function () {
                 });
         });
 
-        it('Calling the route /cart Delete should delete and return the deleted order', function(done) {
+        xit('Calling the route /cart Delete should delete and return the deleted order', function(done) {
             request(app)
                 .delete("/api/cart/" + Obama.id + "?order_id=" + testUserOrders[0].order)
                 .end(function (err, data) {
