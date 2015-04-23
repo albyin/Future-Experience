@@ -11,11 +11,43 @@ var ListItemSchema = new mongoose.Schema({
     category: {type: Schema.Types.ObjectId, ref: 'Category'}
 });
 
-var generalFilter = function(listItems, matchStr) {
-	var regex = new RegExp(matchStr, 'i');
+var generalFilter = function(listItems, general) {
+	var regex = new RegExp(general, 'i');
+
 	return listItems.filter(function(item) {
 		return item.category.name.match(regex) || item.product.name.match(regex)
 	});
+};
+
+var advancedFilter = function(listItems, filterOption) {
+	var catRegex, prodRegex;
+	if (filterOption.category) {
+		catRegex = new RegExp(filterOption.category, 'i');
+	}
+
+	if (filterOption.product) {
+		prodRegex = new RegExp(filterOption.product, 'i');
+	}
+
+	var bothTest = false;
+	if (catRegex && prodRegex) {
+		bothTest = true;
+	}
+
+	return listItems.filter(function(item) {
+		if (bothTest) {
+			return item.category.name.match(catRegex) && item.product.name.match(prodRegex);
+		}
+
+		if (catRegex) {
+			return item.category.name.match(catRegex);
+		}
+
+		if (prodRegex) {
+			return item.product.name.match(prodRegex);
+		}
+	});
+
 };
 
 ListItemSchema.statics.searchList = function(filterOption, cb){
@@ -29,6 +61,10 @@ ListItemSchema.statics.searchList = function(filterOption, cb){
 
 		if (filterOption.general) {
 			listItems = generalFilter(listItems, filterOption.general);
+		}
+
+		if (filterOption.product || filterOption.category) {
+			listItems = advancedFilter(listItems, filterOption);
 		}
 
 		cb(null, listItems);

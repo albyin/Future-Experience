@@ -45,14 +45,17 @@ router.delete('/', function(req, res, next) {
     });
 });
 
+// ?order_id
 router.put('/', function(req, res, next){
-    var queryId = req.query.user_id;
-    if(!queryId) return next(new Error("Please specify an Id"));
+    var queryId = req.query.order_id;
+    if(!queryId) return next(new Error("Please specify an Order Id"));
+
+    req.body.modifiedTime = new Date();
 
     UserOrders
-        .findByIdAsync(queryId)
+        .findOneAsync({ order : queryId})
         .then(function(userOrder) {
-            return Order.findByIdAndUpdateAsync(userOrder.id, req.body);
+            return Order.findByIdAndUpdateAsync(userOrder.order, req.body);
         })
         .then(function(updatedOrder){
             res.send(updatedOrder);

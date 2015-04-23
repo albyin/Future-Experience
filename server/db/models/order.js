@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate');
 var Schema = mongoose.Schema;
 var findOrCreate = require('mongoose-findorcreate');
 
@@ -14,5 +15,7 @@ var orderSchema = new mongoose.Schema({
     status: { type : Number, default : 1 }
 });
 
+orderSchema.plugin(deepPopulate);
 orderSchema.plugin(findOrCreate);
+
 mongoose.model('Order', orderSchema);

@@ -90,4 +90,15 @@ describe('Search route', function () {
     	});
     });
 
+	it('should return a list of specific items matching what was specified in the search box', function(done){
+		request(app)
+			.get('/api/search/?category=Space&product=Eye%20Liner')
+			.end(function(err, data){
+				var allItems = data.body;
+				assert.equal(allItems.length, 1);
+				//console.log(allItems);
+				done();
+			});
+	});
+
 });

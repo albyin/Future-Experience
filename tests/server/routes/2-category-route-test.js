@@ -158,6 +158,7 @@ describe('Category GET, POST, PUT, DELETE routes', function () {
 
     describe ("PUT functions: ", function (){
 
+        // pending
         xit ("should be able to update categories", function (done){
 
             var newCatName = "Global Warming";
