@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var findOrCreate = require('mongoose-findorcreate');
 
 var ListItemSchema = new mongoose.Schema({
     quantity : Number,
@@ -34,4 +35,5 @@ ListItemSchema.statics.searchList = function(filterOption, cb){
 	});
 };
 
+ListItemSchema.plugin(findOrCreate);
 mongoose.model('ListItem', ListItemSchema); 

@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var findOrCreate = require('mongoose-findorcreate');
 
 var orderSchema = new mongoose.Schema({
     // deleted "product" key to be "listitems" for consistency
@@ -13,4 +14,5 @@ var orderSchema = new mongoose.Schema({
     status: { type : Number, default : 1 }
 });
 
+orderSchema.plugin(findOrCreate);
 mongoose.model('Order', orderSchema);
