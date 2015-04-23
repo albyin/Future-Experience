@@ -39,7 +39,7 @@ router.post('/', function (req, res, next) {
     });
 
 });
-router.put('/', function (req, res) {
+router.put('/', function (req, res, next) {
 
     console.log("PUT BODY,",req.body);
 
