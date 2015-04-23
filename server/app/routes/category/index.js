@@ -6,12 +6,10 @@ var ListItem = mongoose.model("ListItem");
 var Product = mongoose.model('Product');
 module.exports = router;
 var _ = require('lodash');
-var Promise = require('bluebird'); //TODO refactor the routes to be promises instead of callbacks
+//TODO -- optional -- refactor the routes to be promises instead of callbacksg
+var Promise = require('bluebird');
 
-// var Category = Promise.promisifyAll(Category);
-// var ListItem = Promise.promisifyAll(ListItem);
-
-
+//TODO
 var ensureAdmin = function (req, res, next) {
     if (req.isAdmin()) {
         //TODO write isAdmin function
@@ -21,6 +19,7 @@ var ensureAdmin = function (req, res, next) {
     }
 };
 
+//Get all categories
 router.get('/', function (req, res, next) {
     //find all categories
     Category.find({}, function (err, categoryObjArr) {
@@ -31,6 +30,18 @@ router.get('/', function (req, res, next) {
 
 });
 
+//Get a single category
+router.get('/:id', function (req, res, next) {
+
+    Category.findOne({_id: req.params.id}, function (err, categoryObject) {
+        if (err) return next(err);
+        console.log("categoryObject: ", categoryObject);
+        res.send(categoryObject);
+    });
+
+});
+
+//Create new category
 router.post('/', function (req, res, next) {
 
     Category.create({name: req.body.name}, function (err, category){
@@ -39,21 +50,20 @@ router.post('/', function (req, res, next) {
     });
 
 });
-router.put('/', function (req, res) {
 
-    console.log("PUT BODY,",req.body);
+//Update a category
+router.put('/:id', function (req, res) {
 
-    var id = req.body._id;
-    var name = req.body.name;
-
-    Category.findOneAndUpdate({_id: req.body._id}, {name: req.body.name}, function (err, updatedObj){
+    Category.findOneAndUpdate({_id: req.params.id}, req.body, function (err, updatedObj){
         if(err) return next(err);
         res.send(updatedObj);
     });
 
 });
-router.delete('/', function (req, res, next) {
-    Category.remove({_id: req.body._id}, function (err, numRemoved){
+
+//Delete a category
+router.delete('/:id', function (req, res, next) {
+    Category.remove({_id: req.params.id}, function (err, numRemoved){
         if (err) return next(err);
         res.sendStatus(200);
     });
