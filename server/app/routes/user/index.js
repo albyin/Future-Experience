@@ -3,43 +3,76 @@
 var router = require('express').Router();
 var bluebird = require('bluebird');
 var mongoose = require('mongoose');
-var UserModel = bluebird.promisifyAll(mongoose.model("User"));
+var User = mongoose.model("User");
 var _ = require('lodash');
 module.exports = router;
 
 //Get All users
 router.get('/', function (req, res, next) {
-	UserModel.searchUser({}, function(err,foundUser){
+	UserModel.find({}, function(err,foundUser){
+		if (err) return next(err);
 		res.send(foundUser);
 	});
 });
 
 //Get single user
-router.get('/:id', function (req, res, next) {
-	UserModel.searchUser(req.params.id, function(err,foundUser){
-		res.send(foundUser);
+
+router.get('/:user_id', function (req, res, next) {
+	User.findById(req.params.user_id, function(err, user) {
+		if (err) return next(err);
+
+		res.json(user);
 	});
 });
 
-//Update a user
-router.put('/:id', function(req, res, next){
+router.put('/:user_id', function(req, res, next) {
+	var user_id = req.params.user_id;
+	if (!user_id) return next(new Error("Specify user id"));
 
-	UserModel
-	.findByIdAndUpdateAsync(req.params.id, req.body)
-	.then(function(updatedUser){
-		res.send(updatedUser);
-	}).catch(function(err){
-		next(err);
+	User.findById(user_id, function(err, user) {
+		if (err) return next(err);
+		_.extend(user, req.body);
+
+		user.save(function(err, savedData){
+			if (err) return next(err);
+			res.status(200).json(savedData);
+		})
+
 	});
 });
 
-//Delete a user
-router.delete('/:id', function(req, res, next){
+router.delete('/:user_id', function(req, res, next){
+	var queryId = req.query.user_id;
+	if(!queryId) return next(new Error("Please specify an Id"));
 
 	UserModel.findByIdAndRemoveAsync(req.params.id)
 	.then(function(removedUser){
 		res.send(removedUser);
 	}).catch(function(err){
 		next(err);
+	});
+});
+
+// sign up
+router.post('/signup', function(req, res, next) {
+	var newUser = req.body;
+
+	if (newUser.password !== newUser.passwordConfirm) {
+		var error = new Error('Passwords do not match');
+		error.status = 401;
+		return next(error);
+	}
+
+	delete newUser.passwordConfirm;
+
+	User.create(newUser, function(err, returnedUser) {
+		if (err) return next(err);
+
+		req.logIn(returnedUser, function (err) {
+			if (err) return next(err);
+			// We respond with a reponse object that has user with _id and email.
+			res.status(200).send({ user: _.omit(returnedUser.toJSON(), ['password', 'salt']) });
+		});
+
 	});
 });

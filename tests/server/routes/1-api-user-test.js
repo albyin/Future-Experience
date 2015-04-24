@@ -53,9 +53,9 @@ describe('User route', function () {
 
     describe('POST /signup', function () {
 
-        it('should create a new user', function () {
+        it('should sign up a new user and return him/her', function () {
             request(app)
-                .post("/signup")
+                .post("api/user/signup")
                 .send(testUser)
                 .end(function (err, data) {
                     var user = data.body.user;
