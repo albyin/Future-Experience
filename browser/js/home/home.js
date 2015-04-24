@@ -12,9 +12,6 @@ app.controller("HomeController", function($scope, CategoryFactory){
 		$scope.categories = categories;
 	});
 
-	//a function that will do the selection on ng-click to go to a certain category
-	//and a function that will take us to a new category statewhen the category icon is clicked 
-
 });
 
 

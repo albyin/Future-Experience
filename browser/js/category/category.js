@@ -11,7 +11,7 @@ app.controller("CategoryController", function($scope, ListItemFactory, $statePar
 	$scope.id = $stateParams.cat_id;
 	// console.log($scope.id);
 	ListItemFactory.getListItemsForCategory($stateParams.cat_id).then(function(listItems){
-		console.log(listItems);
+		
 		$scope.listItems = listItems;
 		// $scope.listitems = listitems.map(function(el){
 		// 	return { product: el.product, 

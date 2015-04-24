@@ -1,5 +1,6 @@
 <section id="listItem" ng-controller="ListItemController">
-	<h1>Welcome! {{ listitem.name }}</h1>
+	<h1>Welcome!</h1><br>
+		<h2>{{ listitem.product.name }}</h2>
 	<ul class = "eachItem">
 		<li ng-repeat="data in listitem">{{ data }}</li>
 	</ul>
