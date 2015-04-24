@@ -27,6 +27,7 @@ var ListItem = Promise.promisifyAll(mongoose.model('ListItem'));
 var Category = Promise.promisifyAll(mongoose.model('Category'));
 var Product = Promise.promisifyAll(mongoose.model('Product'));
 var Order = Promise.promisifyAll(mongoose.model('Order'));
+var Review = Promise.promisifyAll(mongoose.model('Review'));
 var q = require('q');
 var chalk = require('chalk');
 
@@ -54,14 +55,25 @@ var seedUsers = function () {
             lastName: 'Obama',
             email: 'obama@gmail.com',
             password: 'potus'
-        }
+        },
+        {   firstName: 'Joe',
+            lastName: 'Biden',
+            email: 'Joe@vpotus.com',
+            password: 'lean'
+        },
+        {   firstName: 'Hillary',
+            lastName: 'Clinton',
+            email: 'Hillary@clinton.com',
+            password: 'iwannabepotus'
+        },
+
     ];
 
     return User.createAsync(users);
 };
 
-var seedListItems = function() {
-    var categoryTestArr = [{name: 'Final Frontier'}, {name: 'Space'}];
+var seedListItems = function(users) {
+    var categoryTestArr = [{name: 'Space'}, {name: 'Final Frontier'}];
     var productTestArr = [
         {name: 'Toilet paper', image: 'spacetoilet.gif', details: 'description'},
         {name: 'Eye Liner', image: 'usefulStuff.jpeg', details: 'importantInfo'}
@@ -75,17 +87,40 @@ var seedListItems = function() {
         .all(promises)
         .then(function(testArr){
             // console.log(testArr);
-        var categoryFF = testArr[0][0];
-        var categoryS = testArr[0][1];
-        var productTP = testArr[1][0];
-        var productEL = testArr[1][1];
+            var categoryFF = testArr[0][0];
+            var categoryS = testArr[0][1];
+            var productTP = testArr[1][0];
+            var productEL = testArr[1][1];
 
-        return ListItem.createAsync([
-            {quantity: 5, price: 100, product: productTP.id, category: categoryS.id},
-            {quantity: 3, price: 2000, product: productEL.id, category: categoryS.id},
-            {quantity: 8, price: 500, product: productTP.id, category: categoryFF.id},
-            {quantity: 10, price: 300, product: productEL.id, category: categoryFF.id}
-            ]);
+            return ListItem.createAsync([
+                {quantity: 5, price: 100, product: productTP.id, category: categoryS.id},
+                {quantity: 3, price: 2000, product: productEL.id, category: categoryS.id},
+                {quantity: 8, price: 500, product: productTP.id, category: categoryFF.id},
+                {quantity: 10, price: 300, product: productEL.id, category: categoryFF.id}
+            ])
+            .then(function (listitems){
+                var review1 = {
+                    user : users[0].id,
+                    product : productTP.id,
+                    comment : "This is OK",
+                    stars : 4
+                };
+                var review2 = {
+                    user : users[1].id,
+                    product : productEL.id,
+                    comment : "This is Great",
+                    stars : 5
+                };
+
+                return Review.createAsync([ review1, review2 ])
+                .then(function() {
+                    return listitems;
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    process.kill(0);
+                });
+            });
         });
 };
 
@@ -101,7 +136,7 @@ connectToDb.then(function () {
         return getCurrentListItems()
             .then(function (items) {
                 if (items.length === 0) {
-                    return seedListItems();
+                    return seedListItems(users);
                 } else {
                     console.log(chalk.magenta('Seems to already be list data!'));
                     return items;
@@ -133,7 +168,8 @@ connectToDb.then(function () {
                         user: users[1].id
                     }
                 ]);
-            }).then(function () {
+            })
+            .then(function () {
                 console.log(chalk.green('Seed successful!'));
                 process.kill(0);
             }).catch(function (err) {
