@@ -63,7 +63,7 @@ var seedUsers = function () {
 var seedListItems = function() {
     var categoryTestArr = [{name: 'Final Frontier'}, {name: 'Space'}];
     var productTestArr = [
-        {name: 'Toilet paper', image: 'something.jpeg', details: 'description'},
+        {name: 'Toilet paper', image: 'spacetoilet.gif', details: 'description'},
         {name: 'Eye Liner', image: 'usefulStuff.jpeg', details: 'importantInfo'}
     ];
 

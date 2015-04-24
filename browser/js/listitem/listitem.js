@@ -7,12 +7,21 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("ListItemController", function($scope, ListItemFactory, $stateParams){
+app.controller("ListItemController", function($scope, ListItemFactory, ReviewFactory, $stateParams){
 	$scope.id = $stateParams.listItemId;
 
-	ListItemFactory.getSingleListItem($stateParams.listItemId).then(function(listitem){
+	ListItemFactory.getSingleListItem($stateParams.listItemId).then(function (listitem){
 		$scope.listitem = listitem;
+		return listitem;
+	})
+	.then(function (listitem){
+		ReviewFactory.getReviewsForProduct(listitem.product._id).then(function (reviews){
+			//should give us array of reviews
+			$scope.reviews = reviews;
+			console.log("REVIEWS,", $scope.reviews);
+		});
 	});	
+
 });
 
 
@@ -22,7 +31,6 @@ app.factory("ListItemFactory", function($http){
 			//:cat_id will be changed after the backend is done
 			return $http.get("/api/listitems/category/" + cat_id)
 			.then(function(response){
-				console.log(response)
 				return response.data;
 			});
 		},
@@ -30,8 +38,7 @@ app.factory("ListItemFactory", function($http){
 		
 			return $http.get("/api/listitems/item/" + listItemId)
 			.then(function(response){
-				console.log(response.data);
-				return response.data
+				return response.data;
 			});
 		}
 	};

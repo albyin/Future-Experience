@@ -1,9 +1,42 @@
 <section id="listItem">
 	<h1>Welcome!</h1><br>
 		<h2>{{ listitem.product.name }}</h2>
-	<ul class = "eachItem">
-		<li ng-repeat="data in listitem">{{ data }}</li>
-	</ul>
+	<table>
+		<tr>
+			<td>Image: </td>
+			<td><img src="images/{{listitem.product.image}}"></img></td>
+		</tr>
+		<tr>
+			<td>Description: </td>
+			<td>{{listitem.product.description}}</td>
+		</tr>
+		<tr>
+			<td>Price: </td>
+			<td>{{listitem.price/100 | currency}}</td>
+		</tr>
+		<tr>
+			<td>Quantity: </td>
+			<td>{{listitem.quantity}}</td>
+		</tr>
+		<tr ng-repeat="review in reviews">
+			<table>
+				<tr>
+					<td>User</td>
+					<td>{{review.user}}</td>
+				</tr>
+				<tr>
+					<td>Comment</td>
+					<td>{{review.comment}}</td>
+				</tr>
+				<tr>
+					<td>stars</td>
+					<td>{{review.stars}}</td>
+				</tr>
+
+			</table>
+		</tr>
+
+	</table>
 	<button id="addToCart">Add To Cart</button>
 	<button id="addReview">Add Review</button>
 </section>
