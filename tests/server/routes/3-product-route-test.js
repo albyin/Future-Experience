@@ -39,61 +39,61 @@ describe('Product GET, POST, PUT, DELETE routes', function () {
         mongoose.connect(dbURI, done);
     });
 
-    beforeEach('Create a category, product and listitem', function(done) {
+    beforeEach('Create a test category, product and listitem', function (done) {
 
         var promises = [];
         promises.push(Category.createAsync({
-            name : "space"
+            name: "space"
         }));
-        promises.push( Product.createAsync({
-            name : "Space Toilet Paper"
+        promises.push(Product.createAsync({
+            name: "Space Toilet Paper"
         }));
 
         Promise
             .all(promises)
-            .then( function (array) {
+            .then(function (array) {
                 testCategory = array[0];
                 testProduct = array[1];
                 //console.log("category: ", testCategory, "product: ", testProduct);
                 return ListItem.createAsync({
-                    quantity : 5,
-                    price: 800, //we are storing this in cents
+                    quantity: 5,
+                    price   : 800, //we are storing this in cents
                     product : testProduct._id,
                     category: testCategory._id
                 });
             }).then(function (listitem) {
                 testListItem = listitem;
                 done();
-            }).catch(function(err) {
+            }).catch(function (err) {
                 done(err);
             });
     });
-    beforeEach('Create a category, product and listitem', function(done) {
+    beforeEach('Create an alt category, product and listitem', function (done) {
 
         var altPromises = [];
         altPromises.push(Category.createAsync({
-            name : "flood"
+            name: "flood"
         }));
-        altPromises.push( Product.createAsync({
-            name : "WaterProof Toilet Paper"
+        altPromises.push(Product.createAsync({
+            name: "WaterProof Toilet Paper"
         }));
 
         Promise
             .all(altPromises)
-            .then( function (array) {
+            .then(function (array) {
                 altTestCategory = array[0];
                 altTestProduct = array[1];
                 //console.log("category: ", testCategory, "product: ", testProduct);
                 return ListItem.createAsync({
-                    quantity : 5,
-                    price: 800, //we are storing this in cents
+                    quantity: 5,
+                    price   : 800, //we are storing this in cents
                     product : altTestProduct._id,
                     category: altTestCategory._id
                 });
             }).then(function (listitem) {
                 altTestListItem = listitem;
                 done();
-            }).catch(function(err) {
+            }).catch(function (err) {
                 done(err);
             });
     });
@@ -103,12 +103,12 @@ describe('Product GET, POST, PUT, DELETE routes', function () {
     });
 
 
-    describe ("GET functions: ", function (){
+    describe("GET", function () {
 
         it('should return collection of products', function (done) {
             request(app)
                 .get("/api/product")
-                .end( function (err, data) {
+                .end(function (err, data) {
                     if (err) done(err);
                     assert.equal(data.body[0].name, testProduct.name);
                     done();
@@ -120,7 +120,7 @@ describe('Product GET, POST, PUT, DELETE routes', function () {
             request(app)
                 .get("/api/product/" + testProduct._id)
                 //receive one item with product._id === product._id we submitted
-                .end( function (err, data){
+                .end(function (err, data) {
                     data.res.body.should.have.property('_id', testProduct._id.toString());
                     //assert.equal(data.body[0].category, testCategory._id);
                 });
@@ -128,26 +128,26 @@ describe('Product GET, POST, PUT, DELETE routes', function () {
 
     });
 
-    describe ("POST functions: ", function (){
+    describe("POST", function () {
 
         //posting to product should create a new product
         var newProductName = "Coffee Brand Coffee";
         var newProductObject;
 
-        it ("should create a new product", function (done){
+        it("should create a new product", function (done) {
 
             request(app).post("/api/product/").send({name: newProductName})
-                .end(function (err, response){
+                .end(function (err, response) {
                     if (err) return done(err);
-                // Check to see that newly created (or already found in db)
-                // object is sent back.
+                    // Check to see that newly created (or already found in db)
+                    // object is sent back.
                     expect(response.status).to.be.equal(200);
                     expect(response.body.name).to.be.equal(newProductName);
 
                     newProductObject = response.body; //capture the newly created product object
-                // Is new product in Product collection in db?
-                    request(app).get("/api/product/").end (function (err, response){
-                        if(err) return done(err);
+                    // Is new product in Product collection in db?
+                    request(app).get("/api/product/").end(function (err, response) {
+                        if (err) return done(err);
                         //console.log(response.res.body);
                         response.res.body.should.contain.a.thing.with.property("_id", newProductObject._id);
                         done();
@@ -162,23 +162,22 @@ describe('Product GET, POST, PUT, DELETE routes', function () {
     // Required chai-things to help with this. Gives some methods.
     // Visually confirmed WORKING!
 
-    describe ("PUT functions: ", function (){
+    describe("PUT", function () {
 
-        it ("should be able to update a product", function (done){
+        it("should be able to update a product", function (done) {
 
             var newProductDetails = "Works for your space butt! 0 G compliant!";
 
-            request(app).put("/api/product/").send({_id: testProduct._id, details: newProductDetails})
-                .end(function (err, response){
+            request(app).put("/api/product/" + testProduct._id).send({details: newProductDetails})
+                .end(function (err, response) {
                     if (err) return done(err);
                     //console.log("REsponse.body - PUT ROUTE: ", response.body);
                     expect(response.status).to.equal(200);
 
-                    request(app).get("/api/product/").end (function (err, response){
-                        //all categories array returned
-                        if(err) return done(err);
-                        //console.log("RESPONSE RES BODY -- Get route,", response.res.body);
-                        //response.res.body
+                    request(app).get("/api/product/" + testProduct._id).end(function (err, response) {
+                        if (err) return done(err);
+                        //console.log("RESPONSE RES BODY -- Get ONE route,", response.res.body);
+                        //expect(response.res.body._id).to.equal(testProduct)
                         //    .should.contain
                         //    .a.thing.to.include
                         //    .all.keys({"_id": testCategory._id, "name": newCatName});
@@ -190,23 +189,22 @@ describe('Product GET, POST, PUT, DELETE routes', function () {
         });
     });
 
-    describe ("DELETE functions: ", function (){
+    describe("DELETE", function () {
 
-        it("should be able to delete a product", function (done){
+        it("should delete a product", function (done) {
 
-            request(app).del("/api/product").send({_id: testProduct._id})
-                .end(function (err, response){
+            request(app).del("/api/product/" + testProduct._id)
+                .end(function (err, response) {
                     if (err) return done(err);
 
                     expect(response.status).to.equal(200);
 
-                    request(app).get("/api/product/").end (function (err, response){
-                        if(err) return done(err);
-                        response.res.body.should.all.not.have.property("_id", testProduct._id);
+                    request(app).get("/api/product/" + testProduct._id).end(function (err, response) {
+                        if (err) return done(err);
+                        expect(response.res.body).to.equal(undefined);
                         done();
                     });
                 });
         });
     });
-
 });

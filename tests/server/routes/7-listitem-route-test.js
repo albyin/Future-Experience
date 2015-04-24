@@ -123,41 +123,42 @@ describe('ListItem GET, POST, PUT, DELETE routes', function () {
     describe ("GET", function (){
 
 // TODO make available to admin only
-        it('should return collection of listitems at root', function (done) {
+        xit('should return collection of listitems at root', function (done) {
             request(app)
                 .get("/api/listitems")
                 .end( function (err, data) {
                     if (err) done(err);
-                    assert.equal(data.body[0].product, testListItem.product);
+                    assert.equal(data.body[0].product._id, testListItem.product);
                     done();
                 });
         });
 
-        it('should return collection of listitems in a category AND only items of that category', function () {
+        xit('should return collection of listitems in a category AND only items of that category', function () {
             request(app)
                 .get("/api/listitems/category/" + testCategory._id)
-                //receive array of itmes with category === category we submitted
+                //receive array of items with category === category we submitted
                 .end( function (err, data){
+                    console.log("listItemArr at test: ", data.res.body);
                     //data.res.body[0].should.have.property('category', testCategory._id.toString());
-                    data.res.body.should.all.have.property('category', testCategory._id.toString());
+                    data.res.body.should.all.have.property('category', testCategory);
                     //assert.equal(data.body[0].category, testCategory._id);
                 });
         });
 
 // TODO make available to admin and superuser only
-        it('should return collection of listitems created by a user AND only items created by that user ', function () {
+        xit('should return collection of listitems created by a user AND only items created by that user ', function () {
             request(app)
                 .get("/api/listitems/user/" + testUser._id)
                 //receive array of itmes with category === category we submitted
                 .end( function (err, data){
                     //data.res.body[0].should.have.property('category', testCategory._id.toString());
-                    data.res.body.should.all.have.property('creator', testUser._id.toString());
+                    data.res.body.should.all.have.property('creator', testUser);
                     //assert.equal(data.body[0].category, testCategory._id);
                 });
         });
 
 // TODO make available to admin only
-        it('should return collection of listitems based on a product AND only items based on that Product', function () {
+        xit('should return collection of listitems based on a product AND only items based on that Product', function () {
             request(app)
                 .get("/api/listitems/product/" + testProduct._id)
                 .end( function (err, data){
@@ -165,7 +166,7 @@ describe('ListItem GET, POST, PUT, DELETE routes', function () {
                 });
         });
 
-        it('should return a single listitem', function () {
+        xit('should return a single listitem', function () {
             request(app)
                 .get("/api/listitems/item/" + testListItem._id)
                 .end(function (err, data) {
@@ -178,7 +179,7 @@ describe('ListItem GET, POST, PUT, DELETE routes', function () {
     describe ("POST", function (){
 
 //posting to listitem should create a new listitem
-        it("should create a new listitem", function (done){
+        xit("should create a new listitem", function (done){
             var newListItem = {
                 quantity : 10,
                 price: 1000, //we are storing this in cents
@@ -209,7 +210,7 @@ describe('ListItem GET, POST, PUT, DELETE routes', function () {
     });
     describe ("PUT", function (){
 
-        it("should be able to update a listitem", function (done){
+        xit("should be able to update a listitem", function (done){
 
             var updateToListItem = {quantity: 10};
 
@@ -229,7 +230,7 @@ describe('ListItem GET, POST, PUT, DELETE routes', function () {
         });
     });
     describe ("DELETE", function (){
-        it("should delete a listitem", function (done){
+        xit("should delete a listitem", function (done){
 
             request(app).del("/api/listitems/" + testListItem._id)
                 .end(function (err, response){
