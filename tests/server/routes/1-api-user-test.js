@@ -53,7 +53,7 @@ describe('User route', function () {
 //TODO -- fix test for POST /signup
     describe('POST /signup', function () {
 
-        it('should sign up a new user and return him/her', function () {
+        it('should sign up a new user and return him/her', function (done) {
             request(app)
                 .post("api/user/signup")
                 .send(testUser)
@@ -62,13 +62,14 @@ describe('User route', function () {
                     console.log('data: ', data);
                     //var user = data.body.user;
                     //assert.equal(user.firstName, testUser.firstName);
+                    done();
                 });
         });
     });
 
     describe('GET /login', function () {
 
-        it('should login an existing user and return him/her', function () {
+        it('should login an existing user and return him/her', function (done) {
             request(app)
                 .get("/login")
                 .send({
@@ -77,13 +78,14 @@ describe('User route', function () {
                 })
                 .end(function (err, data) {
                     assert.equal(data.statusCode, 200);
+                    done();
                 });
         });
     });
 
     describe('PUT', function () {
 
-        it('should update specific user', function () {
+        it('should update specific user', function (done) {
             request(app)
                 .put("/api/user/" + createdUser.id)
                 .send({
@@ -93,37 +95,41 @@ describe('User route', function () {
                     var user = data.body;
                     assert.notEqual(user.firstName, createdUser.firstName);
                     assert.equal(user.firstName, "Blah");
+                    done();
                 });
         });
     });
 
     describe('GET', function () {
-        it('should get specific user', function () {
+        it('should get specific user', function (done) {
             request(app)
                 .get("/api/user/" + createdUser.id)
                 .end(function (err, data) {
                     var user = data.body;
                     assert.equal(user.firstName, createdUser.firstName);
+                    done();
                 });
         });
 
-        it('should get all users', function () {
+        it('should get all users', function (done) {
             request(app)
                 .get("/api/user/")
                 .end(function (err, data) {
                     var user = data.body;
                     assert.equal(user[0].firstName, createdUser.firstName);
+                    done();
                 });
         });
     });
 
     describe('DELETE', function () {
-        it('should delete specific user', function () {
+        it('should delete specific user', function (done) {
             request(app)
                 .delete("/api/user/" + createdUser.id)
                 .end(function (err, data) {
                     var user = data.body;
                     assert.equal(user.firstName, createdUser.firstName);
+                    done();
                 });
         });
     });
