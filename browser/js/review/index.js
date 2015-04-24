@@ -12,16 +12,25 @@
 // });
 
 
-app.factory("ReviewFactory", function($http){
+app.factory("ReviewFactory", function($http, AuthService){
 	return {
 		getReviewsForProduct: function(product_id){
-			//:cat_id will be changed after the backend is done
-			console.log('GOT HERE');
 			return $http.get("/api/review/product/" + product_id)
 			.then(function(response){
-				console.log("REVIEW FACTORY RESPONSE data, ", response.data);
 				return response.data;
 			});
+		},
+		addNewReview: function (formdata){
+			AuthService.getLoggedInUser()
+			.then(function(user){
+				// {user: user.id, }
+				formdata.user = user._id;
+				return $http.post("/api/review/", formdata);
+			})
+			.then(function(response){
+				return response.data;
+			});
+			
 		}
 	};
 });
