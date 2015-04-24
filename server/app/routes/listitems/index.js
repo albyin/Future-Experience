@@ -27,9 +27,11 @@ router.get('/', function (req, res, next) {
 });
 
 //Get all items in a category
+//TODO -- Populate isn't working properly. Filling in with null instead of correct doc.
 router.get('/category/:cat_id', function (req, res, next) {
-    ListItem.find({category: req.params.cat_id}).populate('product category creator').exec(function (err, listItemArr) {
+    ListItem.find({category: req.params.cat_id}).populate('category product creator').exec(function (err, listItemArr) {
         //return array of list items of the specified category
+        console.log("listItemArr at server: ", listItemArr);
         res.send(listItemArr);
     });
 });
@@ -56,6 +58,9 @@ router.get('/product/:prod_id', function (req, res, next) {
 //Get single item
 router.get('/item/:item_id', function (req, res, next) {
     ListItem.findOne({_id: req.params.item_id}).populate('product category creator').exec(function (err, listItem) {
+        console.log(product);
+        console.log(category);
+        console.log(creator)
         if (err) return next(err);
         res.send(listItem);
     });

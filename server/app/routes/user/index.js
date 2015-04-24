@@ -7,19 +7,25 @@ var UserModel = bluebird.promisifyAll(mongoose.model("User"));
 var _ = require('lodash');
 module.exports = router;
 
+//Get All users
 router.get('/', function (req, res, next) {
-	var queryId = req.query.user_id || '';
-	UserModel.searchUser(queryId, function(err,foundUser){
+	UserModel.searchUser({}, function(err,foundUser){
 		res.send(foundUser);
 	});
 });
 
-router.put('/', function(req, res, next){
-	var queryId = req.query.user_id;
-	if(!queryId) return next(new Error("Please specify an Id"));
+//Get single user
+router.get('/:id', function (req, res, next) {
+	UserModel.searchUser(req.params.id, function(err,foundUser){
+		res.send(foundUser);
+	});
+});
+
+//Update a user
+router.put('/:id', function(req, res, next){
 
 	UserModel
-	.findByIdAndUpdateAsync(queryId, req.body)
+	.findByIdAndUpdateAsync(req.params.id, req.body)
 	.then(function(updatedUser){
 		res.send(updatedUser);
 	}).catch(function(err){
@@ -27,11 +33,10 @@ router.put('/', function(req, res, next){
 	});
 });
 
-router.delete('/', function(req, res, next){
-	var queryId = req.query.user_id;
-	if(!queryId) return next(new Error("Please specify an Id"));
+//Delete a user
+router.delete('/:id', function(req, res, next){
 
-	UserModel.findByIdAndRemoveAsync(queryId)
+	UserModel.findByIdAndRemoveAsync(req.params.id)
 	.then(function(removedUser){
 		res.send(removedUser);
 	}).catch(function(err){
