@@ -30,15 +30,6 @@ router.get('/', function (req, res, next) {
     });
 });
 
-//Get a single review
-router.get('/:id', function (req, res, next) {
-    Review.findOne({_id: req.params.id}, function (err, review) {
-        if (err) return next(err);
-        res.send(review);
-    });
-});
-
-
 // I'm a user and I'd like to see all the reviews for a product
 router.get('/product/:prod_id', function (req, res, next) {
 
@@ -58,6 +49,14 @@ router.get('/user/:userId', function (req, res, next) {
         if (err) return next(err);
         //send array of all reviews back
         res.send(reviewArr);
+    });
+});
+
+//Get a single review
+router.get('/:id', function (req, res, next) {
+    Review.findOne({_id: req.params.id}, function (err, review) {
+        if (err) return next(err);
+        res.send(review);
     });
 });
 
