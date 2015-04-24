@@ -22,7 +22,6 @@ router.post('/signup', function(req, res, next) {
 	delete newUser.passwordConfirm;
 	User.create(newUser, function(err, returnedUser) {
 		if (err) return next(err);
-		res.send(returnedUser);
 		req.logIn(returnedUser, function (err) {
 			if (err) return next(err);
 			// We respond with a reponse object that has user with _id and email.
