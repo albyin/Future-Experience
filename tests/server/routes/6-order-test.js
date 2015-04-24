@@ -23,7 +23,7 @@ var Product = Promise.promisifyAll(mongoose.model('Product'));
 var Order = Promise.promisifyAll(mongoose.model('Order'));
 var User = Promise.promisifyAll(mongoose.model('User'));
 
-describe('Cart and Order route', function () {
+describe('Order route', function () {
     var listItem;
 
     var categoryTestArr = [{name: 'Final Frontier'}, {name: 'Space'}];
@@ -158,60 +158,4 @@ describe('Cart and Order route', function () {
         });
     });
 
-    describe('/cart Route', function() {
-        xit('Calling the route /cart GET Should return all orders of the user', function (done) {
-            request(app)
-                .get("/api/cart/" + Obama.id)
-                .end(function (err, data) {
-                    assert.equal(data.res.body[0].order.listitems[0]._id, listItem[0].id);
-                    done();
-                });
-        });
-
-        xit('Calling the route /cart GET Should return specific order of the user', function (done) {
-            request(app)
-                .get("/api/cart/" + Obama.id + "/?order_id=" + testOrders[0].id)
-                .end(function (err, data) {
-                    assert.equal(data.res.body[0].order.listitems[0]._id, listItem[0].id);
-                    done();
-                });
-        });
-
-        xit('Calling the route /cart POST should create and return the new order', function (done) {
-            request(app)
-                .post("/api/cart/" + Obama.id)
-                .send(listItem)
-                .end(function (err, data) {
-                    assert.equal(data.res.body.user, Obama.id);
-                    UserOrders
-                        .findAsync({})
-                        .then(function(userOrders) {
-                            assert.equal(userOrders.length, 3);
-                            done();
-                        });
-                });
-        });
-
-        xit('Calling the route /cart PUT should create and return the adjusted order', function(done) {
-            request(app)
-                .put("/api/cart/" + Obama.id + "?order_id=" + testUserOrders[0].order)
-                .send({status: 2})
-                .end(function (err, data) {
-                    assert.equal(data.res.body.status, 2);
-                    // listitems need to be populated here
-                    done();
-                });
-        });
-
-        xit('Calling the route /cart Delete should delete and return the deleted order', function(done) {
-            request(app)
-                .delete("/api/cart/" + Obama.id + "?order_id=" + testUserOrders[0].order)
-                .end(function (err, data) {
-                    //assert.equal(data.res.body.status, 2);
-                    // listitems need to be populated here
-                    assert.equal(data.res.body._id, testUserOrders[0].order);
-                    done();
-                });
-        });
-    });
 });

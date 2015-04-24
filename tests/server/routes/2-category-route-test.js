@@ -15,7 +15,6 @@ var http = require("http");
 var app = require("../../../server/app");
 var request = require("supertest");
 
-
 require('../../../server/db/models/category');
 require('../../../server/db/models/listitem');
 require('../../../server/db/models/product');
@@ -29,70 +28,68 @@ describe('Category GET, POST, PUT, DELETE routes', function () {
     var testCategory;
     var testProduct;
     var testListItem;
-    var altTestCategory;
-    var altTestProduct;
-    var altTestListItem;
+    var altCategory;
+    var altProduct;
+    var altListItem;
 
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
         mongoose.connect(dbURI, done);
     });
 
-    beforeEach('Create a category, product and listitem', function(done) {
+    beforeEach('Create a test category, product and listitem', function (done) {
 
         var promises = [];
         promises.push(Category.createAsync({
-            name : "space"
+            name: "space"
         }));
-        promises.push( Product.createAsync({
-            name : "Space Toilet Paper"
+        promises.push(Product.createAsync({
+            name: "Space Toilet Paper"
         }));
 
         Promise
             .all(promises)
-            .then( function (array) {
+            .then(function (array) {
                 testCategory = array[0];
                 testProduct = array[1];
-                //console.log("category: ", testCategory, "product: ", testProduct);
                 return ListItem.createAsync({
-                    quantity : 5,
-                    price: 800, //we are storing this in cents
+                    quantity: 5,
+                    price   : 800,
                     product : testProduct._id,
                     category: testCategory._id
                 });
             }).then(function (listitem) {
                 testListItem = listitem;
                 done();
-            }).catch(function(err) {
+            }).catch(function (err) {
                 done(err);
             });
     });
-    beforeEach('Create a category, product and listitem', function(done) {
+    beforeEach('Create an alt category, product and listitem', function (done) {
 
         var altPromises = [];
         altPromises.push(Category.createAsync({
-            name : "flood"
+            name: "flood"
         }));
-        altPromises.push( Product.createAsync({
-            name : "WaterProof Toilet Paper"
+        altPromises.push(Product.createAsync({
+            name: "WaterProof Toilet Paper"
         }));
 
         Promise
             .all(altPromises)
-            .then( function (array) {
-                altTestCategory = array[0];
-                altTestProduct = array[1];
-                //console.log("category: ", testCategory, "product: ", testProduct);
+            .then(function (array) {
+                altCategory = array[0];
+                altProduct = array[1];
                 return ListItem.createAsync({
-                    quantity : 5,
-                    price: 800, //we are storing this in cents
-                    product : altTestProduct._id,
-                    category: altTestCategory._id
+                    quantity: 5,
+                    price   : 800,
+                    product : altProduct._id,
+                    category: altCategory._id
                 });
             }).then(function (listitem) {
-                altTestListItem = listitem;
+                altListItem = listitem;
                 done();
-            }).catch(function(err) {
+            }).catch(function (err) {
                 done(err);
             });
     });
@@ -101,13 +98,12 @@ describe('Category GET, POST, PUT, DELETE routes', function () {
         clearDB(done);
     });
 
-
-    describe ("GET functions: ", function (){
+    describe("GET functions: ", function () {
 
         it('should return list of categories for plain get', function (done) {
             request(app)
                 .get("/api/category")
-                .end( function (err, data) {
+                .end(function (err, data) {
                     if (err) done(err);
                     assert.equal(data.body[0].name, testCategory.name);
                     done();
@@ -115,75 +111,65 @@ describe('Category GET, POST, PUT, DELETE routes', function () {
         });
     });
 
-    describe ("POST functions: ", function (){
-    
+    describe("POST functions: ", function () {
+
         //posting to category should create a new category
         var testCatName = "nuclear winter";
         var testCatObj;
 
-        it ("should create a new category", function (done){
-
-            //TODO we need to clean up db after inserting test
-
-            request(app).post("/api/category/").send({name:testCatName})
-                .end(function (err, response){
+        it("should create a new category", function (done) {
+            request(app).post("/api/category/").send({name: testCatName})
+                .end(function (err, response) {
                     if (err) return done(err);
 
                     expect(response.status).to.be.equal(200);
 
                     testCatObj = response.body; //capture the newly created cat object
 
-                    request(app).get("/api/category/").end (function (err, response){
-                        if(err) return done(err);
+                    request(app).get("/api/category/").end(function (err, response) {
+                        if (err) return done(err);
                         response.res.body.should.contain.a.thing.with.property("_id", testCatObj._id);
                         done();
                     });
                 });
         });
 
-    }); 
+    });
 
-    describe ("PUT functions: ", function (){
+    describe("PUT functions: ", function () {
 
-        // pending
-        xit ("should be able to update categories", function (done){
+        it("should be able to update categories", function (done) {
 
-            var newCatName = "Global Warming";
+            var updatedCategoryName = {name: "Global Warming"};
 
-            //TODO test is not working, but visually confirmed put is working properly
-
-            request(app).put("/api/category/").send({_id: testCategory._id, name: newCatName})
-                .end(function (err, response){
+            request(app).put("/api/category/" + testCategory._id).send(updatedCategoryName)
+                .end(function (err, response) {
                     if (err) return done(err);
 
                     expect(response.status).to.equal(200);
 
-                    request(app).get("/api/category/").end (function (err, response){
-                        //all categories array returned
-                        if(err) return done(err);
-                        response.res.body
-                            .should.contain
-                            .a.thing.to.include
-                            .all.keys({"_id": testCategory._id, "name": newCatName});
-
+                    request(app).get("/api/category/" + testCategory._id).end(function (err, response) {
+                        if (err) return done(err);
+                        response.res.body.should.have.property("name", updatedCategoryName.name);
                         done();
                     });
-
                 });
         });
     });
 
-    describe ("DELETE functions: ", function (){
+    describe("DELETE functions: ", function () {
 
-        it ("should be able to delete categories", function (done){
+        it("should be able to delete categories", function (done) {
 
-            request(app).del("/api/category").send({_id: testCategory._id})
-                .end(function (err, response){
+            request(app).del("/api/category/" + testCategory._id)
+                .end(function (err, response) {
                     if (err) return done(err);
 
-                    request(app).get("/api/category/").end (function (err, response){
-                        if(err) return done(err);
-                        response.res.body.should.all.not.have.property("_id", testCategory._id);
+                    expect(response.status).to.equal(200);
+
+                    request(app).get("/api/category/" + testCategory._id).end(function (err, response) {
+                        if (err) return done(err);
+                        expect(response.res.body).to.equal(undefined);
                         done();
                     });
                 });
