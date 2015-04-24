@@ -1,4 +1,8 @@
 <section id="home">
+
+	<h1 ng-repeat="category in categories"><a ui-sref="category({cat_id: category._id})"> {{category.name}}</a></h1>
+	
     <fullstack-logo></fullstack-logo>
+  
     <rando-greeting></rando-greeting>
 </section>

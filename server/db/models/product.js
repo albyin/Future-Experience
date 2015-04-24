@@ -6,7 +6,7 @@ var findOrCreate = require('mongoose-findorcreate');
 
 var ProductSchema = new mongoose.Schema({
     name : String,
-    picture: String,
+    image: String,
     details: String
 });
 
