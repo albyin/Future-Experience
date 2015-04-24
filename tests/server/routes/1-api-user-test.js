@@ -54,7 +54,7 @@ describe('User route', function () {
     describe('on calling all user routes', function() {
       it('should sign up a new user and return him/her', function () {
           request(app)
-              .post("/signup")
+              .post("api/user/signup")
               .send(testUser)
               .end( function (err, data) {
                   var user = data.body.user;
@@ -77,7 +77,7 @@ describe('User route', function () {
 
       it('should update specific user', function() {
           request(app)
-            .put("/api/user/?user_id="+createdUser.id)
+            .put("/api/user/"+createdUser.id)
             .send({
               firstName : "Blah"
             })
@@ -90,7 +90,7 @@ describe('User route', function () {
 
       it('should get specific user', function() {
           request(app)
-          .get("/api/user/?user_id="+createdUser.id)
+          .get("/api/user/"+createdUser.id)
           .end(function(err, data) {
               var user = data.body;
               assert.equal(user.firstName, createdUser.firstName);
@@ -99,7 +99,7 @@ describe('User route', function () {
 
       it('should delete specific user', function() {
           request(app)
-          .delete("/api/user/?user_id="+createdUser.id)
+          .delete("/api/user/"+createdUser.id)
           .end(function(err, data) {
               var user = data.body;
               assert.equal(user.firstName, createdUser.firstName);

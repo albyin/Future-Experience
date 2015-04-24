@@ -61,12 +61,6 @@ var encryptPassword = function (plainText, salt) {
     return hash.digest('hex');
 };
 
-var searchUser = function(user_id, cb){
-    if(!user_id.length) return this.find({}).exec(cb);
-
-    return this.findById(user_id).exec(cb);
-};
-
 userSchema.pre('save', function (next) {
 
     if (this.isModified('password')) {
@@ -81,8 +75,6 @@ userSchema.pre('save', function (next) {
 userSchema.plugin(findOrCreate);
 userSchema.statics.generateSalt = generateSalt;
 userSchema.statics.encryptPassword = encryptPassword;
-
-userSchema.statics.searchUser = searchUser;
 
 userSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
