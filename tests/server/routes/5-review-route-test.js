@@ -123,7 +123,7 @@ describe('Review GET, POST, PUT, DELETE routes', function () {
 
         it('should return all reviews for a single product', function () {
             request(app)
-                .get("/api/review/" + testProduct._id)
+                .get("/api/review/product/" + testProduct._id)
                 //receive one item with product._id === product._id we submitted
                 .end(function (err, data) {
                     data.res.body.should.all.have.property('product', testProduct._id.toString());
@@ -134,10 +134,16 @@ describe('Review GET, POST, PUT, DELETE routes', function () {
         it('should return all reviews a single user has written', function () {
             request(app)
                 .get("/api/review/user/" + testUser._id)
-                //receive one item with product._id === product._id we submitted
                 .end(function (err, data) {
                     data.res.body.should.all.have.property('user', testUser._id.toString());
-                    //assert.equal(data.body[0].category, testCategory._id);
+                });
+        });
+
+        it('should return a single review', function () {
+            request(app)
+                .get("/api/review/" + testReview._id)
+                .end(function (err, data) {
+                    data.res.body._id.should.equal(testReview._id.toString());
                 });
         });
 
@@ -167,9 +173,9 @@ describe('Review GET, POST, PUT, DELETE routes', function () {
 
                     newReviewObject = response.body; //capture the newly created product object
                     // Is new product in Product collection in db?
-                    request(app).get("/api/review/" + newReview.product).end(function (err, response) {
+                    request(app).get("/api/review/" + newReviewObject._id).end(function (err, response) {
                         if (err) return done(err);
-                        response.res.body.should.contain.a.thing.with.property("user", newReview.user.toString());
+                        response.res.body._id.should.equal(newReviewObject._id.toString());
                         done();
                     });
                 });
@@ -183,52 +189,53 @@ describe('Review GET, POST, PUT, DELETE routes', function () {
             // expect(response.body._id).to.be.equal(newReviewObject._id); }); });
 
         });
-
-        // TODO finish testing for Review PUT
-        // Visually confirmed WORKING!
-
-        describe("PUT functions: ", function () {
-
-            it("should be able to update a review", function (done) {
-
-                var newReviewComment = "I use it! Every day.";
-                var newStars = 4;
-
-                request(app).put("/api/review/").send({_id: testReview._id, comment: newReviewComment})
-                    .end(function (err, response) {
-                        if (err) return done(err);
-                        //console.log("REsponse.body - PUT ROUTE: ", response.body);
-                        expect(response.status).to.equal(200);
-
-                        //request(app).get("/api/review/" + testReview.product).end (function (err, response){
-                        //    if(err) return done(err);
-                        //    response.res.body.should.contain.a.thing.with.property("user", newReview.user.toString());
-                        //    done();
-                        //});
-                        done();
-
-                    });
-            });
-        });
-
-        describe ("DELETE functions: ", function (){
-
-            it("should be able to delete a review", function (done){
-
-                request(app).del("/api/review").send({_id: testReview._id})
-                    .end(function (err, response){
-                        if (err) return done(err);
-
-                        expect(response.status).to.equal(200);
-
-                        request(app).get("/api/review/").end (function (err, response){
-                            if(err) return done(err);
-                            response.res.body.should.all.not.have.property("_id", testReview._id);
-                            done();
-                        });
-                    });
-            });
-        });
-
     });
+
+    // TODO finish testing for Review PUT
+    // Visually confirmed WORKING!
+
+    describe("PUT functions: ", function () {
+
+        it("should be able to update a review", function (done) {
+
+            var update = {comment: "I use it! Every day."};
+            var newStars = 4;
+
+            request(app).put("/api/review/" + testReview._id).send(update)
+                .end(function (err, response) {
+                    if (err) return done(err);
+                    //console.log("REsponse.body - PUT ROUTE: ", response.body);
+                    expect(response.status).to.equal(200);
+
+                    //request(app).get("/api/review/" + testReview.product).end (function (err, response){
+                    //    if(err) return done(err);
+                    //    response.res.body.should.contain.a.thing.with.property("user", newReview.user.toString());
+                    //    done();
+                    //});
+                    done();
+
+                });
+        });
+    });
+
+    describe("DELETE functions: ", function () {
+
+        it("should be able to delete a review", function (done) {
+
+            request(app).del("/api/review/" + testReview._id)
+                .end(function (err, response) {
+                    if (err) return done(err);
+
+                    expect(response.status).to.equal(200);
+
+                    request(app).get("/api/review/" + testReview._id).end(function (err, response) {
+                        if (err) return done(err);
+                        //console.log(response.res);
+                        expect(response.res.body).to.equal(undefined);
+                        done();
+                    });
+                });
+        });
+    });
+
 });
