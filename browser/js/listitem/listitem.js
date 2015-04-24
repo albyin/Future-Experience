@@ -1,7 +1,7 @@
 'use strict';
 app.config(function ($stateProvider) {
     $stateProvider.state('listItem', {
-        url: '/listitems/item/:listItemId',
+        url: '/listitem/:listItemId',
         templateUrl: 'js/listitem/listitem.html',
         controller: "ListItemController"
     });
