@@ -7,20 +7,33 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("ListItemController", function($scope, ListItemFactory, ReviewFactory, $stateParams){
+app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFactory, $stateParams){
 	$scope.id = $stateParams.listItemId;
+	$scope.showForm = false;
 
 	ListItemFactory.getSingleListItem($stateParams.listItemId).then(function (listitem){
 		$scope.listitem = listitem;
 		return listitem;
 	})
 	.then(function (listitem){
-		ReviewFactory.getReviewsForProduct(listitem.product._id).then(function (reviews){
+		console.log("LISTITEM, ", listitem);
+		ReviewsFactory.getReviewsForProduct(listitem.product._id).then(function (reviews){
 			//should give us array of reviews
 			$scope.reviews = reviews;
 			console.log("REVIEWS,", $scope.reviews);
 		});
 	});	
+
+	$scope.toggleReviewForm = function () {
+		$scope.showForm = !$scope.showForm;
+	};
+
+	$scope.reviewForm = {};
+
+	$scope.submitReview = function(review) {
+		console.log(review);
+		// ReviewFactory.addNewReview(review).then(function(){})
+	};
 
 });
 

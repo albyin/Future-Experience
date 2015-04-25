@@ -107,12 +107,18 @@ var seedListItems = function(users) {
                 };
                 var review2 = {
                     user : users[1].id,
+                    product : productTP.id,
+                    comment : "This is pretty good",
+                    stars : 3
+                };
+                var review3 = {
+                    user : users[2].id,
                     product : productEL.id,
                     comment : "This is Great",
                     stars : 5
                 };
 
-                return Review.createAsync([ review1, review2 ])
+                return Review.createAsync([ review1, review2, review3 ])
                 .then(function() {
                     return listitems;
                 })
