@@ -1,85 +1,60 @@
 <section id="listItem">
-	<h1>Welcome!</h1><br>
-		<h2>{{ listitem.product.name }}</h2>
-	<table>
-		<tr>
-			<td>Image: </td>
-			<td><img src="images/{{listitem.product.image}}"></img></td>
-		</tr>
-		<tr>
-			<td>Description: </td>
-			<td>{{listitem.product.description}}</td>
-		</tr>
-		<tr>
-			<td>Price: </td>
-			<td>{{listitem.price/100 | currency}}</td>
-		</tr>
-		<tr>
-			<td>Quantity: </td>
-			<td>{{listitem.quantity}}</td>
-		</tr>
-		<!-- <tr ng-controller="reviewController"> -->
-		<tr>
-			<table ng-repeat="review in reviews" border="1px">
-			  <tr >
-			  	<td>Reviewer: </td>
-			    <td>{{ review.user }}</td>
-			  </tr>
-			  <tr>
-			  	<td>Rating: </td>
-			    <td>{{ review.stars }}</td>
-			  </tr>
-			  <tr >
-			  	<td>Comment: </td>
-			    <td>{{ review.comment }}</td>
-			  </tr>
-			</table>
-		</tr>
-
-	</table>
-	<button id="addToCart">Add To Cart</button>
-	<button id="addReview" ng-click="toggleReviewForm()">Add Review</button>
-	<br/>
-
-	<!--  Review Form -->
-	<div ng-show="showForm">
-<!-- 	<form name="review" ng-submit="submitReview(reviewForm)"> -->
-
-		<form name="review" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewCtrl.addReviews(reviewCtrl.futureReview)">
-	
-
-	  <!--  Review Form -->
-	  <h4>Submit a Review</h4>
-
-	  <fieldset class="form-group">
-	    <select class="form-control" title="Stars" ng-model="reviewCtrl.futureReview.stars">
-	      <option value>Rate the Product</option>
-			<!-- <ul>
-			    <li ng-repeat="i in getMaxReviewValue(number)"><span>{{$index+1}}</span></li>
-			</ul> -->
-	      
-	      <option value="1">1</option>
-	      <option value="2">2</option>
-	      <option value="3">3</option>
-	      <option value="4">4</option>
-	      <option value="5">5</option>
-	    </select>
-	  </fieldset>
-
-
-	  <fieldset class="form-group">
-	    <textarea class="form-control" ng-model="reviewCtrl.futureReview.comment" placeholder="Write a short comment about this product..." title="Comment"></textarea>
-	  </fieldset>
-
-	  <fieldset class="form-group">
-	    <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
-	  </fieldset>
-
-	</form>
-	</div>
-
+   <h1>Welcome!</h1>
+   <br>
+   <h2>{{ listitem.product.name }}</h2>
+   <table>
+      <tr>
+         <td>Image: </td>
+         <td><img src="images/{{listitem.product.image}}"></img></td>
+      </tr>
+      <tr>
+         <td>Description: </td>
+         <td>{{listitem.product.description}}</td>
+      </tr>
+      <tr>
+         <td>Price: </td>
+         <td>{{listitem.price/100 | currency}}</td>
+      </tr>
+      <tr>
+         <td>Quantity: </td>
+         <td>{{listitem.quantity}}</td>
+      </tr>
+      <tr>
+         <table ng-repeat="review in reviews" border="1px">
+            <tr >
+               <td>Reviewer: </td>
+               <td>{{ review.user }}</td>
+            </tr>
+            <tr>
+               <td>Rating: </td>
+               <td>{{ review.stars }}</td>
+            </tr>
+            <tr >
+               <td>Comment: </td>
+               <td>{{ review.comment }}</td>
+            </tr>
+         </table>
+      </tr>
+   </table>
+   <button id="addToCart">Add To Cart</button>
+   <br/>
+   <div ng-controller="ReviewController as reviewCtrl">
+   <button id="addReview" ng-show="reviewCtrl.showButton" ng-click="toggleReviewForm()" >Add Review</button>
+   <div ng-show="showForm">
+      <form name="review"  ng-submit="reviewCtrl.addReviews(reviewCtrl.futureReview)">
+         <h4>Submit a Review</h4>
+         <fieldset class="form-group">
+            <select class="form-control" title="Stars" ng-model="reviewCtrl.futureReview.stars">
+               <option value>Rate the Product</option>
+               <option ng-repeat="starnum in reviewCtrl.starsArr"value="{{starnum}}">{{starnum}}</option>
+            </select>
+         </fieldset>
+         <fieldset class="form-group">
+            <textarea class="form-control" ng-model="reviewCtrl.futureReview.comment" placeholder="Write a short comment about this product..." title="Comment"></textarea>
+         </fieldset>
+         <fieldset class="form-group">
+            <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
+         </fieldset>
+      </form>
+   </div>
 </section>
-
-
-
-
