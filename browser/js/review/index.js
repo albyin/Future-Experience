@@ -9,9 +9,7 @@ app.controller('ReviewController', function($stateParams, $scope, ReviewsFactory
             .then(function(user){
                 if(!user) reviewCtrl.showButton = false;
                 else reviewCtrl.showButton = true;
-                console.log(user);
                 reviewCtrl.futureReview.user = user._id;
-                console.log(user._id)
                 return user._id;
             });
 

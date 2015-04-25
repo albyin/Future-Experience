@@ -36,7 +36,7 @@
          </table>
       </tr>
    </table>
-   <button id="addToCart">Add To Cart</button>
+   <button id="addToCart" ng-click="addToCart(listitem._id, 5)">Add To Cart</button>
    <br/>
    <div ng-controller="ReviewController as reviewCtrl">
 	   <button id="addReview" ng-show="reviewCtrl.showButton" ng-click="toggleReviewForm()" >Add Review</button>

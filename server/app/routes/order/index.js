@@ -60,7 +60,7 @@ router.post('/', function(req, res, next) {
 
     Order.create(newOrder, function(err, createdOrder) {
         if (err) return next(err);
-
+        console.log("CREATED ORDER,", createdOrder);
         res.send(createdOrder);
     });
 });
