@@ -62,7 +62,7 @@ router.post('/', function(req, res, next) {
         if (err) return next(err);
 
         res.send(createdOrder);
-    })
+    });
 });
 
 // change an existing Order

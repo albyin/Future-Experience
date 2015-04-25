@@ -11,7 +11,7 @@ module.exports = function (app) {
     // the email and password to run the actual authentication logic.
     var strategyFn = function (email, password, done) {
     // select comes from userModel and it set to false initially. '+' overrides the boolean and selects the property
-        UserModel.findOne({ email: email }).select('email +salt +password').exec(function (err, user) {
+        UserModel.findOne({ email: email }).select('firstName lastName email +salt +password').exec(function (err, user) {
             if (err) return done(err);
             // user.correctPassword is a method from our UserModel schema.
             if (!user || !user.correctPassword(password)) return done(null, false);
@@ -39,7 +39,7 @@ module.exports = function (app) {
             req.logIn(user, function (err) {
                 if (err) return next(err);
                 // We respond with a reponse object that has user with _id and email.
-                res.status(200).send({ user: user });
+                res.status(200).send({ user: _.omit(user.toJSON(), ['password', 'salt']) });
             });
 
         };

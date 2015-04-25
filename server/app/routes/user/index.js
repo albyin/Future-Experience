@@ -59,7 +59,7 @@ router.put('/:user_id', function(req, res, next) {
 		user.save(function(err, savedData){
 			if (err) return next(err);
 			res.status(200).json(savedData);
-		})
+		});
 
 	});
 });

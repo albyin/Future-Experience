@@ -52,7 +52,7 @@ router.post('/', function (req, res, next) {
 });
 
 //Update a category
-router.put('/:id', function (req, res) {
+router.put('/:id', function (req, res, next) {
 
     Category.findOneAndUpdate({_id: req.params.id}, req.body, function (err, updatedObj){
         if(err) return next(err);
