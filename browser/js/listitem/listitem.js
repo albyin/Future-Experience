@@ -7,7 +7,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFactory, $stateParams){
+app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFactory, $stateParams, CartService){
 	$scope.id = $stateParams.listItemId;
 	$scope.showForm = false;
 
@@ -33,6 +33,10 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFa
 	$scope.submitReview = function(review) {
 		console.log(review);
 		// ReviewFactory.addNewReview(review).then(function(){})
+	};
+
+	$scope.addToCart = function() {
+		CartService.cart.cartAmount = $scope.id;
 	};
 
 });

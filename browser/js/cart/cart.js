@@ -10,7 +10,7 @@ app.config(function ($stateProvider) {
 
 app.service('CartService', function($rootScope, CartFactory) {
    this.cart = {
-       test : ""
+       cartAmount : 0
    };
 });
 
