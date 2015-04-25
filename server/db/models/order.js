@@ -43,7 +43,7 @@ orderSchema.statics.findByIdAndUpdateOrder = function(id, updateOption, cb) {
             if (!order._id) return new Error("Order Not Found");
 
             _.keys(updateOption).forEach(function(key) {
-                console.log(order[key])
+                console.log(order[key]);
                 order[key] = updateOption[key];
             });
 

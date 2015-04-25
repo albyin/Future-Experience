@@ -43,7 +43,8 @@ var userSchema = new mongoose.Schema({
     },
     address: [addressSchema],
     userType: {
-        type: String
+        type: Number,
+        select: false
     }
 });
 
