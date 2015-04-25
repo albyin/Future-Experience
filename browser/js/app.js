@@ -44,7 +44,12 @@ app.run(function ($rootScope, AuthService, $state) {
                 // the required rank to access that page and return true or forbidden
                 // .authorize
             } else {
-                $state.go('login');
+                var redirectTo = {};
+                if (toState.name) {
+                    redirectTo.redirect = toState.name;
+                }
+                console.log(redirectTo);
+                $state.go('login', redirectTo);
             }
         });
 

@@ -1,2 +1,4 @@
-{{placeHolder}}
-member page
+<button ng-click="toggleProfile()">Profile</button>
+<pre ng-if="showProfile">
+    {{ user | json }}
+</pre>
