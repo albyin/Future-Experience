@@ -63,13 +63,11 @@ router.get('/user/:userId', function (req, res, next) {
 
 // I'm a user and I want to write a review for a product
 router.post('/', function (req, res, next) {
-    var body = req.body;
-    var user = body.user;
-    var product = body.product;
+    var review = req.body;
 
-    Review.findOrCreate({user: user, product: product}, body, function (err, review) {
+    Review.create(review, function (err, createdReview) {
         if (err) return next(err);
-        res.send(review);
+        res.send(createdReview);
     });
 });
 

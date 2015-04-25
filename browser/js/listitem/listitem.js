@@ -7,7 +7,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("ListItemController", function($scope, ListItemFactory, ReviewFactory, $stateParams){
+app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFactory, $stateParams){
 	$scope.id = $stateParams.listItemId;
 	$scope.showForm = false;
 
@@ -17,7 +17,7 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewFac
 	})
 	.then(function (listitem){
 		console.log("LISTITEM, ", listitem);
-		ReviewFactory.getReviewsForProduct(listitem.product._id).then(function (reviews){
+		ReviewsFactory.getReviewsForProduct(listitem.product._id).then(function (reviews){
 			//should give us array of reviews
 			$scope.reviews = reviews;
 			console.log("REVIEWS,", $scope.reviews);
@@ -32,6 +32,7 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewFac
 
 	$scope.submitReview = function(review) {
 		console.log(review);
+		// ReviewFactory.addNewReview(review).then(function(){})
 	};
 
 });
