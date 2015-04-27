@@ -7,12 +7,13 @@ app.controller('ReviewController', function($stateParams, $scope, ReviewsFactory
 
     var loggedInUser =  AuthService.getLoggedInUser()
             .then(function(user){
-                if(!user) reviewCtrl.showButton = false;
-                else reviewCtrl.showButton = true;
-                console.log(user);
-                reviewCtrl.futureReview.user = user._id;
-                console.log(user._id);
-                return user._id;
+                if(!user) {
+                    reviewCtrl.showButton = false;
+                } else {
+                    reviewCtrl.showButton = true;
+                    reviewCtrl.futureReview.user = user._id;
+                    return user._id;
+                }
             });
 
    
@@ -28,6 +29,7 @@ app.controller('ReviewController', function($stateParams, $scope, ReviewsFactory
     reviewCtrl.futureReview.product = $stateParams.productId;
 
     reviewCtrl.addReviews = function(review){
+
       ReviewsFactory.addReview(reviewCtrl.futureReview)
         .then(function(review){
             $scope.reviews.push(review);
@@ -35,6 +37,28 @@ app.controller('ReviewController', function($stateParams, $scope, ReviewsFactory
             console.log(err);
         });
     };
+//i have to refresh to see changes. maybe try to use splice and index
+       reviewCtrl.deleteReviews = function(review){
+       ReviewsFactory.deleteReview(review._id).then(function(review){
+           $scope.reviews.filter(function(e){
+               return e._id !== review._id;
+           });
+       }, function(err){
+           console.log(err);
+       });
+    };
+
+
+
+     reviewCtrl.updateReviews = function(review){
+       ReviewsFactory.updateReview(review._id).then(function(review){
+           $scope.review = review;
+       }, function(err){
+           console.log(err);
+       });
+    };
+    
+ 
 });
 
 app.factory('ReviewsFactory', function ($http) {
@@ -46,11 +70,29 @@ app.factory('ReviewsFactory', function ($http) {
                 console.log(err);
             });
         },
-       getReviewsForProduct: function(product_id){
+        getReviewsForProduct: function(product_id){
 			return $http.get("/api/review/product/" + product_id)
 			.then(function(response){
 				return response.data;
-			});
-		}   
+            }, function(err){
+                console.log(err);
+            });
+        },
+        updateReview: function(review_id){
+            return $http.put('/api/review/'+review_id).then(function(response){
+                console.log(response.data);
+                return response.data;
+            }, function(err){
+                console.log(err);
+            });
+        },
+        deleteReview: function(reviewId){
+            console.log(reviewId);
+            return $http.delete('/api/review/'+reviewId).then(function(response){
+                return response.data;
+            }, function(err){
+                console.log(err);
+            });
+        }   
     };
 });

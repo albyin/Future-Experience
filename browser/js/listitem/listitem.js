@@ -16,11 +16,8 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFa
 		return listitem;
 	})
 	.then(function (listitem){
-		console.log("LISTITEM, ", listitem);
 		ReviewsFactory.getReviewsForProduct(listitem.product._id).then(function (reviews){
-			//should give us array of reviews
 			$scope.reviews = reviews;
-			console.log("REVIEWS,", $scope.reviews);
 		});
 	});	
 
@@ -31,14 +28,12 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFa
 	$scope.reviewForm = {};
 
 	$scope.submitReview = function(review) {
-		console.log(review);
 		// ReviewFactory.addNewReview(review).then(function(){})
 	};
 
-	$scope.addToCart = function() {
-		CartService.cart.cartAmount = $scope.id;
-	};
-
+	//$scope.addToCart = function(list_id, quanity) {
+	//	CartService.addToCart(list_id, quanity);
+	//};
 });
 
 app.factory("ListItemFactory", function($http){

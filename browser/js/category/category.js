@@ -22,17 +22,3 @@ app.controller("CategoryController", function($scope, ListItemFactory, $statePar
 		// });
 	});	
 });
-
-// moved to listitem.js
-
-// app.factory("ListItemFactory", function($http){
-// 	return{
-// 		getListItemsForCategory: function(){
-// 			//:cat_id will be changed after the backend is done
-// 			return $http.get("/api/listitem/category/:cat_id")
-// 			.then(function(response){
-// 				return response.data;
-// 			});
-// 		}
-// 	};
-// });

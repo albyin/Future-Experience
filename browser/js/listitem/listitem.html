@@ -19,8 +19,18 @@
          <td>Quantity: </td>
          <td>{{listitem.quantity}}</td>
       </tr>
-      <tr>
-         <table ng-repeat="review in reviews" border="1px">
+     <tr>
+ -->
+
+
+
+        <table ng-repeat="review in reviews" border="1px">
+   <div class="checkbox" ng-repeat="review in reviews">
+               <label>
+                  <input type="checkbox" ng-click="deleteReview(review)"> {{ review.comment }}
+               </label>
+            </div>
+     
             <tr >
                <td>Reviewer: </td>
                <td>{{ review.user }}</td>
@@ -35,10 +45,19 @@
             </tr>
          </table>
       </tr>
+      <tr>
+         <td><add-to-cart item="listitem"></add-to-cart></td>
+      </tr>
    </table>
-   <button id="addToCart">Add To Cart</button>
    <br/>
    <div ng-controller="ReviewController as reviewCtrl">
+
+
+  <p ng-repeat="review in reviews">
+            <a href="#">User: {{review.user}}, Comment: {{review.comment}}, Rating: {{review.stars}}</a>  <button ng-click="reviewCtrl.deleteReviews(review)" class="delete-item">x</button>
+            <button ng-click="reviewCtrl.updateReviews(review)" class="update-item">edit</button>
+        </p>
+
 	   <button id="addReview" ng-show="reviewCtrl.showButton" ng-click="toggleReviewForm()" >Add Review</button>
 	   <div ng-show="showForm">
 		  <form name="review"  ng-submit="reviewCtrl.addReviews(reviewCtrl.futureReview)">

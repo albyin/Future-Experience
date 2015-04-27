@@ -1,4 +1,4 @@
-app.directive('cartPreview', function ($rootScope, $state) {
+app.directive('cartPreview', function ($rootScope, $state, CartService) {
     return {
         restrict: 'E',
         scope: {},

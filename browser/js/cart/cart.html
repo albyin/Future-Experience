@@ -1,3 +1,93 @@
-Cart Page
-{{cart.cartAmount}}
-<input ng-model="cart.test" type="text">
+<!-- <pre>
+   {{cart | json}}
+   </pre> -->
+<div class="container-fluid">
+   <div class="row-fluid">
+      <div class="span10 offset1">
+         <h1>
+            <a><img src="http://fc01.deviantart.net/fs71/i/2011/118/0/c/space_logo_by_avikdey-d3f2ihe.jpg" height="60" width="60" alt="logo"></a>
+            Space Store 
+         </h1>
+         <div>
+            <p class="text-info">
+               Thanks for shopping at the Space Store.<br>
+               This is your shopping cart. Here you can edit the items, 
+               go back to the store, clear the cart, or check out.
+            </p>
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-md-8">
+                     <!-- items -->
+                     <table class="table table-bordered">
+                        <!-- header -->
+                        <tbody>
+                           <tr>
+                              <td><b>Item</b></td>
+                              <td class="tdCenter"><b>Quantity</b></td>
+                              <td class="tdCenter"><b>Price</b></td>
+                              <td class="tdCenter">Remove</td>
+                           </tr>
+                           <!-- empty cart message -->
+                           <!--   <tr ng-hide="cart.getTotal() > 0" style="display: none;"> -->
+                           <!--     <td class="tdCenter" colspan="4">
+                              Your cart is empty.
+                              </td> -->
+                           </tr>
+                           <!-- cart items -->
+                           <!--     <tr ng-repeat="item in cart.items"> -->
+                           <td class="ng-binding">Space Toilet Paper</td>
+                           <td class="tdCenter"></td>
+                           <td class="pricePerItem">$96.00</td>
+                           <td class="tdCenter" title="remove from cart"><img src="http://photos.gograph.com/thumbs/CSP/CSP364/k3646937.jpg" height="35" width="35"/></td>
+                           </tr>
+                           <td class="ng-binding">AntiZombiii Spray</td>
+                           <td class="tdCenter"></td>
+                           <td class="pricePerItem">$144.00</td>
+                           <td class="tdCenter" title="remove from cart"><img src="http://photos.gograph.com/thumbs/CSP/CSP364/k3646937.jpg" height="35" width="35"/></td>
+                           </tr>
+                           </tr
+                           <! footer
+                           <tr>
+                              <td><b>Total</b></td>
+                              <td class="tdCenter"><b class="ng-binding"></b></td>
+                              <td></td>
+                              <td></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <!--        buttons -->
+                  <div class="col-md-4">
+                     <p class="text-info">
+                        <button class="btn btn-block">
+                        <i class="icon-chevron-left"></i> back to store
+                        </button>
+                        <button class="btn btn-block btn-danger" ng-click="cart.clearItems()" ng-disabled="cart.getTotal() < 1">
+                        <i class="icon-trash icon-white"></i> clear cart
+                        </button>
+                     </p>
+                     <br><br>
+                     <p class="text-info">
+                        <button class="btn btn-block btn-primary">
+                        <i class="icon-ok icon-white"></i> check out using PayPal
+                        </button>
+                        <button class="btn btn-block btn-primary">
+                        <i class="icon-ok icon-white"></i> check out using Google
+                        </button>
+                     </p>
+                     <br><br>
+                     <p class="text-info">
+                        <button class="btn btn-block btn-link">
+                        <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="checkout PayPal">
+                        </button>    
+                        <button class="btn btn-block btn-link">
+                        <img src="http://mypcservices.us/images/googlecheck.jpg" alt="checkoutGoogle">
+                        </button>    
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
