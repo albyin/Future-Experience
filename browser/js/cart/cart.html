@@ -40,7 +40,7 @@
                               <td class="tdCenter">{{item.quantity}}</td>
                               <td class="pricePerItem">{{item.price/100 | currency}}</td>
                               <td class="tdCenter">{{item.price * item.quantity/100 | currency}}</td>
-                              <td class="tdCenter" title="remove from cart"><img src="http://photos.gograph.com/thumbs/CSP/CSP364/k3646937.jpg" height="35" width="35"/></td>
+                              <td class="tdCenter" title="remove from cart"><img ng-click="removeItem()"src="http://photos.gograph.com/thumbs/CSP/CSP364/k3646937.jpg" height="35" width="35"/></td>
                            </tr>
                            </tr
                            <! footer
@@ -59,7 +59,8 @@
                         <button class="btn btn-block">
                         <i class="icon-chevron-left"></i> back to store
                         </button>
-                        <button class="btn btn-block btn-danger" ng-click="cart.clearItems()" ng-disabled="cart.getTotal() < 1">
+
+                        <button class="btn btn-block btn-danger" ng-click="CartCtrl.clearCart()">
                         <i class="icon-trash icon-white"></i> clear cart
                         </button>
                      </p>

@@ -10,11 +10,14 @@ app.config(function ($stateProvider) {
 
 app.controller('CartController', function ($scope, AuthService, $state, CartFactory, CartService) {
     this.items = CartService.items;
+    this.removeItem = CartService.removeItem;
+    this.clearCart = CartService.clearCart;
+
 });
 
 app.service('CartService', function($rootScope, CartFactory) {
-    var cartService = this;
-   cartService.items = [];
+  var cartService = this;
+  cartService.items = [];
 
   cartService.pushCartItem = function (listItemId, name, price, quantity){
     this.items.push({
@@ -22,7 +25,19 @@ app.service('CartService', function($rootScope, CartFactory) {
       name: name,
       price: price,
       quantity : quantity
-    });  
+    });
+
+    
+
+  };
+
+  cartService.removeItem = function (){
+
+  };
+
+  cartService.clearCart = function (){
+    console.log("CLEARING CART YAWL");
+    this.items = [];
   };
 
    // cartService.addToCart = function (listitem_id, quantity) {
