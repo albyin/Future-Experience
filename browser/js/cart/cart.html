@@ -32,9 +32,10 @@
                            <!--     <td class="tdCenter" colspan="4">
                               Your cart is empty.
                               </td> -->
-                           </tr>
+                           <!-- </tr> -->
                            <!-- cart items -->
-                           <!--     <tr ng-repeat="item in cart.items"> -->
+                               <tr ng-repeat="item in CartCtrl.cart.listItems">
+                               {{CartCtrl.cart}}
                            <td class="ng-binding">Space Toilet Paper</td>
                            <td class="tdCenter"></td>
                            <td class="pricePerItem">$96.00</td>

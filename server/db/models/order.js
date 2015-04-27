@@ -36,14 +36,14 @@ orderSchema.statics.getOrdersByOrderId = function(id, cb) {
         .deepPopulate('user listitems.item listitems.item.creator listitems.item.product listitems.item.category').exec(cb);
 };
 
-orderSchema.statics.findByIdAndUpdateOrder = function(id, updateOption, cb) {
+orderSchema.statics.findByIdAndUpdateOrder = function(id, update, cb) {
     return this
         .findById(id, function(err, order) {
             if (err) return cb(err);
             if (!order._id) return new Error("Order Not Found");
 
-            _.keys(updateOption).forEach(function(key) {
-                order[key] = updateOption[key];
+            _.keys(update).forEach(function(key) {
+                order[key] = update[key];
             });
 
             order.save(cb);

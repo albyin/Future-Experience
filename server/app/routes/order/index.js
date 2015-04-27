@@ -71,9 +71,9 @@ router.put('/:order_id', function(req, res, next) {
     if (!order_id) return next(new Error("Order ID is not specified on the URL"));
 
     req.body.modifiedTime = new Date();
-    var updateOption = req.body._update || {};
+
     Order
-    .findByIdAndUpdateOrder(order_id, updateOption, function(err, saved) {
+    .findByIdAndUpdateOrder(order_id, req.body, function(err, saved) {
         if (err) return next(err);
 
         if (saved) {
