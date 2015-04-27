@@ -12,14 +12,12 @@ app.directive('addToCart', function (CartService, CartFactory) {
 
             scope.addToCart = function() {
 
-                console.log("scope.item, ",scope.item);
-                console.log("scope.item.product.name, ",scope.item.product.name);
-                console.log("scope.item.price, ",scope.item.price);
-                console.log("cartservice.items, ",CartService.items);
-                console.log("cartfactory.updateorder, ",CartFactory.updateOrder);
+                // console.log("scope.item, ",scope.item);
+                // console.log("scope.item.product.name, ",scope.item.product.name);
+                // console.log("scope.item.price, ",scope.item.price);
+                // console.log("cartservice.items, ",CartService.items);
+                // console.log("cartfactory.updateorder, ",CartFactory.updateOrder);
 
-
-                // var num = 1;
                 CartService.pushCartItem(scope.item._id, 
                                     scope.item.product.name, 
                                     scope.item.price, 
