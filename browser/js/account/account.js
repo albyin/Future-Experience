@@ -1,6 +1,6 @@
 app.controller('AccountController', function($scope, Upload, AuthService, AccountFactory, CartFactory, ProductFactory, ListItemFactory, $state) {
 
-    $scope.listitems = $scope.products = $scope.allUsers = $scope.user = $scope.orders = null;
+    $scope.listItems = $scope.products = $scope.allUsers = $scope.user = $scope.orders = null;
 
     var emptyProfileInput = function() {
         $scope.profile = {
@@ -41,34 +41,6 @@ app.controller('AccountController', function($scope, Upload, AuthService, Accoun
     $scope.getAllProducts = function() {
         ProductFactory.getAllProducts().then(function(products) {
             $scope.products = products;
-        });
-    };
-
-    $scope.newProduct = {
-        name: null,
-        image: null,
-        details: null
-    };
-
-    $scope.uploadFile = function (files) {
-        if (files) {
-            console.log(files);
-        }
-        Upload.upload({
-            url: 'api/product/upload',
-            file: files
-        }).progress(function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-        }).success(function (data, status, headers, config) {
-            $scope.newProduct.image = data;
-            console.log("newProduct: ", $scope.newProduct);
-        });
-    };
-
-    $scope.newProductSend = function (product) {
-        ProductFactory.createProduct(product).then(function (product) {
-            $scope.products.push(product);
         });
     };
 

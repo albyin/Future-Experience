@@ -37,6 +37,11 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFa
 });
 
 app.factory("ListItemFactory", function($http){
+
+	function createListItem (item) {
+		return $http.post('/api/listitems', item).then(returnResponse);
+	}
+
 	return {
 		getListItemsForCategory: function(cat_id){
 			//:cat_id will be changed after the backend is done
@@ -47,6 +52,7 @@ app.factory("ListItemFactory", function($http){
 		},
 		getListItems : function() {
 			return $http.get("/api/listitems").then(returnResponse);
-		}
+		},
+		createListItem: createListItem
 	};
 });

@@ -1,38 +1,12 @@
 <div ng-init="getAllProducts()">
-    <button>Create New Product</button>
-    <form enctype='multipart/form-data' id="new-product-form" name="newProductForm" ng-submit="newProductForm.$valid && newProductSend(newProduct)" novalidate>
+    <create-new-product></create-new-product>
+    <div>
+        <ul>
+            <li ng-repeat="product in products" style="margin-bottom: 16px;">
+                <hr>
+                <edit-product product="product"></edit-product>
+            </li>
+        </ul>
+    </div>
 
-        <div class="alert alert-danger" ng-show="error">
-            <span class="glyphicon glyphicon-exclamation-sign"></span>
-            <span class="sr-only">Error:</span>
-            {{ error }}
-        </div>
-
-        <div class="form-group">
-            <label for="name">Product Name</label>
-            <input name="name" type="text" ng-model="newProduct.name" class="form-control" id="name" placeholder="Enter Product Name" required>
-            <error ng-show="newProductForm.name.$error.required && newProductForm.$submitted">Product name is required</error>
-        </div>
-
-        <div class="form-group">
-            <label for="image">Product Image</label>
-            <input
-                    ngf-select ng-model="myFiles"
-                    ngf-change="uploadFile($files, $event)"
-                    accept="'image/*'"
-                    name="image" type="file" class="form-control" id="image" placeholder="Product image url" required>
-            <error ng-show="newProductForm.image.$error.required && newProductForm.$submitted">Image is required</error>
-        </div>
-
-        <div class="form-group">
-            <label for="details">Product details</label>
-            <input name="details" type="text" ng-model="newProduct.details" class="form-control" id="details" placeholder="Enter product details" required>
-            <error ng-show="newProductForm.details.$error.required && newProductForm.$submitted">Details are required</error>
-        </div>
-
-        <button type="submit" class="btn btn-default">Submit</button>
-    </form>
-    <pre>
-        {{products | json}}
-    </pre>
 </div>
