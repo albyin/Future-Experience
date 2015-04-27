@@ -1,4 +1,4 @@
-app.directive('addToCart', function (CartService, CartFactory) {
+app.directive('addToCart', function (CartFactory) {
     return {
         restrict : 'E',
         templateUrl : 'js/cart/add-to-cart/add-to-cart.html',
@@ -18,12 +18,12 @@ app.directive('addToCart', function (CartService, CartFactory) {
                 // console.log("cartservice.items, ",CartService.items);
                 // console.log("cartfactory.updateorder, ",CartFactory.updateOrder);
 
-                CartService.pushCartItem(scope.item._id, 
+                CartFactory.pushCartItem(scope.item._id, 
                                     scope.item.product.name, 
                                     scope.item.price, 
                                     scope.addQuant);
 
-                this.CartService = CartService;
+                this.CartFactory = CartFactory;
 
                 // var newOrder = {
                 //    listitems : [{

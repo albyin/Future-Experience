@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
         });
 });
 
-app.controller('CartController', function ($scope, AuthService, $state, CartFactory, CartService) {
+app.controller('CartController', function ($scope, AuthService, $state, CartFactory) {
     this.items = CartFactory.items;
     this.removeItem = CartFactory.removeItem;
     this.clearCart = CartFactory.clearCart;
@@ -58,37 +58,37 @@ app.service('CartService', function ($rootScope, CartFactory, localStorageServic
    // };
 });
 
-app.factory('CartFactory', function ($http, $q, $rootScope, CartFactory, localStorageService) {
+app.factory('CartFactory', function ($http, $q, $rootScope, $window, localStorageService) {
 
-  var cartFactory = this;
-  cartFactory.items = localStorageService.get("items") || [];
+  // var cartFactory = this;
+  var factory = {};
+  factory.items = localStorageService.get("items") || [];
 
-
-  if (localStorageService.get("items"))
-
-  cartFactory.pushCartItem = function (listItemId, name, price, quantity){
-    this.items.push({
+  factory.pushCartItem = function (listItemId, name, price, quantity){
+    factory.items.push({
       listitem : listItemId,
       name: name,
       price: price,
       quantity : quantity
     });
 
-    localStorageService.set("items", this.items);
+    localStorageService.set("items", factory.items);
 
   };
 
-  cartFactory.removeItem = function (){
+  factory.removeItem = function (){
 
   };
 
-  cartFactory.clearCart = function (){
+  factory.clearCart = function (){
     console.log("CLEARING CART YAWL");
-    this.items = [];
     localStorageService.remove("items");
+    factory.items = [];
+    // $window.location.reload();
+
   };
 
-  cartFactory.createNewOrder = function (newCart){
+  factory.createNewOrder = function (newCart){
     //http post request to /order
     console.log('CREATE NEW ORDER WITH:', newCart);
     return $http.post("/api/order", newCart)
@@ -100,7 +100,7 @@ app.factory('CartFactory', function ($http, $q, $rootScope, CartFactory, localSt
       });
   };
 
-  cartFactory.updateOrder = function (order){
+  factory.updateOrder = function (order){
     //http put request to /order
     return $http.put("/api/order/" + order._id, order)
       .then(function (response){
@@ -109,7 +109,7 @@ app.factory('CartFactory', function ($http, $q, $rootScope, CartFactory, localSt
 
   };
 
-  cartFactory.getUserOrders = function(user_id) {
+  factory.getUserOrders = function(user_id) {
        var api_url = user_id ? '/api/order/user/' + user_id : '/api/order';
        return $http
            .get(api_url)
@@ -120,5 +120,5 @@ app.factory('CartFactory', function ($http, $q, $rootScope, CartFactory, localSt
            });
    };
 
-   return cartFactory;
+   return factory;
 });
