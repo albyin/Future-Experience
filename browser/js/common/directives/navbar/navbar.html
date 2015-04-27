@@ -8,11 +8,11 @@
                 <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
             </li>
         </ul>
+        <cart-preview></cart-preview>
         <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
         <div ng-show="user" class="welcome">
             <span>Welcome, {{ user.firstName }}!</span>
             <a ng-click="logout()">Logout</a>
         </div>
-        <cart-preview></cart-preview>
     </div>
 </nav>
