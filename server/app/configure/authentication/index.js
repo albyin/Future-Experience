@@ -14,9 +14,15 @@ var ENABLED_AUTH_STRATEGIES = [
     //'google'
 ];
 
+// 0 is non-member
+// 1 is member
+// 2 is admin
 var USER_LEVEL = {
     2 : {
         admin : true
+    },
+    3 : {
+        superUser : true
     }
 };
 

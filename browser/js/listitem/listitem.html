@@ -19,37 +19,35 @@
          <td>Quantity: </td>
          <td>{{listitem.quantity}}</td>
       </tr>
-     <tr>
- -->
-
-
-
-        <table ng-repeat="review in reviews" border="1px">
-   <div class="checkbox" ng-repeat="review in reviews">
-               <label>
-                  <input type="checkbox" ng-click="deleteReview(review)"> {{ review.comment }}
-               </label>
-            </div>
-     
-            <tr >
-               <td>Reviewer: </td>
-               <td>{{ review.user }}</td>
-            </tr>
-            <tr>
-               <td>Rating: </td>
-               <td>{{ review.stars }}</td>
-            </tr>
-            <tr >
-               <td>Comment: </td>
-               <td>{{ review.comment }}</td>
-            </tr>
-         </table>
-      </tr>
-      <tr>
-         <td><add-to-cart item="listitem"></add-to-cart></td>
-      </tr>
+       <tr>
+       <td><add-to-cart item="listitem"></add-to-cart></td>
+       </tr>
    </table>
-   <br/>
+
+
+        <!--<table ng-repeat="review in reviews" border="1px">-->
+   <!--<div class="checkbox" ng-repeat="review in reviews">-->
+               <!--<label>-->
+                  <!--<input type="checkbox" ng-click="deleteReview(review)"> {{ review.comment }}-->
+               <!--</label>-->
+            <!--</div>-->
+     <!-- -->
+            <!--<tr >-->
+               <!--<td>Reviewer: </td>-->
+               <!--<td>{{ review.user }}</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+               <!--<td>Rating: </td>-->
+               <!--<td>{{ review.stars }}</td>-->
+            <!--</tr>-->
+            <!--<tr >-->
+               <!--<td>Comment: </td>-->
+               <!--<td>{{ review.comment }}</td>-->
+            <!--</tr>-->
+         <!--</table>-->
+      <!--</tr>-->
+   <!--</table>-->
+   <!--<br/>-->
    <div ng-controller="ReviewController as reviewCtrl">
 
 
