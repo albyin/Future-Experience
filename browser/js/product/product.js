@@ -14,11 +14,17 @@ app.controller("ProductController", function($scope, $stateParams, categoryId){
 
 
 app.factory("ProductFactory", function($http){
+    function createProduct (product) {
+        return $http.post('/api/product', product)
+                    .then(returnResponse);
+    }
+
     return {
         getAllProducts : function() {
             return $http
                 .get('/api/product')
                 .then(returnResponse);
-        }
+        },
+        createProduct: createProduct
     };
 });
