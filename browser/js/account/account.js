@@ -11,36 +11,36 @@ app.config(function ($stateProvider) {
         })
         .state('user.member', {
             url         : '^/my-account',
-            templateUrl : 'js/account/templates/member.html',
-            data : {
-                authenticate : true
-            }
-        })
-        .state('user.member.profile', {
-            url         : '/profile',
-            templateUrl : 'js/account/templates/profile.html',
-            data : {
-                authenticate : true
-            }
-        })
-        .state('user.member.orders', {
-            url         : '/orders',
-            templateUrl : 'js/account/templates/order.html',
+            templateUrl : 'js/account/member.html',
             data : {
                 authenticate : true
             }
         })
         .state('user.admin', {
             url         : '^/admin',
-            templateUrl : 'js/account/templates/admin.html',
+            templateUrl : 'js/account/admin.html',
             data : {
                 authenticate : true,
                 admin : true
             }
         })
+        .state('user.member.profile', {
+            url         : '/profile',
+            templateUrl : 'js/account/partials/user-profile.html',
+            data : {
+                authenticate : true
+            }
+        })
+        .state('user.member.orders', {
+            url         : '/orders',
+            templateUrl : 'js/account/partials/member-order.html',
+            data : {
+                authenticate : true
+            }
+        })
         .state('user.admin.users', {
             url         : '/users',
-            templateUrl : 'js/account/templates/admin-user.html',
+            templateUrl : 'js/account/partials/admin-user.html',
             data : {
                 authenticate : true,
                 admin : true
@@ -48,7 +48,7 @@ app.config(function ($stateProvider) {
         })
         .state('user.admin.orders', {
             url         : '/orders',
-            templateUrl : 'js/account/templates/admin-orders.html',
+            templateUrl : 'js/account/partials/admin-orders.html',
             data : {
                 authenticate : true,
                 admin : true
@@ -56,7 +56,7 @@ app.config(function ($stateProvider) {
         })
         .state('user.admin.products', {
             url        : '/products',
-            templateUrl: 'js/account/templates/products.html',
+            templateUrl: 'js/account/partials/admin-products.html',
             data : {
                 authenticate : true,
                 admin        : true
@@ -64,7 +64,7 @@ app.config(function ($stateProvider) {
         })
         .state('user.admin.listitems', {
             url        : '/products',
-            templateUrl: 'js/account/templates/listitems.html',
+            templateUrl: 'js/account/partials/admin-listitems.html',
             data : {
                 authenticate : true,
                 admin        : true

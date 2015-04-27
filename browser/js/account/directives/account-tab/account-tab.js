@@ -3,7 +3,7 @@ app.directive('userTab', function ($rootScope, AuthService, AUTH_EVENTS, $state)
     return {
         restrict : 'E',
         scope : {},
-        templateUrl : 'js/account/account-tab/account-tab.html',
+        templateUrl : 'js/account/directives/account-tab/account-tab.html',
         link : function(scope) {
             scope.items = [
                 { label : 'View/Edit Profile', state : 'user.member.profile', current : 'user.member'},

@@ -1,7 +1,7 @@
 app.directive('userPanel', function($rootScope, AccountFactory, AuthService, $state) {
     return {
         restrict : 'E',
-        templateUrl : 'js/account/userPanel/user-panel.html',
+        templateUrl : 'js/account/directives/userPanel/user-panel.html',
         scope : {
             user : '='
         },

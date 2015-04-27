@@ -1,7 +1,7 @@
 app.directive('orderPanel', function($rootScope, CartFactory, AuthService, $state) {
     return {
         restrict : 'E',
-        templateUrl : 'js/account/orderPanel/order-panel.html',
+        templateUrl : 'js/account/directives/orderPanel/order-panel.html',
         scope : {
             order : '='
         },
