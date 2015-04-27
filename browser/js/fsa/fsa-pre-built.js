@@ -69,10 +69,11 @@
         };
 
         this.isAdmin = function() {
-            // 0 is non-member
-            // 1 is member
-            // 2 is admin
             return !!Session.user.admin;
+        };
+
+        this.isSuperUser = function() {
+            return !!Session.user.superUser;
         };
 
         this.getLoggedInUser = function (stateName) {

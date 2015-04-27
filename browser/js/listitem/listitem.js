@@ -19,7 +19,7 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFa
 		ReviewsFactory.getReviewsForProduct(listitem.product._id).then(function (reviews){
 			$scope.reviews = reviews;
 		});
-	});	
+	});
 
 	$scope.toggleReviewForm = function () {
 		$scope.showForm = !$scope.showForm;

@@ -11,17 +11,4 @@ app.controller("HomeController", function($scope, CategoryFactory){
 	CategoryFactory.getAllCategories().then(function(categories){
 		$scope.categories = categories;
 	});
-
-});
-
-
-app.factory("CategoryFactory", function($http){
-	return{
-		getAllCategories: function(){
-			return $http.get("/api/category")
-			.then(function(response){
-				return response.data;
-			});
-		}
-	};
 });

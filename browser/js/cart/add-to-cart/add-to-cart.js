@@ -6,7 +6,10 @@ app.directive('addToCart', function () {
             item: '='
         },
         link : function(scope, element, attr) {
-            console.log(scope);
+            //scope.item.product.name
+            scope.addToCart = function() {
+                console.log(scope.item.product.name);
+            };
         }
     };
 });
