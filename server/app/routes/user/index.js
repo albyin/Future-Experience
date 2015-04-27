@@ -31,6 +31,13 @@ router.post('/signup', function(req, res, next) {
 	});
 });
 
+router.get('/is-admin', function(req, res, next) {
+	if (req.user) {
+		console.log(req.user);
+		next();
+	}
+});
+
 //Get All users
 router.get('/', function (req, res, next) {
 	User.find({}, function(err,foundUser){
@@ -57,8 +64,9 @@ router.put('/:user_id', function(req, res, next) {
 		_.extend(user, req.body);
 
 		user.save(function(err, savedData){
+			console.log(savedData);
 			if (err) return next(err);
-			res.status(200).json(savedData);
+			res.json(savedData);
 		});
 
 	});

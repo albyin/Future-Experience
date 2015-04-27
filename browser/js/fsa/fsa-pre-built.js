@@ -63,11 +63,19 @@
 
         // Uses the session factory to see if an
         // authenticated user is currently registered.
+
         this.isAuthenticated = function () {
             return !!Session.user;
         };
 
-        this.getLoggedInUser = function () {
+        this.isAdmin = function() {
+            // 0 is non-member
+            // 1 is member
+            // 2 is admin
+            return !!Session.user.admin;
+        };
+
+        this.getLoggedInUser = function (stateName) {
 
             // If an authenticated session exists, we
             // return the user attached to that session
@@ -88,7 +96,10 @@
 
         };
 
-        this.login = function (credentials) {
+        this.login = function (credentials, stateName) {
+            if (stateName) {
+                credentials.state = stateName;
+            }
             return $http.post('/login', credentials)
                 .then(onSuccessfulLogin)
                 .catch(function (response) {
@@ -105,6 +116,7 @@
 
         function onSuccessfulLogin(response) {
             var data = response.data;
+            console.log(data.user);
             Session.create(data.id, data.user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
