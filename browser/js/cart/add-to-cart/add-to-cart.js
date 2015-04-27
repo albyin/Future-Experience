@@ -1,4 +1,4 @@
-app.directive('addToCart', function (CartService, CartFactory) {
+app.directive('addToCart', function (CartFactory) {
     return {
         restrict : 'E',
         templateUrl : 'js/cart/add-to-cart/add-to-cart.html',
@@ -12,20 +12,18 @@ app.directive('addToCart', function (CartService, CartFactory) {
 
             scope.addToCart = function() {
 
-                console.log("scope.item, ",scope.item);
-                console.log("scope.item.product.name, ",scope.item.product.name);
-                console.log("scope.item.price, ",scope.item.price);
-                console.log("cartservice.items, ",CartService.items);
-                console.log("cartfactory.updateorder, ",CartFactory.updateOrder);
+                // console.log("scope.item, ",scope.item);
+                // console.log("scope.item.product.name, ",scope.item.product.name);
+                // console.log("scope.item.price, ",scope.item.price);
+                // console.log("cartservice.items, ",CartService.items);
+                // console.log("cartfactory.updateorder, ",CartFactory.updateOrder);
 
-
-                // var num = 1;
-                CartService.pushCartItem(scope.item._id, 
+                CartFactory.pushCartItem(scope.item._id, 
                                     scope.item.product.name, 
                                     scope.item.price, 
                                     scope.addQuant);
 
-                this.CartService = CartService;
+                this.CartFactory = CartFactory;
 
                 // var newOrder = {
                 //    listitems : [{
