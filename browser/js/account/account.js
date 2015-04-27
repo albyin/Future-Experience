@@ -26,7 +26,7 @@ app.config(function ($stateProvider) {
         })
         .state('user.member.profile', {
             url         : '/profile',
-            templateUrl : 'js/account/partials/user-profile.html',
+            templateUrl : 'js/account/partials/member-profile.html',
             data : {
                 authenticate : true
             }
@@ -72,7 +72,7 @@ app.config(function ($stateProvider) {
         });
 });
 
-app.controller('AccountController', function($scope, AuthService, AccountFactory, CartFactory, ProductFactory, ListItemFactory, $state) {
+app.controller('AccountController', function($scope, Upload, AuthService, AccountFactory, CartFactory, ProductFactory, ListItemFactory, $state) {
     $scope.listitems = $scope.products = $scope.allUsers = $scope.user = $scope.orders = null;
 
     var emptyProfileInput = function() {
@@ -106,7 +106,6 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
     // get all users
     $scope.loadAllUsers = function() {
         AccountFactory.getUsers().then(function(users) {
-            console.log(users);
             $scope.allUsers = users;
         });
     };
@@ -118,12 +117,18 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
         });
     };
 
+    $scope.uploadFile = function (files) {
+        console.log(files);
+    };
+
     // get listitems
     $scope.loadListItems = function() {
         ListItemFactory.getListItems().then(function(listitems) {
             $scope.listitems = listitems;
         });
     };
+
+
 
     emptyProfileInput();
 });
