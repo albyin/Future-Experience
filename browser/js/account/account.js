@@ -142,7 +142,7 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
             $scope.profile[key] = user[key];
         });
 
-        AccountFactory
+        CartFactory
             .getUserOrders(user._id)
             .then(function(orders) {
                 $scope.orders = orders;

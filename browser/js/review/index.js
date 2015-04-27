@@ -55,7 +55,7 @@ app.controller('ReviewController', function($stateParams, $scope, ReviewsFactory
            $scope.review = review;
        }, function(err){
            console.log(err);
-       })
+       });
     };
     
  
