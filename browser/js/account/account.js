@@ -125,20 +125,6 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
         });
     };
 
-    // Initialization
-    AuthService.getLoggedInUser().then(function(user) {
-        $scope.user = user;
-        Object.keys(user).forEach(function(key) {
-            $scope.profile[key] = user[key];
-        });
-
-        CartFactory
-            .getUserOrders(user._id)
-            .then(function(orders) {
-                $scope.orders = orders;
-            });
-    });
-
     emptyProfileInput();
 });
 
