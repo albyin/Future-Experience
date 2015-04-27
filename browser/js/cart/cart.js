@@ -8,6 +8,15 @@ app.config(function ($stateProvider) {
         });
 });
 
+app.controller('CartController', function ($scope, AuthService, $state, CartFactory, CartService) {
+    this.cart = CartService.cart;
+
+    console.log("CARTCONTROLLER.CART,", this.cart);
+
+    this.waka = "flocka";
+
+});
+
 app.service('CartService', function($rootScope, CartFactory) {
     var cartService = this;
    cartService.cart = null;
@@ -25,10 +34,6 @@ app.service('CartService', function($rootScope, CartFactory) {
       //    console.log(cartService.cart);
       //});
    // };
-});
-
-app.controller('CartController', function ($scope, AuthService, $state, CartFactory, CartService) {
-    $scope.cart = CartService.cart;
 });
 
 app.factory('CartFactory', function($http, $q) {

@@ -14,12 +14,13 @@ app.directive('addToCart', function (CartService, CartFactory) {
             scope.addToCart = function() {
 
                 console.log("scope.item, ",scope.item);
+                console.log("scope.item.product.name, ",scope.item.product.name);
+                console.log("scope.item.price, ",scope.item.price);
                 console.log("cartservice.cart, ",CartService.cart);
                 console.log("cartfactory.updateorder, ",CartFactory.updateOrder);
+
                 var newOrder = {
                    listitems : [{
-                    // name: scope.item.product.name,
-                    // price: scope.item.price,
                     item : scope.item._id,
                     quantity : 1
                    }]
@@ -27,7 +28,7 @@ app.directive('addToCart', function (CartService, CartFactory) {
 
                 CartFactory.createNewOrder(newOrder).then(function(result) {
                     CartService.cart = result;
-                    console.log(CartService.cart);
+                    console.log("cartservice.cart, ", CartService.cart);
                 });
 
             };

@@ -9,6 +9,8 @@
             Space Store 
          </h1>
          <div>
+
+         <pre>CartCtrl.cart ---> {{CartCtrl.waka}}</pre>
             <p class="text-info">
                Thanks for shopping at the Space Store.<br>
                This is your shopping cart. Here you can edit the items, 
@@ -34,8 +36,8 @@
                               </td> -->
                            <!-- </tr> -->
                            <!-- cart items -->
-                               <tr ng-repeat="item in CartCtrl.cart.listItems">
-                               {{CartCtrl.cart}}
+                               <tr ng-repeat="item in CartCtrl.cart.listitems">
+                               <pre>HERE{{item}}</pre>
                            <td class="ng-binding">Space Toilet Paper</td>
                            <td class="tdCenter"></td>
                            <td class="pricePerItem">$96.00</td>
