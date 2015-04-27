@@ -14,6 +14,12 @@ var ENABLED_AUTH_STRATEGIES = [
     //'google'
 ];
 
+var USER_LEVEL = {
+    2 : {
+        admin : true
+    }
+};
+
 module.exports = function (app) {
 
     // First, our session middleware will set/read sessions from the request.
@@ -33,22 +39,33 @@ module.exports = function (app) {
 
     // When we give a cookie to the browser, it is just the userId (encrypted with our secret).
     passport.serializeUser(function (user, done) {
-        done(null, user.id);
+        done(null, user._id);
     });
 
     // When we receive a cookie from the browser, we use that id to set our req.user
     // to a user found in the database.
     passport.deserializeUser(function (id, done) {
-        UserModel.findById(id, done);
+        UserModel.findById(id).lean().exec(function(err, user) {
+            if (err) return done(err);
+
+            if (USER_LEVEL[user.userType]) {
+                _.extend(user, USER_LEVEL[user.userType]);
+            }
+
+            delete user.userType;
+            delete user.password;
+            delete user.salt;
+
+            done(null, user);
+        });
     });
 
     // We provide a simple GET /session in order to get session information directly.
     // This is used by the browser application (Angular) to determine if a user is
     // logged in already.
     app.get('/session', function (req, res) {
-        console.log("User Session: ", req.user);
         if (req.user) {
-            res.send({ user: _.omit(req.user.toJSON(), ['salt', 'password']) });
+            res.send({ user: req.user});
         } else {
             res.status(401).send('No authenticated user.');
         }
@@ -62,7 +79,7 @@ module.exports = function (app) {
 
     // Each strategy enabled gets registered.
     ENABLED_AUTH_STRATEGIES.forEach(function (strategyName) {
-        require(path.join(__dirname, strategyName))(app);
+        require(path.join(__dirname, strategyName))(app, USER_LEVEL);
     });
 
 };

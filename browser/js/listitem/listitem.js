@@ -41,22 +41,17 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFa
 
 });
 
-
 app.factory("ListItemFactory", function($http){
 	return {
 		getListItemsForCategory: function(cat_id){
 			//:cat_id will be changed after the backend is done
-			return $http.get("/api/listitems/category/" + cat_id)
-			.then(function(response){
-				return response.data;
-			});
+			return $http.get("/api/listitems/category/" + cat_id).then(returnResponse);
 		},
 		getSingleListItem: function(listItemId){
-		
-			return $http.get("/api/listitems/item/" + listItemId)
-			.then(function(response){
-				return response.data;
-			});
+			return $http.get("/api/listitems/item/" + listItemId).then(returnResponse);
+		},
+		getListItems : function() {
+			return $http.get("/api/listitems").then(returnResponse);
 		}
 	};
 });

@@ -17,13 +17,24 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, $stateParams)
 
         $scope.error = null;
 
-        AuthService.login(loginInfo).then(function () {
+        AuthService.login(loginInfo, $stateParams.redirect).then(function () {
             if ($stateParams.redirect) {
+                var redirectState = $state.get($stateParams.redirect);
+
+                if (redirectState.data && redirectState.data.admin) {
+                    if (!AuthService.isAdmin()) {
+                        $state.go('403');
+                        return;
+                    }
+                }
+
                 $state.go($stateParams.redirect);
+
             } else {
                 $state.go('home');
             }
-        }).catch(function () {
+        }).catch(function (error) {
+            console.log(error);
             $scope.error = 'Invalid login credentials.';
         });
 
