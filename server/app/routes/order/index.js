@@ -21,6 +21,7 @@ router.get('/', function (req, res, next) {
     Order
         .find({})
         .deepPopulate('user listitems.item listitems.item.product listitems.item.category')
+        .lean()
         .exec(function(err, orders) {
             if (err) return next(err);
 
@@ -70,13 +71,14 @@ router.put('/:order_id', function(req, res, next) {
     var order_id = req.params.order_id;
     if (!order_id) return next(new Error("Order ID is not specified on the URL"));
 
-    // var updateOption = req.body || {};
+    req.body.modifiedTime = new Date();
+
     Order
     .findByIdAndUpdateOrder(order_id, req.body, function(err, saved) {
         if (err) return next(err);
 
         if (saved) {
-            res.sendStatus(200);
+            res.json(saved);
         } else {
             next(new Error("API error has occured"));
         }

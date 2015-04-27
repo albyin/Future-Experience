@@ -11,36 +11,36 @@ app.config(function ($stateProvider) {
         })
         .state('user.member', {
             url         : '^/my-account',
-            templateUrl : 'js/account/templates/member.html',
-            data : {
-                authenticate : true
-            }
-        })
-        .state('user.member.profile', {
-            url         : '/profile',
-            templateUrl : 'js/account/templates/profile.html',
-            data : {
-                authenticate : true
-            }
-        })
-        .state('user.member.orders', {
-            url         : '/orders',
-            templateUrl : 'js/account/templates/order.html',
+            templateUrl : 'js/account/member.html',
             data : {
                 authenticate : true
             }
         })
         .state('user.admin', {
             url         : '^/admin',
-            templateUrl : 'js/account/templates/admin.html',
+            templateUrl : 'js/account/admin.html',
             data : {
                 authenticate : true,
                 admin : true
             }
         })
+        .state('user.member.profile', {
+            url         : '/profile',
+            templateUrl : 'js/account/partials/member-profile.html',
+            data : {
+                authenticate : true
+            }
+        })
+        .state('user.member.orders', {
+            url         : '/orders',
+            templateUrl : 'js/account/partials/member-order.html',
+            data : {
+                authenticate : true
+            }
+        })
         .state('user.admin.users', {
             url         : '/users',
-            templateUrl : 'js/account/templates/admin-user.html',
+            templateUrl : 'js/account/partials/admin-user.html',
             data : {
                 authenticate : true,
                 admin : true
@@ -48,7 +48,7 @@ app.config(function ($stateProvider) {
         })
         .state('user.admin.orders', {
             url         : '/orders',
-            templateUrl : 'js/account/templates/admin-orders.html',
+            templateUrl : 'js/account/partials/admin-orders.html',
             data : {
                 authenticate : true,
                 admin : true
@@ -56,7 +56,7 @@ app.config(function ($stateProvider) {
         })
         .state('user.admin.products', {
             url        : '/products',
-            templateUrl: 'js/account/templates/products.html',
+            templateUrl: 'js/account/partials/admin-products.html',
             data : {
                 authenticate : true,
                 admin        : true
@@ -64,7 +64,7 @@ app.config(function ($stateProvider) {
         })
         .state('user.admin.listitems', {
             url        : '/products',
-            templateUrl: 'js/account/templates/listitems.html',
+            templateUrl: 'js/account/partials/admin-listitems.html',
             data : {
                 authenticate : true,
                 admin        : true
@@ -72,7 +72,7 @@ app.config(function ($stateProvider) {
         });
 });
 
-app.controller('AccountController', function($scope, AuthService, AccountFactory, CartFactory, ProductFactory, ListItemFactory, $state) {
+app.controller('AccountController', function($scope, Upload, AuthService, AccountFactory, CartFactory, ProductFactory, ListItemFactory, $state) {
     $scope.listitems = $scope.products = $scope.allUsers = $scope.user = $scope.orders = null;
 
     var emptyProfileInput = function() {
@@ -81,17 +81,6 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
             lastName: null,
             email: null
         };
-    };
-
-    // Profile Update
-    $scope.updateProfile = function() {
-        AccountFactory
-            .updateUser($scope.user._id, $scope.profile)
-            .then(function(updatedUser) {
-                console.log(updatedUser);
-                $scope.user = updatedUser;
-                $scope.showUpdate = false;
-            });
     };
 
     // Loading user
@@ -110,13 +99,13 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
             .getUserOrders(user_id)
             .then(function(orders) {
                 $scope.orders = orders;
+                console.log($scope.orders);
             });
     };
 
     // get all users
     $scope.loadAllUsers = function() {
         AccountFactory.getUsers().then(function(users) {
-            console.log(users);
             $scope.allUsers = users;
         });
     };
@@ -128,6 +117,10 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
         });
     };
 
+    $scope.uploadFile = function (files) {
+        console.log(files);
+    };
+
     // get listitems
     $scope.loadListItems = function() {
         ListItemFactory.getListItems().then(function(listitems) {
@@ -135,19 +128,7 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
         });
     };
 
-    // Initialization
-    AuthService.getLoggedInUser().then(function(user) {
-        $scope.user = user;
-        Object.keys(user).forEach(function(key) {
-            $scope.profile[key] = user[key];
-        });
 
-        CartFactory
-            .getUserOrders(user._id)
-            .then(function(orders) {
-                $scope.orders = orders;
-            });
-    });
 
     emptyProfileInput();
 });
