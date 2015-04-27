@@ -8,9 +8,22 @@ app.config(function ($stateProvider) {
         });
 });
 
+app.controller('CartController', function ($scope, AuthService, $state, CartFactory, CartService) {
+    this.items = CartService.items;
+});
+
 app.service('CartService', function($rootScope, CartFactory) {
     var cartService = this;
-   cartService.cart = null;
+   cartService.items = [];
+
+  cartService.pushCartItem = function (listItemId, name, price, quantity){
+    this.items.push({
+      listitem : listItemId,
+      name: name,
+      price: price,
+      quantity : quantity
+    });  
+  };
 
    // cartService.addToCart = function (listitem_id, quantity) {
       //var newOrder = {
@@ -25,10 +38,6 @@ app.service('CartService', function($rootScope, CartFactory) {
       //    console.log(cartService.cart);
       //});
    // };
-});
-
-app.controller('CartController', function ($scope, AuthService, $state, CartFactory, CartService) {
-    $scope.cart = CartService.cart;
 });
 
 app.factory('CartFactory', function($http, $q) {
