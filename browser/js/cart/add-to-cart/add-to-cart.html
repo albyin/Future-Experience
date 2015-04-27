@@ -1,6 +1,7 @@
 <div>
-    <select>
+    <select ng-controller="addController">
         <option value>Select a Quantity</option>
+        <option ng-repeat="num in nums" value="{{num}}">{{num}}</option>
     </select>
     <button ng-click="addToCart()">Add To Cart</button>
 </div>

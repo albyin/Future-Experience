@@ -12,7 +12,7 @@ app.service('CartService', function($rootScope, CartFactory) {
     var cartService = this;
    cartService.cart = null;
 
-   cartService.addToCart = function (listitem_id, quantity) {
+   // cartService.addToCart = function (listitem_id, quantity) {
       //var newOrder = {
       //  listitems : [{
       //    item : listitem_id,
@@ -24,19 +24,18 @@ app.service('CartService', function($rootScope, CartFactory) {
       //    cartService.cart = newOrder;
       //    console.log(cartService.cart);
       //});
-   };
+   // };
 });
 
 app.controller('CartController', function ($scope, AuthService, $state, CartFactory, CartService) {
     $scope.cart = CartService.cart;
-
-
 });
 
 app.factory('CartFactory', function($http, $q) {
    return {
       createNewOrder : function (newCart){
         //http post request to /order
+        console.log('CREATE NEW ORDER WITH:', newCart);
         return $http.post("/api/order", newCart)
           .then(function (response){
             console.log('post response', response);
@@ -46,9 +45,9 @@ app.factory('CartFactory', function($http, $q) {
           });
 
       },
-      updateOrder : function (cart){
+      updateOrder : function (order){
         //http put request to /order
-        return $http.put("/api/order/" + cart.orderID, cart.listItems)
+        return $http.put("/api/order/" + order._id, order)
           .then(function (response){
             return response.data;
           });
