@@ -1,0 +1,7 @@
+<div class="clearfix">
+    <ul class="nav navbar-nav">
+        <li ng-repeat="item in items">
+            <a ui-sref-active="active" ui-sref="{{ item.state }}" ng-if="isCurrentState(item.current)">{{ item.label }}</a>
+        </li>
+    </ul>
+</div>
