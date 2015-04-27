@@ -1,7 +1,8 @@
 <div ng-init="loadOrders()">
-    <pre>
-        {{
-            orders | json
-        }}
-    </pre>
+    <ul>
+        <li ng-repeat="order in orders" style="margin-bottom: 16px;">
+            <order-panel order="order"></order-panel>
+            <hr>
+        </li>
+    </ul>
 </div>

@@ -83,17 +83,6 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
         };
     };
 
-    // Profile Update
-    $scope.updateProfile = function() {
-        AccountFactory
-            .updateUser($scope.user._id, $scope.profile)
-            .then(function(updatedUser) {
-                console.log(updatedUser);
-                $scope.user = updatedUser;
-                $scope.showUpdate = false;
-            });
-    };
-
     // Loading user
     $scope.loadUser = function() {
         AuthService.getLoggedInUser().then(function(user) {
@@ -110,6 +99,7 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
             .getUserOrders(user_id)
             .then(function(orders) {
                 $scope.orders = orders;
+                console.log($scope.orders);
             });
     };
 
