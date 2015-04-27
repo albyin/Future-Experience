@@ -9,8 +9,6 @@
             Space Store 
          </h1>
          <div>
-
-         <pre>CartCtrl.cart ---> {{CartCtrl.waka}}</pre>
             <p class="text-info">
                Thanks for shopping at the Space Store.<br>
                This is your shopping cart. Here you can edit the items, 
@@ -26,7 +24,8 @@
                            <tr>
                               <td><b>Item</b></td>
                               <td class="tdCenter"><b>Quantity</b></td>
-                              <td class="tdCenter"><b>Price</b></td>
+                              <td class="tdCenter"><b>Price Per Unit</b></td>
+                              <td class="tdCenter"><b>Subtotal Price</b></td>
                               <td class="tdCenter">Remove</td>
                            </tr>
                            <!-- empty cart message -->
@@ -36,17 +35,12 @@
                               </td> -->
                            <!-- </tr> -->
                            <!-- cart items -->
-                               <tr ng-repeat="item in CartCtrl.cart.listitems">
-                               <pre>HERE{{item}}</pre>
-                           <td class="ng-binding">Space Toilet Paper</td>
-                           <td class="tdCenter"></td>
-                           <td class="pricePerItem">$96.00</td>
-                           <td class="tdCenter" title="remove from cart"><img src="http://photos.gograph.com/thumbs/CSP/CSP364/k3646937.jpg" height="35" width="35"/></td>
-                           </tr>
-                           <td class="ng-binding">AntiZombiii Spray</td>
-                           <td class="tdCenter"></td>
-                           <td class="pricePerItem">$144.00</td>
-                           <td class="tdCenter" title="remove from cart"><img src="http://photos.gograph.com/thumbs/CSP/CSP364/k3646937.jpg" height="35" width="35"/></td>
+                           <tr ng-repeat="item in CartCtrl.items">
+                              <td class="ng-binding">{{item.name}}</td>
+                              <td class="tdCenter">{{item.quantity}}</td>
+                              <td class="pricePerItem">{{item.price/100 | currency}}</td>
+                              <td class="tdCenter">{{item.price * item.quantity/100 | currency}}</td>
+                              <td class="tdCenter" title="remove from cart"><img src="http://photos.gograph.com/thumbs/CSP/CSP364/k3646937.jpg" height="35" width="35"/></td>
                            </tr>
                            </tr
                            <! footer

@@ -9,17 +9,21 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('CartController', function ($scope, AuthService, $state, CartFactory, CartService) {
-    this.cart = CartService.cart;
-
-    console.log("CARTCONTROLLER.CART,", this.cart);
-
-    this.waka = "flocka";
-
+    this.items = CartService.items;
 });
 
 app.service('CartService', function($rootScope, CartFactory) {
     var cartService = this;
-   cartService.cart = null;
+   cartService.items = [];
+
+  cartService.pushCartItem = function (listItemId, name, price, quantity){
+    this.items.push({
+      listitem : listItemId,
+      name: name,
+      price: price,
+      quantity : quantity
+    });  
+  };
 
    // cartService.addToCart = function (listitem_id, quantity) {
       //var newOrder = {
