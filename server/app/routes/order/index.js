@@ -70,9 +70,9 @@ router.put('/:order_id', function(req, res, next) {
     var order_id = req.params.order_id;
     if (!order_id) return next(new Error("Order ID is not specified on the URL"));
 
-    var updateOption = req.body._update || {};
+    // var updateOption = req.body || {};
     Order
-    .findByIdAndUpdateOrder(order_id, updateOption, function(err, saved) {
+    .findByIdAndUpdateOrder(order_id, req.body, function(err, saved) {
         if (err) return next(err);
 
         if (saved) {
