@@ -32,9 +32,9 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFa
 		// ReviewFactory.addNewReview(review).then(function(){})
 	};
 
-	$scope.addToCart = function(list_id, quanity) {
-		CartService.addToCart(list_id, quanity);
-	};
+	//$scope.addToCart = function(list_id, quanity) {
+	//	CartService.addToCart(list_id, quanity);
+	//};
 });
 
 app.factory("ListItemFactory", function($http){

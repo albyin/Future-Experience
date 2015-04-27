@@ -7,10 +7,13 @@ app.controller('ReviewController', function($stateParams, $scope, ReviewsFactory
 
     var loggedInUser =  AuthService.getLoggedInUser()
             .then(function(user){
-                if(!user) reviewCtrl.showButton = false;
-                else reviewCtrl.showButton = true;
-                reviewCtrl.futureReview.user = user._id;
-                return user._id;
+                if(!user) {
+                    reviewCtrl.showButton = false;
+                } else {
+                    reviewCtrl.showButton = true;
+                    reviewCtrl.futureReview.user = user._id;
+                    return user._id;
+                }
             });
 
    

@@ -72,7 +72,7 @@ app.config(function ($stateProvider) {
         });
 });
 
-app.controller('AccountController', function($scope, AuthService, AccountFactory, ProductFactory, ListItemFactory, $state) {
+app.controller('AccountController', function($scope, AuthService, AccountFactory, CartFactory, ProductFactory, ListItemFactory, $state) {
     $scope.listitems = $scope.products = $scope.allUsers = $scope.user = $scope.orders = null;
 
     var emptyProfileInput = function() {
@@ -106,7 +106,7 @@ app.controller('AccountController', function($scope, AuthService, AccountFactory
 
     // load orders
     $scope.loadOrders = function(user_id) {
-        AccountFactory
+        CartFactory
             .getUserOrders(user_id)
             .then(function(orders) {
                 $scope.orders = orders;
@@ -165,16 +165,6 @@ app.factory('AccountFactory', function($http, $q) {
             return $http
                 .put('/api/user/' + user_id, updateObj)
                 .then(returnResponse).catch(function(error) {
-                    console.log(error);
-                    $q.reject({ message : "Not able to update user"});
-                });
-        },
-        getUserOrders : function(user_id) {
-            var api_url = user_id ? '/api/order/user/' + user_id : '/api/order';
-            return $http
-                .get(api_url)
-                .then(returnResponse)
-                .catch(function(error) {
                     console.log(error);
                     $q.reject({ message : "Not able to update user"});
                 });

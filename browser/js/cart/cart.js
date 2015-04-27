@@ -13,63 +13,27 @@ app.service('CartService', function($rootScope, CartFactory) {
    cartService.cart = null;
 
    cartService.addToCart = function (listitem_id, quantity) {
-      var newOrder = {
-        listitems : [{
-          item : listitem_id,
-          quantity : quantity
-        }]
-      };
-
-      CartFactory.createNewOrder(newOrder).then(function(newOrder) {
-          cartService.cart = newOrder;
-          console.log(cartService.cart);
-      });
+      //var newOrder = {
+      //  listitems : [{
+      //    item : listitem_id,
+      //    quantity : quantity
+      //  }]
+      //};
+      //
+      //CartFactory.createNewOrder(newOrder).then(function(newOrder) {
+      //    cartService.cart = newOrder;
+      //    console.log(cartService.cart);
+      //});
    };
-      // if addObj.listItem does not exist, push onto array
-      // else if addObj.listItem does exit, add 1 to its quantity
-
-   //    var ID = addObj.listItem;
-   //    var quant = addObj.quantity;
-
-   //    if (!this.cart.orderID){
-   //      CartFactory.createNewOrder(addObj);
-   //    }
-   //    else {
-   //      var index = this.cart.listItems.indexOf({listItem:ID});
-   //      if (index > -1){
-   //        this.cart.listItems[index].quantity++;
-   //      }
-   //      else {
-   //        this.cart.listItems.push(addObj);
-   //      }
-   //    }
-
-   //    var thecart = this.cart;
-   //    if (this.cart.orderID === null){
-   //      console.log("THIS,",this);
-   //      CartFactory.createNewOrder(thecart.listItems)
-   //        .then(function (result){
-   //          console.log("RESULt, ",result);
-   //          thecart.orderID = result;
-   //        }).catch (function (err){
-   //          console.log("ERROR IN CREATENO CONTROLLER",err);
-   //        });
-   //    }
-   //    else {
-   //      CartFactory.addToOrder(thecart)
-   //        .then(function (result){
-   //          thecart.orderID = result;
-   //        });
-   //    }
-   // };
-
 });
 
 app.controller('CartController', function ($scope, AuthService, $state, CartFactory, CartService) {
     $scope.cart = CartService.cart;
+
+
 });
 
-app.factory('CartFactory', function($http) {
+app.factory('CartFactory', function($http, $q) {
    return {
       createNewOrder : function (newCart){
         //http post request to /order
@@ -82,14 +46,24 @@ app.factory('CartFactory', function($http) {
           });
 
       },
-      addToOrder : function (cart){
+      updateOrder : function (cart){
         //http put request to /order
         return $http.put("/api/order/" + cart.orderID, cart.listItems)
           .then(function (response){
             return response.data;
           });
 
-      }
+      },
+       getUserOrders : function(user_id) {
+           var api_url = user_id ? '/api/order/user/' + user_id : '/api/order';
+           return $http
+               .get(api_url)
+               .then(returnResponse)
+               .catch(function(error) {
+                   console.log(error);
+                   $q.reject({ message : "Not able to update user"});
+               });
+       }
 
    };
 });
