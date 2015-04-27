@@ -1,10 +1,14 @@
 'use strict';
+var fs = require('fs-extra');
+var path = require('path');
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var Category = mongoose.model('Category');
 var Product = mongoose.model('Product');
 var _ = require('lodash');
 var Promise = require('bluebird'); //TODO refactor the routes to be promises instead of callbacks
+
+var rootPath = path.join(__dirname, '../../../../');
 
 module.exports = router;
 
@@ -38,10 +42,29 @@ router.get('/:id', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 
-    Product.findOrCreate({name: req.body.name}, function (err, product){
+    Product.create(req.body, function (err, product){
         if (err) return next(err);
         res.send(product);
     });
+
+});
+
+router.post('/upload', function (req, res, next) {
+
+    req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+        console.log("IT WORKS: ", __dirname);
+        var fstream = fs.createWriteStream(rootPath + "/browser/images/uploads/" + filename);
+        fstream.on('close', function () {
+            res.send('uploads/' + filename);
+        });
+
+        file.pipe(fstream);
+    });
+
+    req.pipe(req.busboy);
+
+
+
 
 });
 
