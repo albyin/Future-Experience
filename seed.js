@@ -54,7 +54,8 @@ var seedUsers = function () {
         {   firstName: 'Barack',
             lastName: 'Obama',
             email: 'obama@gmail.com',
-            password: 'potus'
+            password: 'potus',
+            userType: 2
         },
         {   firstName: 'Joe',
             lastName: 'Biden',

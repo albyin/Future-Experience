@@ -11,3 +11,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 app.controller("ProductController", function($scope, $stateParams, categoryId){
     this.placeHolder = "Here is Product in Category #"+categoryId;
 });
+
+
+app.factory("ProductFactory", function($http){
+    return {
+        getAllProducts : function() {
+            return $http
+                .get('/api/product')
+                .then(returnResponse);
+        }
+    };
+});

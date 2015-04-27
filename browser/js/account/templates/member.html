@@ -1,4 +1,3 @@
-<button ng-click="toggleProfile()">Profile</button>
-<pre ng-if="showProfile">
-    {{ user | json }}
-</pre>
+<div ng-init="loadUser()">
+    <ui-view></ui-view>
+</div>
