@@ -17,7 +17,6 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFa
 	})
 	.then(function (listitem){
 		ReviewsFactory.getReviewsForProduct(listitem.product._id).then(function (reviews){
-			//should give us array of reviews
 			$scope.reviews = reviews;
 		});
 	});	
