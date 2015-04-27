@@ -72,6 +72,7 @@ router.post('/', function (req, res, next) {
 
 //Updated to take ID as a param
 router.put('/:id', function (req, res, next) {
+    console.log("Hit the update route");
     Review.findOneAndUpdate({_id: req.params.id}, req.body, function (err, updatedObj) {
         if (err) return next(err);
         //console.log("updatedReview: ", updatedObj);
@@ -80,6 +81,7 @@ router.put('/:id', function (req, res, next) {
 });
 
 router.delete('/:id', function (req, res, next) {
+    console.log("Hit the delete route");
     Review.remove({_id: req.params.id}, function (err) {
         if (err) return next(err);
         res.sendStatus(200);
