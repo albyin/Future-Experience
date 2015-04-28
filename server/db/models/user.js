@@ -13,15 +13,14 @@ var addressSchema = new mongoose.Schema({
 });
 
 var userSchema = new mongoose.Schema({
-    firstName : {type : String, required : true},
-    lastName : {type : String, required: true},
+    firstName : {type : String},
+    lastName : {type : String},
     email: {
         type: String,
         required: true
     },
     password: {
         type: String,
-        required: true,
     //used in routes later to display or not display certain properties
         select : false
     },
@@ -36,7 +35,8 @@ var userSchema = new mongoose.Schema({
         tokenSecret: String
     },
     facebook: {
-        id: String
+        id: String,
+        token : { type : String, select : false}
     },
     google: {
         id: String
