@@ -1,6 +1,6 @@
 <div ng-init="getAllProducts()">
     <button>Create New Product</button>
-    <form id="new-product-form" name="newProductForm" ng-submit="newProductForm.$valid && newProductSend(newProduct)" novalidate>
+    <form enctype='multipart/form-data' id="new-product-form" name="newProductForm" ng-submit="newProductForm.$valid && newProductSend(newProduct)" novalidate>
 
         <div class="alert alert-danger" ng-show="error">
             <span class="glyphicon glyphicon-exclamation-sign"></span>

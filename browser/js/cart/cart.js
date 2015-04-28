@@ -8,70 +8,83 @@ app.config(function ($stateProvider) {
         });
 });
 
-app.controller('CartController', function ($scope, AuthService, $state, CartFactory, CartService) {
-    this.items = CartService.items;
+app.controller('CartController', function ($scope, AuthService, $state, CartFactory) {
+    $scope.cart = CartFactory.getCart();
+
+    $scope.clearCart = function() {
+        CartFactory.clearCart();
+    };
+
+    $scope.removeItem = function(item_id) {
+        CartFactory.removeItem(item_id);
+    };
 });
 
-app.service('CartService', function($rootScope, CartFactory) {
-    var cartService = this;
-   cartService.items = [];
+app.factory('CartFactory', function($http, $localStorage) {
+    var cart = $localStorage.$default({
+        listitems : [],
+        totalPrice  : 0
+    });
 
-  cartService.pushCartItem = function (listItemId, name, price, quantity){
-    this.items.push({
-      listitem : listItemId,
-      name: name,
-      price: price,
-      quantity : quantity
-    });  
-  };
+    function pushCartItem(listItem, quantity) {
+        if (!quantity) return;
+        cart.listitems.push({
+            item : listItem,
+            quantity : parseInt(quantity)
+        });
+        cart.totalPrice += listItem.price * quantity;
 
-   // cartService.addToCart = function (listitem_id, quantity) {
-      //var newOrder = {
-      //  listitems : [{
-      //    item : listitem_id,
-      //    quantity : quantity
-      //  }]
-      //};
-      //
-      //CartFactory.createNewOrder(newOrder).then(function(newOrder) {
-      //    cartService.cart = newOrder;
-      //    console.log(cartService.cart);
-      //});
-   // };
-});
+        console.log(cart);
+    }
 
-app.factory('CartFactory', function($http, $q) {
-   return {
-      createNewOrder : function (newCart){
-        //http post request to /order
+    function removeItem(id) {
+        console.log("here");
+        cart.listitems = cart.listitems.filter(function(cartItem) {
+            if (cartItem.item._id === id) {
+                cart.totalPrice -= cartItem.item.price * cartItem.quantity;
+                return false;
+            }
+
+            return true;
+        });
+    }
+
+    function clearCart() {
+        cart.$reset({
+            listitems : [],
+            totalPrice  : 0
+        });
+    }
+
+    function getCart() {
+        return cart;
+    }
+
+    function createNewOrder(newCart) {
         console.log('CREATE NEW ORDER WITH:', newCart);
         return $http.post("/api/order", newCart)
-          .then(function (response){
-            console.log('post response', response);
-            return response.data;
-          }).catch (function (err){
-            console.log("THERE WAS AN ERROR YA'LL",err);
-          });
+            .then(returnResponse);
+    }
 
-      },
-      updateOrder : function (order){
-        //http put request to /order
+    function updateOrder(order) {
         return $http.put("/api/order/" + order._id, order)
-          .then(function (response){
-            return response.data;
-          });
+            .then(returnResponse);
+    }
 
-      },
-       getUserOrders : function(user_id) {
-           var api_url = user_id ? '/api/order/user/' + user_id : '/api/order';
-           return $http
-               .get(api_url)
-               .then(returnResponse)
-               .catch(function(error) {
-                   console.log(error);
-                   $q.reject({ message : "Not able to update user"});
-               });
-       }
+    function getUserOrders(user_id) {
+        var api_url = user_id ? '/api/order/user/' + user_id : '/api/order';
+        return $http
+            .get(api_url)
+            .then(returnResponse);
+    }
 
-   };
+    return {
+        pushCartItem   : pushCartItem,
+        removeItem     : removeItem,
+        clearCart      : clearCart,
+        getCart        : getCart,
+        createNewOrder : createNewOrder,
+        updateOrder    : updateOrder,
+        getUserOrders  : getUserOrders
+    };
 });
