@@ -1,6 +1,9 @@
-app.controller('AccountController', function($scope, Upload, AuthService, AccountFactory, CartFactory, ProductFactory, ListItemFactory, $state) {
+app.controller('AccountController', function($scope, Upload, AuthService, AccountFactory, CartFactory, ProductFactory, CategoryFactory, ListItemFactory, $state) {
 
     $scope.listItems = $scope.products = $scope.allUsers = $scope.user = $scope.orders = null;
+
+    $scope.products = ProductFactory.getAllProducts();
+    $scope.categories = CategoryFactory.getAllCategories();
 
     var emptyProfileInput = function() {
         $scope.profile = {
@@ -50,8 +53,6 @@ app.controller('AccountController', function($scope, Upload, AuthService, Accoun
             $scope.listitems = listitems;
         });
     };
-
-
 
     emptyProfileInput();
 });
