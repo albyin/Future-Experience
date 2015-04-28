@@ -1,15 +1,9 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt', 'ngFileUpload', 'LocalStorageModule']);
+var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt', 'ngFileUpload', 'ngStorage']);
 
 var returnResponse = function(response) {
     return response.data;
 };
-
-app.config (['localStorageServiceProvider', function (localStorageServiceProvider){
-    localStorageServiceProvider
-        .setPrefix("StackStore")
-        .setNotify(true, true);
-}]);
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)

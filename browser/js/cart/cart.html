@@ -1,5 +1,5 @@
 <!-- <pre>
-   {{cart-refactor | json}}
+   {{cart | json}}
    </pre> -->
 <div class="container-fluid">
    <div class="row-fluid">
@@ -9,7 +9,6 @@
             Space Store 
          </h1>
          <div>
-         <pre>ITEMS: {{CartCtrl.items}}</pre>
             <p class="text-info">
                Thanks for shopping at the Space Store.<br>
                This is your shopping cart. Here you can edit the items, 
@@ -29,19 +28,23 @@
                               <td class="tdCenter"><b>Subtotal Price</b></td>
                               <td class="tdCenter">Remove</td>
                            </tr>
-                           <!-- empty cart-refactor message -->
-                           <!--   <tr ng-hide="cart-refactor.getTotal() > 0" style="display: none;"> -->
+                           <!-- empty cart message -->
+                           <!--   <tr ng-hide="cart.getTotal() > 0" style="display: none;"> -->
                            <!--     <td class="tdCenter" colspan="4">
-                              Your cart-refactor is empty.
+                              Your cart is empty.
                               </td> -->
                            <!-- </tr> -->
-                           <!-- cart-refactor items -->
+                           <!-- cart items -->
                            <tr ng-repeat="cartItem in cart.listitems">
                               <td class="ng-binding">{{cartItem.item.product.name}}</td>
                               <td class="tdCenter">{{cartItem.quantity}}</td>
                               <td class="pricePerItem">{{cartItem.item.price/100 | currency}}</td>
                               <td class="tdCenter">{{cartItem.item.price * cartItem.quantity/100 | currency}}</td>
-                              <td class="tdCenter" title="remove from cart"><img ng-click="removeItem()"src="http://photos.gograph.com/thumbs/CSP/CSP364/k3646937.jpg" height="35" width="35"/></td>
+                              <td class="tdCenter" title="remove from cart">
+                                 <button ng-click="removeItem(cartItem.item._id)">
+                                  <img src="http://photos.gograph.com/thumbs/CSP/CSP364/k3646937.jpg" height="35" width="35"/>
+                                 </button>
+                              </td>
                            </tr>
                            </tr
                            <! footer
@@ -61,28 +64,32 @@
                         <i class="icon-chevron-left"></i> back to store
                         </button>
 
-                        <button class="btn btn-block btn-danger" ng-click="CartCtrl.clearCart()">
+                        <button class="btn btn-block btn-danger" ng-click="clearCart()">
                         <i class="icon-trash icon-white"></i> clear cart
                         </button>
-                     </p>
-                     <br><br>
-                     <p class="text-info">
-                        <button class="btn btn-block btn-primary">
-                        <i class="icon-ok icon-white"></i> check out using PayPal
-                        </button>
-                        <button class="btn btn-block btn-primary">
-                        <i class="icon-ok icon-white"></i> check out using Google
+
+                        <button class="btn btn-block btn-primary" ui-sref="checkout">
+                        <i class="icon-ok icon-white"></i> Check Out
                         </button>
                      </p>
-                     <br><br>
-                     <p class="text-info">
-                        <button class="btn btn-block btn-link">
-                        <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="checkout PayPal">
-                        </button>    
-                        <button class="btn btn-block btn-link">
-                        <img src="http://mypcservices.us/images/googlecheck.jpg" alt="checkoutGoogle">
-                        </button>    
-                     </p>
+                     <!--<br><br>-->
+                     <!--<p class="text-info">-->
+                        <!--<button class="btn btn-block btn-primary">-->
+                        <!--<i class="icon-ok icon-white"></i> check out using PayPal-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-block btn-primary">-->
+                        <!--<i class="icon-ok icon-white"></i> check out using Google-->
+                        <!--</button>-->
+                     <!--</p>-->
+                     <!--<br><br>-->
+                     <!--<p class="text-info">-->
+                        <!--<button class="btn btn-block btn-link">-->
+                        <!--<img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="checkout PayPal">-->
+                        <!--</button>    -->
+                        <!--<button class="btn btn-block btn-link">-->
+                        <!--<img src="http://mypcservices.us/images/googlecheck.jpg" alt="checkoutGoogle">-->
+                        <!--</button>    -->
+                     <!--</p>-->
                   </div>
                </div>
             </div>

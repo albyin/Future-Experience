@@ -63,7 +63,7 @@ app.config(function ($stateProvider) {
             }
         })
         .state('user.admin.listitems', {
-            url        : '/products',
+            url        : '/listitems',
             templateUrl: 'js/account/partials/admin-listitems.html',
             data : {
                 authenticate : true,

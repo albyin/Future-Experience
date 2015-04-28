@@ -1,7 +1,7 @@
 app.directive('addToCart', function (CartFactory) {
     return {
         restrict : 'E',
-        templateUrl : 'js/cart-refactor/add-to-cart/add-to-cart.html',
+        templateUrl : 'js/cart/add-to-cart/add-to-cart.html',
         scope : {
             item: '='
         },

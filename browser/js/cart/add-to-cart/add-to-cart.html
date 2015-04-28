@@ -1,7 +1,7 @@
 <div>
     <select ng-model="addQuant">
         <option value>Select a Quantity</option>
-        <option ng-repeat="num in [].constructor(item.quantity) track by $index" value="{{$index}}">{{$index}}</option>
+        <option ng-repeat="num in [].constructor(item.quantity) track by $index" value="{{$index + 1}}">{{$index + 1}}</option>
     </select>
     <button ng-click="addToCart()">Add To Cart</button>
 </div>
