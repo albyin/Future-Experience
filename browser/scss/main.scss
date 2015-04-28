@@ -10,6 +10,93 @@
   }
 }
 
+$blue-color: #23D2F2;
+$red-color: #FE4641;
+
+@font-face {
+  font-family: 'lovelo bold';
+  src: url('fonts/lovelo_line_bold-webfont.eot');
+  src: url('fonts/lovelo_line_bold-webfont.eot?#iefix') format('embedded-opentype'),
+  url('fonts/lovelo_line_bold-webfont.woff2') format('woff2'),
+  url('fonts/lovelo_line_bold-webfont.woff') format('woff'),
+  url('fonts/lovelo_line_bold-webfont.ttf') format('truetype'),
+  url('fonts/lovelo_line_bold-webfont.svg#loveloline_bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'lovelo light';
+  src: url('fonts/lovelo_line_light-webfont.eot');
+  src: url('fonts/lovelo_line_light-webfont.eot?#iefix') format('embedded-opentype'),
+  url('fonts/lovelo_line_light-webfont.woff2') format('woff2'),
+  url('fonts/lovelo_line_light-webfont.woff') format('woff'),
+  url('fonts/lovelo_line_light-webfont.ttf') format('truetype'),
+  url('fonts/lovelo_line_light-webfont.svg#loveloline_light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'lovelo black';
+  src: url('fonts/lovelo_black-webfont.eot');
+  src: url('fonts/lovelo_black-webfont.eot?#iefix') format('embedded-opentype'),
+  url('fonts/lovelo_black-webfont.woff2') format('woff2'),
+  url('fonts/lovelo_black-webfont.woff') format('woff'),
+  url('fonts/lovelo_black-webfont.ttf') format('truetype'),
+  url('fonts/lovelo_black-webfont.svg#loveloblack') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+$fa-version:          "4.3.0" !default;
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('fonts/fontawesome/fontawesome-webfont.eot?v=#{$fa-version}');
+  src: url('fonts/fontawesome/fontawesome-webfont.eot?#iefix&v=#{$fa-version}') format('embedded-opentype'),
+  url('fonts/fontawesome/fontawesome-webfont.woff2?v=#{$fa-version}') format('woff2'),
+  url('fonts/fontawesome/fontawesome-webfont.woff?v=#{$fa-version}') format('woff'),
+  url('fonts/fontawesome/fontawesome-webfont.ttf?v=#{$fa-version}') format('truetype'),
+  url('fonts/fontawesome/fontawesome-webfont.svg?v=#{$fa-version}#fontawesomeregular') format('svg');
+  //  src: url('#{$fa-font-path}/FontAwesome.otf') format('opentype'); // used when developing fonts
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+body {
+  background: black;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 125%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'lovelo black';
+}
+
+section {
+  width: 100%;
+}
+
+.absolute-center {
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 5;
+  width: 100%;
+  height: 100vh;
+  display: table;
+  .center-container {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+@import '../../bower_components/fontawesome/scss/font-awesome';
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';

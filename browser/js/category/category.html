@@ -1,12 +1,23 @@
-<section id="category">
-	<h1>Welcome! {{id}}</h1>
-<!-- 	<h1>Welcome! {{category.name}}</h1> -->
-	<ul class = "listOfItems">
-		<li ng-repeat="listItem in listItems">
-			<a ui-sref="listItem({listItemId: listItem._id})">{{listItem.product.name}}</a>
-			<add-to-cart item="listItem"></add-to-cart>
-		</li>
-	</ul>
+<div id="category">
+    <h3>{{currentUser.firstName}}!</h3>
 
-	<recommendations></recommendations>
-</section>
+    <h1>Welcome to {{listItems[0].category.name}} preparation.</h1>
+
+    <div>
+        <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search:</button>
+      </span>
+            <input ng-model="searchTerm" type="text" class="form-control"
+                   placeholder="Search {{listItems[0].category.name}} for...">
+        </div>
+    </div>
+    <ul class="listOfItems">
+        <li ng-repeat="listItem in listItems | filter:searchTerm">
+            <a ui-sref="listItem({listItemId: listItem._id})">{{listItem.product.name}}</a>
+            <add-to-cart item="listItem"></add-to-cart>
+        </li>
+    </ul>
+
+    <!--<recommendations></recommendations>-->
+</div>

@@ -1,5 +1,7 @@
 <div>
     <button ng-click="editToggle()">{{buttonText}}</button>
+    <button ng-show="!areYouSure" ng-click="areYouSure=true">Remove List Item</button>
+    <button ng-show="areYouSure" ng-click="removeListItem()">Yes, go ahead!</button>
 </div>
 <div>
     <form ng-if="showEdit" enctype='multipart/form-data' id="edit-listitem-form" name="editListItemForm"
