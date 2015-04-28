@@ -1,4 +1,4 @@
-<div class="btn login-button">
-    <span>Total Price: {{ cart.totalPrice/100 | currency:"$" }}</span>
-    <a ui-sref="cart">cart</a>
-</div>
+<button class="btn btn-success cart-preview" ui-sref="cart">
+    <span>Total: {{ cart.totalPrice/100 | currency:"$" }}</span>
+    <i class="fa fa-shopping-cart"></i>
+</button>
