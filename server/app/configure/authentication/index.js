@@ -53,6 +53,9 @@ module.exports = function (app) {
     passport.deserializeUser(function (id, done) {
         UserModel.findById(id).lean().exec(function(err, user) {
             if (err) return done(err);
+            if (!user) {
+                return done(new Error("Invalid User Session"));
+            }
 
             if (USER_LEVEL[user.userType]) {
                 _.extend(user, USER_LEVEL[user.userType]);
