@@ -13,7 +13,6 @@ app.controller("ListItemController", function($scope, ProductFactory, CategoryFa
 	$scope.showForm = false;
 
 
-
 	ListItemFactory.getSingleListItem($stateParams.listItemId).then(function (listitem){
 		$scope.listitem = listitem;
 		return listitem;
@@ -41,7 +40,11 @@ app.factory("ListItemFactory", function($http){
 		return $http.post('/api/listitems', item).then(returnResponse);
 	}
 	function editListItem (item) {
-		return $http.put('/api/listitems' + item._id, item).then(returnResponse);
+		return $http.put('/api/listitems/' + item._id, item).then(returnResponse);
+	}
+
+	function deleteListItem(item){
+		return $http.delete("/api/listitems/" + item._id).then(returnResponse);
 	}
 
 	return {
@@ -56,6 +59,7 @@ app.factory("ListItemFactory", function($http){
 			return $http.get("/api/listitems").then(returnResponse);
 		},
 		createListItem: createListItem,
-		editListItem: editListItem
+		editListItem: editListItem,
+		deleteListItem: deleteListItem
 	};
 });

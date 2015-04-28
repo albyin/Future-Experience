@@ -5,6 +5,8 @@
     </pre>
 
     <button ng-click="editToggle()">{{buttonText}}</button>
+    <button ng-show="!areYouSure" ng-click="areYouSure = true">Remove this product</button>
+    <button ng-show="areYouSure" ng-click="removeProduct()">Yes, go ahead!</button>
     <form ng-if="showEdit" enctype='multipart/form-data' id="edit-product-form" name="editProductForm"
           ng-submit="editProductSend(productProfile)" novalidate>
 
