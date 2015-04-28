@@ -7,7 +7,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("ListItemController", function($scope, ProductFactory, CategoryFactory, ListItemFactory, ReviewsFactory, $stateParams, CartService, CartFactory){
+app.controller("ListItemController", function($scope, ProductFactory, CategoryFactory, ListItemFactory, ReviewsFactory, $stateParams, CartFactory){
 
 	$scope.id = $stateParams.listItemId;
 	$scope.showForm = false;
