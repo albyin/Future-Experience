@@ -6,7 +6,7 @@ var findOrCreate = require('mongoose-findorcreate');
 
 var ProductSchema = new mongoose.Schema({
     name : String,
-    image: String,
+    image: { type: String, default: "https://placekitten.com/g/650/650" },
     details: String,
     tags: [String]
 });

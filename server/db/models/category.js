@@ -6,7 +6,8 @@ var findOrCreate = require('mongoose-findorcreate');
 
 var CategorySchema = new mongoose.Schema({
     name : String,
-    description : String
+    description : String,
+    image : {type : String, default: "https://placekitten.com/g/800/600"}
 });
 
 CategorySchema.plugin(findOrCreate);
