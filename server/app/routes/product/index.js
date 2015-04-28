@@ -70,6 +70,7 @@ router.post('/upload', function (req, res, next) {
 
 router.put('/:id', function (req, res, next) {
     Product.findOneAndUpdate({_id: req.params.id}, req.body, function (err, updatedObj){
+        console.log("HERE!!");
         if(err) return next(err);
         res.send(updatedObj);
     });

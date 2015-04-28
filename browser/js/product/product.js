@@ -14,8 +14,13 @@ app.controller("ProductController", function($scope, $stateParams, categoryId){
 
 
 app.factory("ProductFactory", function($http){
+
     function createProduct (product) {
         return $http.post('/api/product', product)
+                    .then(returnResponse);
+    }
+    function editProduct (product) {
+        return $http.put('/api/product/' + product._id, product)
                     .then(returnResponse);
     }
 
@@ -25,6 +30,7 @@ app.factory("ProductFactory", function($http){
                 .get('/api/product')
                 .then(returnResponse);
         },
-        createProduct: createProduct
+        createProduct: createProduct,
+        editProduct: editProduct
     };
 });

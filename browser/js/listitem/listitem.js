@@ -7,9 +7,12 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFactory, $stateParams, CartFactory){
+app.controller("ListItemController", function($scope, ProductFactory, CategoryFactory, ListItemFactory, ReviewsFactory, $stateParams, CartService, CartFactory){
+
 	$scope.id = $stateParams.listItemId;
 	$scope.showForm = false;
+
+
 
 	ListItemFactory.getSingleListItem($stateParams.listItemId).then(function (listitem){
 		$scope.listitem = listitem;
@@ -33,6 +36,14 @@ app.controller("ListItemController", function($scope, ListItemFactory, ReviewsFa
 });
 
 app.factory("ListItemFactory", function($http){
+
+	function createListItem (item) {
+		return $http.post('/api/listitems', item).then(returnResponse);
+	}
+	function editListItem (item) {
+		return $http.put('/api/listitems' + item._id, item).then(returnResponse);
+	}
+
 	return {
 		getListItemsForCategory: function(cat_id){
 			//:cat_id will be changed after the backend is done
@@ -43,6 +54,8 @@ app.factory("ListItemFactory", function($http){
 		},
 		getListItems : function() {
 			return $http.get("/api/listitems").then(returnResponse);
-		}
+		},
+		createListItem: createListItem,
+		editListItem: editListItem
 	};
 });
