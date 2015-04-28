@@ -7,20 +7,21 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("CategoryController", function($scope, ListItemFactory, $stateParams){
+app.controller("CategoryController", function($scope, ListItemFactory, $stateParams, AuthService){
 	$scope.id = $stateParams.cat_id;
-	// console.log($scope.id);
+
+    $scope.searchTerm = '';
+
+    AuthService.getLoggedInUser().then(function(user) {
+        $scope.currentUser = user || "Guest";
+    });
+
 	ListItemFactory.getListItemsForCategory($stateParams.cat_id).then(function(listItems){
-		
 		$scope.listItems = listItems;
-		// $scope.listitems = listitems.map(function(el){
-		// 	return { product: el.product, 
-		// 			 // details: el.details, 
-		// 			 price: el.price, 
-		// 			 // picture: el.picture 
-		// 	};
-		// });
-	});	
+	});
+
+
+
 });
 
 app.factory("CategoryFactory", function($http){
