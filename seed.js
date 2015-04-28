@@ -74,10 +74,26 @@ var seedUsers = function () {
 };
 
 var seedListItems = function(users) {
-    var categoryTestArr = [{name: 'Space'}, {name: 'Final Frontier'}];
+    var categoryTestArr = [{
+        name: 'Space Colonization1',
+        description : 'Lorem Ipsum'
+    }, {
+        name: 'Zombie Apocalypse',
+        description : 'Lorem Ipsum'
+    }];
     var productTestArr = [
-        {name: 'Toilet paper', image: 'spacetoilet.gif', details: 'description'},
-        {name: 'Eye Liner', image: 'usefulStuff.jpeg', details: 'importantInfo'}
+        {
+            name: 'Toilet paper',
+            image: 'spacetoilet.gif',
+            details: 'description',
+            tags: ['Fullstack Academy', ]
+        },
+        {
+            name: 'Eye Liner',
+            image: 'usefulStuff.jpeg',
+            details: 'importantInfo',
+            tags: ['The Colbert Report']
+        }
     ];
 
      var promises = [];

@@ -1,3 +1,6 @@
-<pre>
-    {{ facebookResult | json}}
-</pre>
+<div ng-if="recommendations">
+    Recommendations:
+    <pre>
+        {{ recommendations | json}}
+    </pre>
+</div>
