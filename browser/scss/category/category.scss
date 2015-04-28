@@ -1,0 +1,42 @@
+#category {
+  .container {
+    padding: 20px 0;
+
+    .listOfItems {
+        list-style: none;
+        padding: 0;
+        margin-top: 32px;
+        li {
+          list-style: none;
+          margin-bottom: 30px;
+          .item-image {
+            width: 100%;
+            img {
+              display:block;
+              width: 100%;
+            }
+          }
+          .item-description {
+            margin-top: 6px;
+            p {
+              margin: 0;
+              font-size: 16px;
+              font-family: 'lovelo black';
+              a {
+                color : $red-color;
+              }
+            }
+            .add-to-cart {
+              margin-top:6px;
+              padding: 6px 0;
+              border-top: 1px solid #CCC;
+              border-bottom: 1px solid #CCC;
+              .addQuant {
+                float: right;
+              }
+            }
+          }
+        }
+    }
+  }
+}

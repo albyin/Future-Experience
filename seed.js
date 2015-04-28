@@ -84,12 +84,12 @@ var seedListItems = function(users) {
     var productTestArr = [
         {
             name: 'Toilet paper',
-            image: 'spacetoilet.gif',
+            //image: 'images/spacetoilet.gif',
             details: 'description'
         },
         {
             name: 'Eye Liner',
-            image: 'usefulStuff.jpeg',
+            //image: 'images/usefulStuff.jpeg',
             details: 'importantInfo'
         }
     ];
@@ -107,12 +107,16 @@ var seedListItems = function(users) {
             var productTP = testArr[1][0];
             var productEL = testArr[1][1];
 
-            return ListItem.createAsync([
-                {quantity: 5, price: 100, product: productTP.id, category: categoryS.id, tags: ['The Colbert Report']},
-                {quantity: 3, price: 2000, product: productEL.id, category: categoryS.id, tags: ['Fullstack Academy']},
-                {quantity: 8, price: 500, product: productTP.id, category: categoryFF.id, tags: ['The Colbert Report']},
-                {quantity: 10, price: 300, product: productEL.id, category: categoryFF.id, tags: ['Fullstack Academy']}
-            ])
+            var createArr = [];
+            for (var i = 0; i < 16; i++) {
+                if (i % 2) {
+                    createArr.push({quantity: 5, price: 100, product: productTP.id, category: categoryS.id, tags: ['The Colbert Report']});
+                } else {
+                    createArr.push({quantity: 3, price: 2000, product: productEL.id, category: categoryFF.id, tags: ['Fullstack Academy']});
+                }
+            }
+
+            return ListItem.createAsync(createArr)
             .then(function (listitems){
                 var review1 = {
                     user : users[0].id,
