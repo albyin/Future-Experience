@@ -52,3 +52,15 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
     };
 
 });
+
+app.controller('windowCtrl', function($scope, $window) {
+    $scope.topLevel = true;
+    $(window).on('scroll', function() {
+       if ($window.scrollY > 30) {
+           $scope.topLevel = false;
+       } else {
+           $scope.topLevel = true;
+       }
+        $scope.$digest();
+    });
+});

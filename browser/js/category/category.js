@@ -7,18 +7,22 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("CategoryController", function($scope, ListItemFactory, $stateParams, AuthService){
+app.controller("CategoryController", function($scope, ListItemFactory, CategoryFactory, $stateParams){
 	$scope.id = $stateParams.cat_id;
+    $scope.category = null;
 
     $scope.searchTerm = '';
-
-    AuthService.getLoggedInUser().then(function(user) {
-        $scope.currentUser = user || "Guest";
-    });
 
 	ListItemFactory.getListItemsForCategory($stateParams.cat_id).then(function(listItems){
 		$scope.listItems = listItems;
 	});
+
+    CategoryFactory
+        .getCategoryById($scope.id)
+        .then(function(category) {
+            $scope.category = category;
+        });
+
 
 
 
@@ -28,6 +32,12 @@ app.factory("CategoryFactory", function($http){
     return{
         getAllCategories: function(){
             return $http.get("/api/category")
+                .then(function(response){
+                    return response.data;
+                });
+        },
+        getCategoryById : function(id) {
+            return $http.get("/api/category/"+id)
                 .then(function(response){
                     return response.data;
                 });
