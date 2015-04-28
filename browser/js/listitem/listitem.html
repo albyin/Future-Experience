@@ -1,78 +1,86 @@
 <section id="listItem">
-   <h1>Welcome!</h1>
-   <br>
-   <h2>{{ listitem.product.name }}</h2>
-   <table>
-      <tr>
-         <td>Image: </td>
-         <td><img src="images/{{listitem.product.image}}"></td>
-      </tr>
-      <tr>
-         <td>Description: </td>
-         <td>{{listitem.product.description}}</td>
-      </tr>
-      <tr>
-         <td>Price: </td>
-         <td>{{listitem.price/100 | currency}}</td>
-      </tr>
-      <tr>
-         <td>Quantity: </td>
-         <td>{{listitem.quantity}}</td>
-      </tr>
-       <tr>
-       <td><add-to-cart item="listitem"></add-to-cart></td>
-       </tr>
-   </table>
+    <h1>Welcome!</h1>
+    <br>
+
+    <h2>{{ listitem.product.name }}</h2>
+    <table>
+        <tr>
+            <td>Image:</td>
+            <td><img src="images/{{listitem.product.image}}"></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td>{{listitem.product.description}}</td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td>{{listitem.price/100 | currency}}</td>
+        </tr>
+        <tr>
+            <td>Quantity:</td>
+            <td>{{listitem.quantity}}</td>
+        </tr>
+        <tr>
+            <td>
+                <add-to-cart item="listitem"></add-to-cart>
+            </td>
+        </tr>
+    </table>
 
 
-        <!--<table ng-repeat="review in reviews" border="1px">-->
-   <!--<div class="checkbox" ng-repeat="review in reviews">-->
-               <!--<label>-->
-                  <!--<input type="checkbox" ng-click="deleteReview(review)"> {{ review.comment }}-->
-               <!--</label>-->
-            <!--</div>-->
-     <!-- -->
-            <!--<tr >-->
-               <!--<td>Reviewer: </td>-->
-               <!--<td>{{ review.user }}</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-               <!--<td>Rating: </td>-->
-               <!--<td>{{ review.stars }}</td>-->
-            <!--</tr>-->
-            <!--<tr >-->
-               <!--<td>Comment: </td>-->
-               <!--<td>{{ review.comment }}</td>-->
-            <!--</tr>-->
-         <!--</table>-->
-      <!--</tr>-->
-   <!--</table>-->
-   <!--<br/>-->
-   <div ng-controller="ReviewController as reviewCtrl">
+    <!--<table ng-repeat="review in reviews" border="1px">-->
+    <!--<div class="checkbox" ng-repeat="review in reviews">-->
+    <!--<label>-->
+    <!--<input type="checkbox" ng-click="deleteReview(review)"> {{ review.comment }}-->
+    <!--</label>-->
+    <!--</div>-->
+    <!-- -->
+    <!--<tr >-->
+    <!--<td>Reviewer: </td>-->
+    <!--<td>{{ review.user }}</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td>Rating: </td>-->
+    <!--<td>{{ review.stars }}</td>-->
+    <!--</tr>-->
+    <!--<tr >-->
+    <!--<td>Comment: </td>-->
+    <!--<td>{{ review.comment }}</td>-->
+    <!--</tr>-->
+    <!--</table>-->
+    <!--</tr>-->
+    <!--</table>-->
+    <!--<br/>-->
+    <div ng-controller="ReviewController as reviewCtrl">
 
+        <div ng-if="reviewCtrl.reviews">
+            <h4>Product Reviews:</h4>
+            <p ng-repeat="review in reviewCtrl.reviews">
+                <a href="#">User: {{reviewCtrl.creator.firstName}}, Comment: {{review.comment}}, Rating:
+                    {{review.stars}}</a>
+            </p>
+        </div>
 
-  <p ng-repeat="review in reviews">
-            <a href="#">User: {{review.user}}, Comment: {{review.comment}}, Rating: {{review.stars}}</a>  <button ng-click="reviewCtrl.deleteReviews(review)" class="delete-item">x</button>
-            <button ng-click="reviewCtrl.updateReviews(review)" class="update-item">edit</button>
-        </p>
+        <button id="addReview" ng-if="!reviewCtrl.showForm" ng-click="reviewCtrl.toggleReviewForm()">Add Review</button>
+        <button id="addReview" ng-if="reviewCtrl.showForm" ng-click="reviewCtrl.toggleReviewForm()">Close</button>
 
-	   <button id="addReview" ng-show="reviewCtrl.showButton" ng-click="toggleReviewForm()" >Add Review</button>
-	   <div ng-show="showForm">
-		  <form name="review"  ng-submit="reviewCtrl.addReviews(reviewCtrl.futureReview)">
-			 <h4>Submit a Review</h4>
-			 <fieldset class="form-group">
-				<select class="form-control" title="Stars" ng-model="reviewCtrl.futureReview.stars">
-				   <option value>Rate the Product</option>
-				   <option ng-repeat="starnum in reviewCtrl.starsArr"value="{{starnum}}">{{starnum}}</option>
-				</select>
-			 </fieldset>
-			 <fieldset class="form-group">
-				<textarea class="form-control" ng-model="reviewCtrl.futureReview.comment" placeholder="Write a short comment about this product..." title="Comment"></textarea>
-			 </fieldset>
-			 <fieldset class="form-group">
-				<input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
-			 </fieldset>
-		  </form>
-	   </div>
-   </div>
+        <div ng-if="reviewCtrl.showForm">
+            <form name="review" ng-submit="reviewCtrl.addReviews()">
+                <h4>Submit a Review</h4>
+                <fieldset class="form-group">
+                    <select class="form-control" title="Stars" ng-model="reviewCtrl.futureReview.stars">
+                        <option value>Rate the Product</option>
+                        <option ng-repeat="starnum in reviewCtrl.starsArr" value="{{starnum}}">{{starnum}}</option>
+                    </select>
+                </fieldset>
+                <fieldset class="form-group">
+                    <textarea class="form-control" ng-model="reviewCtrl.futureReview.comment"
+                              placeholder="Write a short comment about this product..." title="Comment"></textarea>
+                </fieldset>
+                <fieldset class="form-group">
+                    <input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
+                </fieldset>
+            </form>
+        </div>
+    </div>
 </section>
