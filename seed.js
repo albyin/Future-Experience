@@ -75,7 +75,7 @@ var seedUsers = function () {
 
 var seedListItems = function(users) {
     var categoryTestArr = [{
-        name: 'Space Colonization1',
+        name: 'Space Colonization!',
         description : 'Lorem Ipsum'
     }, {
         name: 'Zombie Apocalypse',
