@@ -1,57 +1,32 @@
-<section id="listItem">
-    <h1>Welcome!</h1>
-    <br>
+<div class="fluid-container">
+<div class="row">
+    <div class="col-md-5">
+        <img class="image-responsive" src="images/{{listitem.product.image}}" alt="Responsive image">
 
-    <h2>{{ listitem.product.name }}</h2>
-    <table>
-        <tr>
-            <td>Image:</td>
-            <td><img src="images/{{listitem.product.image}}"></td>
-        </tr>
-        <tr>
-            <td>Description:</td>
-            <td>{{listitem.product.description}}</td>
-        </tr>
-        <tr>
-            <td>Price:</td>
-            <td>{{listitem.price/100 | currency}}</td>
-        </tr>
-        <tr>
-            <td>Quantity:</td>
-            <td>{{listitem.quantity}}</td>
-        </tr>
-        <tr>
-            <td>
-                <add-to-cart item="listitem"></add-to-cart>
-            </td>
-        </tr>
-    </table>
+    </div>
+
+    <div class="col-md-7">
+        <div id="listitem-name">
+            <h1>{{ listitem.product.name }}</h1>
+        </div>
+        <div id="listitem-price">
+            <h2>{{listitem.price/100 | currency}}</h2>
+    </div>
+
+    <div id="select-quantity">
+        <add-to-cart item="listitem"></add-to-cart>
+    </div>
+
+    <div id="listitem-description">
+        <h4>Product description: {{listitem.product.description}}</h4>
+    </div>
+    
+</div>
 
 
-    <!--<table ng-repeat="review in reviews" border="1px">-->
-    <!--<div class="checkbox" ng-repeat="review in reviews">-->
-    <!--<label>-->
-    <!--<input type="checkbox" ng-click="deleteReview(review)"> {{ review.comment }}-->
-    <!--</label>-->
-    <!--</div>-->
-    <!-- -->
-    <!--<tr >-->
-    <!--<td>Reviewer: </td>-->
-    <!--<td>{{ review.user }}</td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-    <!--<td>Rating: </td>-->
-    <!--<td>{{ review.stars }}</td>-->
-    <!--</tr>-->
-    <!--<tr >-->
-    <!--<td>Comment: </td>-->
-    <!--<td>{{ review.comment }}</td>-->
-    <!--</tr>-->
-    <!--</table>-->
-    <!--</tr>-->
-    <!--</table>-->
-    <!--<br/>-->
-    <div ng-controller="ReviewController as reviewCtrl">
+<div class="row">
+    <div id="listitem-reviews">
+        <div ng-controller="ReviewController as reviewCtrl">
 
         <div ng-if="reviewCtrl.reviews">
             <h4>Product Reviews:</h4>
@@ -83,4 +58,11 @@
             </form>
         </div>
     </div>
+</div>
+
+<div class="row">
+    <h5>Reccomendations: </h1>
+</div>
+</div>
+ 
 </section>
