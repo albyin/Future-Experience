@@ -25,7 +25,11 @@ router.get('/likes', function(req, res, next) {
             request(options, function(err, response, body) {
                 if (err) return next(err);
 
-                res.json(JSON.parse(body));
+                var likes = JSON.parse(body).data.map(function(like) {
+                   return like.name;
+                });
+
+                res.json(likes);
             });
         });
 });

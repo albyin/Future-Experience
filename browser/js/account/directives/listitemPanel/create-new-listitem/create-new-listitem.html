@@ -3,7 +3,7 @@
 </div>
 <div>
     <form ng-if="showEdit" enctype='multipart/form-data' id="new-listitem-form" name="createListItemForm"
-          ng-submit="listItemForm.$valid && createListItem(listItemProfile)" novalidate>
+          ng-submit="createListItemForm.$valid && createListItem(listItemProfile)" novalidate>
 
         <div class="alert alert-danger" ng-show="error">
             <span class="glyphicon glyphicon-exclamation-sign"></span>

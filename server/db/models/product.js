@@ -7,7 +7,8 @@ var findOrCreate = require('mongoose-findorcreate');
 var ProductSchema = new mongoose.Schema({
     name : String,
     image: String,
-    details: String
+    details: String,
+    tags: [String]
 });
 
 //The model now has a findOrCreate static method

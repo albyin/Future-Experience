@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var findOrCreate = require('mongoose-findorcreate');
 
 var CategorySchema = new mongoose.Schema({
-    name : String
+    name : String,
+    description : String
 });
 
 CategorySchema.plugin(findOrCreate);
