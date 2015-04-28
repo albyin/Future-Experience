@@ -75,7 +75,7 @@ var seedUsers = function () {
 
 var seedListItems = function(users) {
     var categoryTestArr = [{
-        name: 'Space Colonization1',
+        name: 'Space Colonization',
         description : 'Lorem Ipsum'
     }, {
         name: 'Zombie Apocalypse',
@@ -85,14 +85,12 @@ var seedListItems = function(users) {
         {
             name: 'Toilet paper',
             image: 'spacetoilet.gif',
-            details: 'description',
-            tags: ['Fullstack Academy', ]
+            details: 'description'
         },
         {
             name: 'Eye Liner',
             image: 'usefulStuff.jpeg',
-            details: 'importantInfo',
-            tags: ['The Colbert Report']
+            details: 'importantInfo'
         }
     ];
 
@@ -110,10 +108,10 @@ var seedListItems = function(users) {
             var productEL = testArr[1][1];
 
             return ListItem.createAsync([
-                {quantity: 5, price: 100, product: productTP.id, category: categoryS.id},
-                {quantity: 3, price: 2000, product: productEL.id, category: categoryS.id},
-                {quantity: 8, price: 500, product: productTP.id, category: categoryFF.id},
-                {quantity: 10, price: 300, product: productEL.id, category: categoryFF.id}
+                {quantity: 5, price: 100, product: productTP.id, category: categoryS.id, tags: ['The Colbert Report']},
+                {quantity: 3, price: 2000, product: productEL.id, category: categoryS.id, tags: ['Fullstack Academy']},
+                {quantity: 8, price: 500, product: productTP.id, category: categoryFF.id, tags: ['The Colbert Report']},
+                {quantity: 10, price: 300, product: productEL.id, category: categoryFF.id, tags: ['Fullstack Academy']}
             ])
             .then(function (listitems){
                 var review1 = {

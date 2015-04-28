@@ -10,7 +10,8 @@ var ListItemSchema = new mongoose.Schema({
     price    : Number,
     product: {type : Schema.Types.ObjectId, ref : 'Product'},
     category: {type: Schema.Types.ObjectId, ref: 'Category'},
-	creator: {type: Schema.Types.ObjectId, ref: 'User'}
+	creator: {type: Schema.Types.ObjectId, ref: 'User'},
+	tags   : [String]
 });
 
 var generalFilter = function(listItems, general) {
