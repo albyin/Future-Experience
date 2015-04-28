@@ -1,5 +1,16 @@
 <div ng-init="loadListItems()">
-    <pre>
-        {{ listitems | json }}
-    </pre>
+
+    <create-list-item></create-list-item>
+    <div>
+        <ul>
+            <li ng-repeat="listitem in listitems" style="margin-bottom: 16px;">
+                <pre>
+                                    {{listitem}}
+                </pre>
+                <hr>
+                <edit-list-item listitem="listitem"></edit-list-item>
+            </li>
+        </ul>
+    </div>
+
 </div>

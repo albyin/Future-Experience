@@ -1,0 +1,54 @@
+<div>
+    <button ng-click="editToggle()">{{buttonText}}</button>
+</div>
+<div>
+    <form ng-if="showEdit" enctype='multipart/form-data' id="new-listitem-form" name="createListItemForm"
+          ng-submit="listItemForm.$valid && createListItem(listItemProfile)" novalidate>
+
+        <div class="alert alert-danger" ng-show="error">
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+            <span class="sr-only">Error:</span>
+            {{ error }}
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input name="quantity" type="text" ng-model="listItemProfile.quantity" class="form-control" id="quantity"
+                   placeholder="Enter Quantity" required>
+            <error ng-show="createListItemForm.quantity.$error.required && createListItemForm.$submitted">Quantity is
+                required
+            </error>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input name="price" type="text" ng-model="listItemProfile.price" class="form-control" id="price"
+                   placeholder="Enter price" required>
+            <error ng-show="createListItemForm.price.$error.required && createListItemForm.$submitted">Price is
+                required
+            </error>
+        </div>
+
+        <div class="form-group">
+            <label for="product">Product</label>
+            <select id="product" ng-model="listItemProfile.product">
+                <option value="{{product._id}}" ng-repeat="product in products">{{product.name}}</option>
+            </select>
+            <error ng-show="createListItemForm.product.$error.required && createListItemForm.$submitted">Product is
+                required
+            </error>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" ng-model="listItemProfile.category">
+                <option value="{{category._id}}" ng-repeat="category in categories">{{category.name}}</option>
+            </select>
+            <error ng-show="createListItemForm.category.$error.required && createListItemForm.$submitted">Category is
+                required
+            </error>
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
