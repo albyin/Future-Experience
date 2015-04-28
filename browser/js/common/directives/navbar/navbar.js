@@ -53,8 +53,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 
 });
 
-app.controller('windowCtrl', function($scope, $window) {
+app.controller('windowCtrl', function($scope, $window, $rootScope) {
     $scope.topLevel = true;
+    $scope.validState = true;
     $(window).on('scroll', function() {
        if ($window.scrollY > 30) {
            $scope.topLevel = false;
@@ -62,5 +63,10 @@ app.controller('windowCtrl', function($scope, $window) {
            $scope.topLevel = true;
        }
         $scope.$digest();
+    });
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        console.log(toState);
+        $scope.validState = toState.name === "home" || toState.name === "category";
     });
 });

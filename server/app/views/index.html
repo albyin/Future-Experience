@@ -21,7 +21,7 @@
 </head>
 <body ng-app="FullstackGeneratedApp">
     <div ng-controller="windowCtrl">
-        <navbar ng-class="{'nav-top-level' : topLevel }"></navbar>
+        <navbar ng-class="{'nav-top-level' : topLevel && validState }"></navbar>
     <div ui-view></div>
 </body>
 </html>
