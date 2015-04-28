@@ -53,7 +53,6 @@ $red-color: #FE4641;
 }
 
 body {
-  background: black;
   font-family: 'Open Sans', sans-serif;
   line-height: 125%;
 }
@@ -81,8 +80,56 @@ section {
   }
 }
 
+header {
+  width: 100%;
+  height: 350px;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  text-align: center;
+  padding-top: 85px;
+
+  h1, p {
+    color: #FFF;
+    position:relative;
+    z-index: 1;
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  &:before {
+    content: "";
+    display:block;
+    background: rgba(0,0,0,0.45);
+    position: absolute; right: 0; bottom: 0;
+    min-width: 100%; min-height: 100%;
+    z-index: 0;
+  }
+}
+
+footer {
+  background: #333;
+  text-align: center;
+  margin:0;
+  p {
+    padding: 45px 0;
+    color:#FFF;
+    font-size: 12px;
+    margin:0;
+  }
+}
+
+.search-bar {
+  width: 650px;
+  margin: 0 auto;
+}
+
 @import 'directives/main';
 @import 'home/main';
+@import 'category/category';
 @import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';

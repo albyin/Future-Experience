@@ -20,7 +20,8 @@
 
 </head>
 <body ng-app="FullstackGeneratedApp">
-    <navbar class="nav-top-level"></navbar>
+    <div ng-controller="windowCtrl">
+        <navbar ng-class="{'nav-top-level' : topLevel }"></navbar>
     <div ui-view></div>
 </body>
 </html>
