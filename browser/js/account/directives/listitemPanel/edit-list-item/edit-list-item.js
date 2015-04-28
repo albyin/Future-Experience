@@ -13,7 +13,8 @@ app.directive('editListItem', function($rootScope, ListItemFactory, AuthService,
                 category: scope.listitem.category,
                 product: scope.listitem.product
             };
-            scope.listitems = [];
+
+            scope.areYouSure = false;
 
             scope.listItemProfile = angular.copy(scope.listitem);
 
@@ -28,6 +29,12 @@ app.directive('editListItem', function($rootScope, ListItemFactory, AuthService,
             scope.editToggle = function() {
                 scope.showEdit = scope.showEdit ? false : true;
                 scope.buttonText = scope.showEdit ? "Close Editor" : "Edit List Item";
+            };
+
+            scope.removeListItem = function(){
+                ListItemFactory.deleteListItem(scope.listitem).then(function(){
+                    angular.element(element.parent()).remove();
+                });
             };
 
             scope.editListItem = function (item) {
