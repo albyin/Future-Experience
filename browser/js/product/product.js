@@ -24,6 +24,11 @@ app.factory("ProductFactory", function($http){
                     .then(returnResponse);
     }
 
+    function deleteProduct(product){
+        return $http.delete('/api/product/' + product._id)
+                    .then(returnResponse);
+    }
+
     return {
         getAllProducts : function() {
             return $http
@@ -31,6 +36,7 @@ app.factory("ProductFactory", function($http){
                 .then(returnResponse);
         },
         createProduct: createProduct,
-        editProduct: editProduct
+        editProduct: editProduct,
+        deleteProduct: deleteProduct
     };
 });

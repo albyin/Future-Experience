@@ -36,6 +36,7 @@ app.directive('createListItem', function($rootScope, ListItemFactory, AuthServic
                             scope.listitems.push(createdItem);
                             alert('New List Item added. Good job!');
                             scope.editToggle();
+
                         });
                 });
             };
