@@ -12,7 +12,6 @@ app.controller("ListItemController", function($scope, ProductFactory, CategoryFa
 	$scope.id = $stateParams.listItemId;
 	$scope.showForm = false;
 
-
 	ListItemFactory.getSingleListItem($stateParams.listItemId).then(function (listitem){
 		$scope.listitem = listitem;
 		return listitem;
