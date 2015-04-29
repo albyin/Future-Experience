@@ -16,6 +16,7 @@ app.directive('recommendations', function($rootScope, ListItemFactory, FacebookF
                 ])
                 .then(function(results) {
                     fblikes = results[0];
+                    console.log(fblikes);
                     products = results[1];
 
                     scope.recommendations = products.filter(function(item) {
