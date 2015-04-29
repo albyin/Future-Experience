@@ -23,17 +23,20 @@
     line-height: 170%;
   }
 
-  #listitem-reviews h4{
-    margin-top: 330px;
-    margin-left: 10%;
-
-  }
-
   #addReview{
     margin-left: 1%;
   }
   .space-form{
     margin-top: 15px;
+  }
+
+  .review-card {
+    margin: 5%;
+  }
+
+  span.gave-it-span {
+    margin: 10%;
+    padding-top: 10px;
   }
 
 }

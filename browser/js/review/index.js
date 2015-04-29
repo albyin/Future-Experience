@@ -11,7 +11,7 @@ app.controller('ReviewController', function ($stateParams, $scope, ReviewsFactor
     reviewCtrl.futureReview = {
         comment: null, //set in .html
         stars  : null, //set in .html
-        product: null, // set just below this
+        product: null,
         user   : null // set by AuthService.getLoggedIn.....
     };
 
@@ -22,7 +22,7 @@ app.controller('ReviewController', function ($stateParams, $scope, ReviewsFactor
                 reviewCtrl.showButton = false;
             } else {
                 reviewCtrl.showButton = true;
-                reviewCtrl.futureReview.user = user._id;
+                reviewCtrl.futureReview.user = user.firstName;
                 return user._id;
             }
         });
@@ -58,7 +58,6 @@ app.controller('ReviewController', function ($stateParams, $scope, ReviewsFactor
                 console.log(err);
             });
     };
-
 
     reviewCtrl.updateReviews = function (review) {
         ReviewsFactory.updateReview(review._id).then(function (review) {

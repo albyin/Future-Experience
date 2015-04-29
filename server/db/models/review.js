@@ -6,7 +6,7 @@ var findOrCreate = require('mongoose-findorcreate');
 
 
 var ReviewSchema = new mongoose.Schema({
-    user : {type : Schema.Types.ObjectId, ref : 'User'},
+    user : String,
     product : {type : Schema.Types.ObjectId, ref : 'Product'},
     comment : String,
     stars : Number
