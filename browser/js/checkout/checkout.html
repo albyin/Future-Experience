@@ -23,7 +23,7 @@
              <td class="tdCenter">{{cartItem.item.price * cartItem.quantity/100 | currency}}</td>
           </tr>
        </tbody>
-       <tfoot>
+ <!--       <tfoot>
           <tr>
              <td colspan="3"><strong>Cart Subtotal: </strong></td>
              <td class="tdCenter">{{cart.totalPrice/100 | currency}}</td>
@@ -36,27 +36,28 @@
              <td colspan="3"><strong>Order Total: </strong></td>
              <td class="tdCenter"><strong>{{cart.totalPrice /100 | currency}}</strong></td>
           </tr>
-        </tfoot>
+        </tfoot> -->
     </table>
     <br>
-    <table colspan="4">
+    <table class="table table-bordered ">
+    <tbody>
     	<tr>
-    	   <td colspan="3"><strong>Cart Subtotal: </strong></td>
+    	   <td colspan="9"><strong>Cart Subtotal: </strong></td>
     	   <td class="tdCenter">{{cart.totalPrice/100 | currency}}</td>
     	</tr>
     	<tr>
-    	   <td colspan="3"><strong>Shipping: </strong></td>
+    	   <td colspan="9"><strong>Shipping: </strong></td>
     	   <td class="tdCenter">Free!</td>
     	</tr>
     	<tr>
-    	   <td colspan="3"><strong>Order Total: </strong></td>
+    	   <td colspan="9"><strong>Order Total: </strong></td>
     	   <td class="tdCenter"><strong>{{cart.totalPrice /100 | currency}}</strong></td>
     	</tr>
-
+    	</tbody>
     </table>
 
     <button class="btn btn-block" ui-sref="cart">
-    <i class="icon-chevron-left"></i> Back To Cart
+    	<i class="icon-chevron-left"></i> Back To Cart
     </button>
 
     <h2>Payment Info</h2>
