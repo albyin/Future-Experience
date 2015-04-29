@@ -22,7 +22,7 @@ app.controller('ReviewController', function ($stateParams, $scope, ReviewsFactor
                 reviewCtrl.showButton = false;
             } else {
                 reviewCtrl.showButton = true;
-                reviewCtrl.futureReview.user = user._id;
+                reviewCtrl.futureReview.user = user.firstName;
                 return user._id;
             }
         });

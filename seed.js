@@ -121,19 +121,19 @@ var seedListItems = function(users) {
             return ListItem.createAsync(createArr)
             .then(function (listitems){
                 var review1 = {
-                    user : users[0].id,
+                    user : users[0].firstName,
                     product : productTP.id,
                     comment : "This is OK",
                     stars : 4
                 };
                 var review2 = {
-                    user : users[1].id,
+                    user : users[1].firstName,
                     product : productTP.id,
                     comment : "This is pretty good",
                     stars : 3
                 };
                 var review3 = {
-                    user : users[2].id,
+                    user : users[2].firstName,
                     product : productEL.id,
                     comment : "This is Great",
                     stars : 5

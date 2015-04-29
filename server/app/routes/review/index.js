@@ -47,7 +47,6 @@ router.get('/user/:userId', function (req, res, next) {
     //find all reviews of a given product
     Review
         .find({user: req.params.userId})
-        .populate('product user')
         .exec(function (err, reviewArr) {
             if (err) return next(err);
             //send array of all reviews back

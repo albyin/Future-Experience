@@ -61,7 +61,7 @@ describe('Review GET, POST, PUT, DELETE routes', function () {
                 return Review.createAsync({
                     stars  : 5,
                     comment: "I use it!",
-                    user   : testUser._id,
+                    user   : testUser.firstName,
                     product: testProduct._id
                 });
             }).then(function (review) {
@@ -93,7 +93,7 @@ describe('Review GET, POST, PUT, DELETE routes', function () {
                 return Review.createAsync({
                     stars  : 3,
                     comment: "I use it. Only complaint: Stains after multiple uses",
-                    user   : altUser._id,
+                    user   : altUser.firstName,
                     product: altProduct._id
                 });
             }).then(function (review) {
@@ -136,7 +136,7 @@ describe('Review GET, POST, PUT, DELETE routes', function () {
                 .get("/api/review/user/" + altUser._id)
                 .end(function (err, data) {
                     console.log("DATA: ", data.res.body);
-                    data.res.body.should.all.have.property('user', altUser._id.toString());
+                    data.res.body.should.all.have.property('user', altUser.firstName);
                 });
         });
 
@@ -157,7 +157,7 @@ describe('Review GET, POST, PUT, DELETE routes', function () {
         it("should create a new review", function (done) {
             //posting to review should create a new review
             var newReview = {
-                user   : testUser._id,
+                user   : testUser.firstName,
                 product: altProduct._id,
                 comment: "Do NOT use in space. Gross.",
                 stars  : 0
