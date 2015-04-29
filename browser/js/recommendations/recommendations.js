@@ -18,8 +18,8 @@ app.directive('recommendations', function($rootScope, FacebookFactory, ListItemF
                 ])
                 .then(function(results) {
                     fblikes = results[0];
-                    listitems = results[1];
                     console.log(fblikes);
+                    listitems = results[1];
 
                     scope.recommendations = listitems.filter(function(item) {
                         var intersect = _.intersection(item.tags, fblikes);
