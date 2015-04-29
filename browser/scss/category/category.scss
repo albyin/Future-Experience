@@ -9,34 +9,49 @@
         li {
           list-style: none;
           margin-bottom: 30px;
-          .item-image {
-            width: 100%;
-            img {
-              display:block;
-              width: 100%;
-            }
-          }
-          .item-description {
-            margin-top: 6px;
-            p {
-              margin: 0;
-              font-size: 16px;
-              font-family: 'lovelo black';
-              a {
-                color : $red-color;
-              }
-            }
-            .add-to-cart {
-              margin-top:6px;
-              padding: 6px 0;
-              border-top: 1px solid #CCC;
-              border-bottom: 1px solid #CCC;
-              .addQuant {
-                float: right;
-              }
-            }
-          }
         }
+    }
+  }
+}
+
+.item-view {
+  width: 100%;
+  .item-image {
+    width: 100%;
+    height: 263px;
+    overflow: hidden;
+    img {
+      display:block;
+      width: 100%;
+    }
+  }
+  .item-description {
+    margin-top: 6px;
+    p {
+      margin: 0;
+      font-size: 16px;
+      font-family: 'lovelo black';
+      a {
+        color : $red-color;
+      }
+
+      &.tags {
+        font-family: 'Open Sans';
+        font-size: 14px;
+        margin-top: 5px;
+        strong {
+          font-family: 'lovelo black';
+        }
+      }
+    }
+    .add-to-cart {
+      margin-top:6px;
+      padding: 6px 0;
+      border-top: 1px solid #CCC;
+      border-bottom: 1px solid #CCC;
+      .addQuant {
+        float: right;
+      }
     }
   }
 }

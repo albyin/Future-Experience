@@ -3,8 +3,9 @@
         <h1>{{category.name}}</h1>
         <p>{{category.description}}</p>
     </header>
-
+    <recommendations ng-if="category" category="category"></recommendations>
     <div class="container">
+
         <div class="search-bar">
             <div class="input-group">
           <span class="input-group-btn">
@@ -16,16 +17,8 @@
         </div>
         <ul class="listOfItems clearfix">
             <li class="col-md-3 col-lg-3" ng-repeat="listItem in listItems | filter:searchTerm">
-                <div class="item-image">
-                    <img ng-src="{{listItem.product.image}}">
-                </div>
-                <div class="item-description">
-                    <p><a ui-sref="listItem({listItemId:listItem._id})">{{listItem.product.name}}</a></p>
-                    <add-to-cart item="listItem"></add-to-cart>
-                </div>
+                <item-view item="listItem"></item-view>
             </li>
         </ul>
     </div>
-
-    <!--<recommendations></recommendations>-->
 </div>

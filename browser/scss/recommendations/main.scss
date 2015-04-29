@@ -1,0 +1,18 @@
+.recommendations {
+  background: #FAFAFA;
+  padding:0;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.4) inset,0px -1px 6px rgba(0, 0, 0, 0.4) inset;
+
+  & > .container {
+    padding: 0 !important;
+  }
+
+  ul {
+    padding: 0px 0;
+    list-style: none;
+    li {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+  }
+}
