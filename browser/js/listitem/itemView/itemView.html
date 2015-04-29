@@ -5,6 +5,6 @@
     <div class="item-description">
         <p><a ui-sref="listItem({listItemId:item._id})">{{item.product.name}}</a></p>
         <p class="tags"><strong>tags:</strong> {{item.tags.join(', ')}}</p>
-        <add-to-cart item="listItem"></add-to-cart>
+        <add-to-cart item="item"></add-to-cart>
     </div>
 </div>
