@@ -1,6 +1,10 @@
-<div ng-if="recommendations">
-    Recommendations:
-    <pre>
-        {{ recommendations | json}}
-    </pre>
+<div class="recommendations" ng-if="recommendations">
+    <div class="container">
+        <h2>Recommendations</h2>
+        <ul class="clearfix">
+            <li class="col-md-3 col-lg-3" ng-repeat="listItem in recommendations | filter:searchTerm">
+                <item-view item="listItem"></item-view>
+            </li>
+        </ul>
+    </div>
 </div>

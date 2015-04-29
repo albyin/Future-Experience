@@ -1,24 +1,27 @@
-app.directive('recommendations', function($rootScope, ListItemFactory, FacebookFactory, ProductFactory, $q) {
+'use strict';
+app.directive('recommendations', function($rootScope, FacebookFactory, ListItemFactory, $q) {
     return {
         restrict : 'E',
         templateUrl : 'js/recommendations/recommendations.html',
-        scope : {},
-
+        scope : {
+            category : '='
+        },
         link : function(scope, element, attr) {
             scope.recommendations = null;
 
-            var fblikes, products;
+            var fblikes, listitems;
 
             $q
                 .all([
                     FacebookFactory.getLikes(),
-                    ProductFactory.getAllProducts()
+                    ListItemFactory.getListItemsForCategory(scope.category._id)
                 ])
                 .then(function(results) {
                     fblikes = results[0];
-                    products = results[1];
+                    listitems = results[1];
+                    console.log(results);
 
-                    scope.recommendations = products.filter(function(item) {
+                    scope.recommendations = listitems.filter(function(item) {
                         var intersect = _.intersection(item.tags, fblikes);
 
                         if (intersect.length) {
@@ -26,7 +29,7 @@ app.directive('recommendations', function($rootScope, ListItemFactory, FacebookF
                         } else {
                             return false;
                         }
-                    });
+                    }).slice(0, 4);
                 });
         }
     };
