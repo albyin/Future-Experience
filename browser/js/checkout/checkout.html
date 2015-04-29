@@ -1,4 +1,4 @@
-<div id="checkout" ng-if="!paid">
+<div id="checkout" class="container" ng-if="!paid">
     <h1>Confirm Your Order</h1>
     <table class="table table-bordered">
        <!-- header -->
@@ -23,18 +23,36 @@
              <td class="tdCenter">{{cartItem.item.price * cartItem.quantity/100 | currency}}</td>
           </tr>
        </tbody>
+       <tfoot>
           <tr>
-             <td colspan="3">Cart Subtotal: </td>
-             <td>{{cart.totalPrice/100 | currency}}</td>
+             <td colspan="3"><strong>Cart Subtotal: </strong></td>
+             <td class="tdCenter">{{cart.totalPrice/100 | currency}}</td>
           </tr>
           <tr>
-             <td colspan="3">Shipping: </td>
-             <td>Free!</td>
+             <td colspan="3"><strong>Shipping: </strong></td>
+             <td class="tdCenter">Free!</td>
           </tr>
           <tr>
-             <td colspan="3">Order Total: </td>
-             <td>{{cart.totalPrice /100 | currency}}</td>
+             <td colspan="3"><strong>Order Total: </strong></td>
+             <td class="tdCenter"><strong>{{cart.totalPrice /100 | currency}}</strong></td>
           </tr>
+        </tfoot>
+    </table>
+    <br>
+    <table colspan="4">
+    	<tr>
+    	   <td colspan="3"><strong>Cart Subtotal: </strong></td>
+    	   <td class="tdCenter">{{cart.totalPrice/100 | currency}}</td>
+    	</tr>
+    	<tr>
+    	   <td colspan="3"><strong>Shipping: </strong></td>
+    	   <td class="tdCenter">Free!</td>
+    	</tr>
+    	<tr>
+    	   <td colspan="3"><strong>Order Total: </strong></td>
+    	   <td class="tdCenter"><strong>{{cart.totalPrice /100 | currency}}</strong></td>
+    	</tr>
+
     </table>
 
     <button class="btn btn-block" ui-sref="cart">
