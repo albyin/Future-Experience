@@ -1,5 +1,5 @@
 app.controller('AccountController', function($scope, Upload, AuthService, AccountFactory, CartFactory, ProductFactory, CategoryFactory, ListItemFactory, $state) {
-
+    console.log($scope);
     $scope.listItems = $scope.products = $scope.allUsers = $scope.user = $scope.orders = null;
 
     $scope.products = ProductFactory.getAllProducts();
