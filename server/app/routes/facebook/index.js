@@ -12,7 +12,7 @@ router.get('/likes', function(req, res, next) {
 
     User
         .findById(req.user._id)
-        .select('+facebook.token')
+        .select('facebook.id +facebook.token')
         .exec()
         .then(function(userToken) {
             var access_token = userToken.facebook.token;
