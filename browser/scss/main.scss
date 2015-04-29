@@ -53,6 +53,7 @@ $red-color: #FE4641;
 }
 
 body {
+  background: white;
   font-family: 'Open Sans', sans-serif;
   line-height: 125%;
 }
@@ -135,3 +136,7 @@ footer {
 @import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';
+@import 'cart/main';
+@import 'checkout/main';
+@import 'paid/main';
+@import 'account/main';

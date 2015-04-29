@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
 app.controller('CheckOutController', function ($scope, AuthService, $state, CartFactory) {
     $scope.cart = CartFactory.getCart();
     $scope.paid = false;
-    $scope.order;
+    $scope.order = null;
 
     $scope.processPayment = function() {
         console.log("processing payment...");
