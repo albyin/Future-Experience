@@ -133,9 +133,10 @@ describe('Review GET, POST, PUT, DELETE routes', function () {
 
         it('should return all reviews a single user has written', function () {
             request(app)
-                .get("/api/review/user/" + testUser._id)
+                .get("/api/review/user/" + altUser._id)
                 .end(function (err, data) {
-                    data.res.body.should.all.have.property('user', testUser._id.toString());
+                    console.log("DATA: ", data.res.body);
+                    data.res.body.should.all.have.property('user', altUser._id.toString());
                 });
         });
 
