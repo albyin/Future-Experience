@@ -15,8 +15,11 @@ app.directive('userTab', function ($rootScope, AuthService, AUTH_EVENTS, $state)
             ];
 
             scope.isCurrentState = function(current) {
+                console.log($state.includes(current))
                 return $state.includes(current);
             };
+
+            console.log(scope);
         }
     };
 });
