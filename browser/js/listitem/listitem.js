@@ -1,64 +1,51 @@
 'use strict';
 app.config(function ($stateProvider) {
     $stateProvider.state('listItem', {
-        url: '/listitem/:listItemId',
+        url        : '/listitem/:listItemId',
         templateUrl: 'js/listitem/listitem.html',
-        controller: "ListItemController"
+        controller : "ListItemController"
     });
 });
 
-app.controller("ListItemController", function($scope, ProductFactory, CategoryFactory, ListItemFactory, ReviewsFactory, $stateParams, CartFactory){
+app.controller("ListItemController", function ($scope, ProductFactory, CategoryFactory, ListItemFactory, ReviewsFactory, $stateParams, CartFactory) {
 
-	$scope.id = $stateParams.listItemId;
-	$scope.showForm = false;
+    $scope.id = $stateParams.listItemId;
 
-	ListItemFactory.getSingleListItem($stateParams.listItemId).then(function (listitem){
-		$scope.listitem = listitem;
-		return listitem;
-	})
-	.then(function (listitem){
-		ReviewsFactory.getReviewsForProduct(listitem.product._id).then(function (reviews){
-			$scope.reviews = reviews;
-		});
-	});
 
-	$scope.toggleReviewForm = function () {
-		$scope.showForm = !$scope.showForm;
-	};
+    ListItemFactory.getSingleListItem($stateParams.listItemId).then(function (listitem) {
+        $scope.listitem = listitem;
+        return listitem;
+    })
 
-	$scope.reviewForm = {};
-
-	$scope.submitReview = function(review) {
-		// ReviewFactory.addNewReview(review).then(function(){})
-	};
 });
 
-app.factory("ListItemFactory", function($http){
+app.factory("ListItemFactory", function ($http) {
 
-	function createListItem (item) {
-		return $http.post('/api/listitems', item).then(returnResponse);
-	}
-	function editListItem (item) {
-		return $http.put('/api/listitems/' + item._id, item).then(returnResponse);
-	}
+    function createListItem (item) {
+        return $http.post('/api/listitems', item).then(returnResponse);
+    }
 
-	function deleteListItem(item){
-		return $http.delete("/api/listitems/" + item._id).then(returnResponse);
-	}
+    function editListItem (item) {
+        return $http.put('/api/listitems/' + item._id, item).then(returnResponse);
+    }
 
-	return {
-		getListItemsForCategory: function(cat_id){
-			//:cat_id will be changed after the backend is done
-			return $http.get("/api/listitems/category/" + cat_id).then(returnResponse);
-		},
-		getSingleListItem: function(listItemId){
-			return $http.get("/api/listitems/item/" + listItemId).then(returnResponse);
-		},
-		getListItems : function() {
-			return $http.get("/api/listitems").then(returnResponse);
-		},
-		createListItem: createListItem,
-		editListItem: editListItem,
-		deleteListItem: deleteListItem
-	};
+    function deleteListItem (item) {
+        return $http.delete("/api/listitems/" + item._id).then(returnResponse);
+    }
+
+    return {
+        getListItemsForCategory: function (cat_id) {
+            //:cat_id will be changed after the backend is done
+            return $http.get("/api/listitems/category/" + cat_id).then(returnResponse);
+        },
+        getSingleListItem      : function (listItemId) {
+            return $http.get("/api/listitems/item/" + listItemId).then(returnResponse);
+        },
+        getListItems           : function () {
+            return $http.get("/api/listitems").then(returnResponse);
+        },
+        createListItem         : createListItem,
+        editListItem           : editListItem,
+        deleteListItem         : deleteListItem
+    };
 });
