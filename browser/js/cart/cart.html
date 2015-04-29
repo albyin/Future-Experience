@@ -1,14 +1,14 @@
 <!-- <pre>
    {{cart | json}}
    </pre> -->
-<div class="container-fluid">
+<div id="cart" class="container-fluid">
    <div class="row-fluid">
       <div class="span10 offset1">
          <h1>
             <a><img src="http://fc01.deviantart.net/fs71/i/2011/118/0/c/space_logo_by_avikdey-d3f2ihe.jpg" height="60" width="60" alt="logo"></a>
             Space Store 
          </h1>
-         <div>
+         <div id="content">
             <p class="text-info">
                Thanks for shopping at the Space Store.<br>
                This is your shopping cart. Here you can edit the items, 
@@ -16,6 +16,7 @@
             </p>
             <div class="container-fluid">
                <div class="row">
+                  <!-- left column -->
                   <div class="col-md-8">
                      <!-- items -->
                      <table class="table table-bordered">
@@ -29,13 +30,13 @@
                               <td class="tdCenter">Remove</td>
                            </tr>
                            <!-- empty cart message -->
-                           <!--   <tr ng-hide="cart.getTotal() > 0" style="display: none;"> -->
-                           <!--     <td class="tdCenter" colspan="4">
+                           <tr ng-show="cart.listitems.length == 0">
+                               <td class="tdCenter" colspan="5">
                               Your cart is empty.
-                              </td> -->
-                           <!-- </tr> -->
+                              </td>
+                           </tr>
                            <!-- cart items -->
-                           <tr ng-repeat="cartItem in cart.listitems">
+                           <tr ng-show = "cart.listitems.length > 0" ng-repeat="cartItem in cart.listitems">
                               <td class="ng-binding">{{cartItem.item.product.name}}</td>
                               <td class="tdCenter">
                                  <select ng-model="cartItem.quantity" ng-change="updateQuant(cartItem.item._id, cartItem.quantity)">
@@ -50,19 +51,28 @@
                                  </button>
                               </td>
                            </tr>
-                           </tr
-                           <! footer
-                           <tr>
-                              <td><b>Total</b></td>
-                              <td class="tdCenter"><b class="ng-binding"></b></td>
-                              <td></td>
-                              <td></td>
-                           </tr>
                         </tbody>
                      </table>
-                  </div>
-                  <!--        buttons -->
+                  </div> <!-- end left column -->
+                  <!--   right column  -->
                   <div class="col-md-4">
+                     <table>
+                     <h3>Cart Totals</h4>
+                     <tr>
+                        <td>Cart Subtotal: </td>
+                        <td>{{cart.totalPrice/100 | currency}}</td>
+                     </tr>
+                     <tr>
+                        <td>Shipping: </td>
+                        <td>Free!</td>
+                     </tr>
+                     <tr>
+                        <td>Order Total: </td>
+                        <td>{{cart.totalPrice /100 | currency}}</td>
+                     </tr>
+
+                     </table>
+                     <br/>
                      <p class="text-info">
                         <button class="btn btn-block" ui-sref="home">
                         <i class="icon-chevron-left"></i> back to store
@@ -76,28 +86,10 @@
                         <i class="icon-ok icon-white"></i> Check Out
                         </button>
                      </p>
-                     <!--<br><br>-->
-                     <!--<p class="text-info">-->
-                        <!--<button class="btn btn-block btn-primary">-->
-                        <!--<i class="icon-ok icon-white"></i> check out using PayPal-->
-                        <!--</button>-->
-                        <!--<button class="btn btn-block btn-primary">-->
-                        <!--<i class="icon-ok icon-white"></i> check out using Google-->
-                        <!--</button>-->
-                     <!--</p>-->
-                     <!--<br><br>-->
-                     <!--<p class="text-info">-->
-                        <!--<button class="btn btn-block btn-link">-->
-                        <!--<img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="checkout PayPal">-->
-                        <!--</button>    -->
-                        <!--<button class="btn btn-block btn-link">-->
-                        <!--<img src="http://mypcservices.us/images/googlecheck.jpg" alt="checkoutGoogle">-->
-                        <!--</button>    -->
-                     <!--</p>-->
-                  </div>
+                  </div> <!-- end right column -->
                </div>
             </div>
-         </div>
-      </div>
-   </div>
+         </div> <!-- end content -->
+      </div> <!-- end span10 -->
+   </div> <!-- end row fluid -->
 </div>

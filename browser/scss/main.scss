@@ -53,7 +53,7 @@ $red-color: #FE4641;
 }
 
 body {
-  background: black;
+  background: white;
   font-family: 'Open Sans', sans-serif;
   line-height: 125%;
 }
@@ -86,3 +86,5 @@ section {
 @import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';
+@import 'cart/main';
+@import 'checkout/main';

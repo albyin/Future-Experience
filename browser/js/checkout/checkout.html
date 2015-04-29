@@ -1,8 +1,45 @@
-<div ng-if="!paid">
+<div id="checkout" ng-if="!paid">
     <h1>Confirm Your Order</h1>
-    <pre>
-        {{ cart | json}}
-    </pre>
+    <table class="table table-bordered">
+       <!-- header -->
+       <tbody>
+          <tr>
+             <td><b>Item</b></td>
+             <td class="tdCenter"><b>Quantity</b></td>
+             <td class="tdCenter"><b>Price Per Unit</b></td>
+             <td class="tdCenter"><b>Subtotal Price</b></td>
+          </tr>
+          <!-- empty cart message -->
+          <tr ng-show="cart.listitems.length == 0">
+              <td class="tdCenter" colspan="5">
+             Your cart is empty.
+             </td>
+          </tr>
+          <!-- cart items -->
+          <tr ng-show = "cart.listitems.length > 0" ng-repeat="cartItem in cart.listitems">
+             <td class="ng-binding">{{cartItem.item.product.name}}</td>
+             <td class="tdCenter">{{cartItem.quantity}}</td>
+             <td class="pricePerItem">{{cartItem.item.price/100 | currency}}</td>
+             <td class="tdCenter">{{cartItem.item.price * cartItem.quantity/100 | currency}}</td>
+          </tr>
+       </tbody>
+          <tr>
+             <td colspan="3">Cart Subtotal: </td>
+             <td>{{cart.totalPrice/100 | currency}}</td>
+          </tr>
+          <tr>
+             <td colspan="3">Shipping: </td>
+             <td>Free!</td>
+          </tr>
+          <tr>
+             <td colspan="3">Order Total: </td>
+             <td>{{cart.totalPrice /100 | currency}}</td>
+          </tr>
+    </table>
+
+    <button class="btn btn-block" ui-sref="cart">
+    <i class="icon-chevron-left"></i> Back To Cart
+    </button>
 
     <h2>Payment Info</h2>
     <table>
