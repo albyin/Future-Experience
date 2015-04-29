@@ -22,10 +22,6 @@ app.controller("CategoryController", function($scope, ListItemFactory, CategoryF
         .then(function(category) {
             $scope.category = category;
         });
-
-
-
-
 });
 
 app.factory("CategoryFactory", function($http){
