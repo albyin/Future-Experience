@@ -12,6 +12,12 @@ var addressSchema = new mongoose.Schema({
     postalCode: Number
 });
 
+var schemaOptions = {
+    toJSON : {
+        virtuals : true
+    }
+};
+
 var userSchema = new mongoose.Schema({
     firstName : {type : String},
     lastName : {type : String},
@@ -46,7 +52,7 @@ var userSchema = new mongoose.Schema({
         type: Number,
         default : 1
     }
-});
+}, schemaOptions);
 
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
@@ -61,6 +67,15 @@ var encryptPassword = function (plainText, salt) {
     hash.update(salt);
     return hash.digest('hex');
 };
+
+var USER_LEVEL = {
+    admin : 2,
+    superUser : 3
+};
+
+userSchema.virtual('admin').get(function() {
+    return this.userType === USER_LEVEL.admin;
+});
 
 userSchema.pre('save', function (next) {
 

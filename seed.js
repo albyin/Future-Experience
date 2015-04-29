@@ -76,9 +76,11 @@ var seedUsers = function () {
 var seedListItems = function(users) {
     var categoryTestArr = [{
         name: 'Space Colonization',
-        description : 'Lorem Ipsum'
+        description : 'Lorem Ipsum',
+        image : 'images/space.jpg'
     }, {
         name: 'Zombie Apocalypse',
+        image : 'images/zombie.jpg',
         description : 'Lorem Ipsum'
     }];
     var productTestArr = [

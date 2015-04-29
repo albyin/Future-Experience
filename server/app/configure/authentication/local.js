@@ -5,26 +5,19 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
 
-module.exports = function (app, USER_LEVEL) {
+module.exports = function (app) {
 
     // When passport.authenticate('local') is used, this function will receive
     // the email and password to run the actual authentication logic.
     var strategyFn = function (email, password, done) {
     // select comes from userModel and it set to false initially. '+' overrides the boolean and selects the property
-        UserModel.findOne({ email: email }).select('firstName lastName email userType +salt +password').exec(function (err, user) {
+        UserModel.findOne({ email: email }).select('firstName lastName email userType admin +salt +password').exec(function (err, user) {
             if (err) return done(err);
             // user.correctPassword is a method from our UserModel schema.
             if (!user || !user.correctPassword(password)) return done(null, false);
 
 
-            user = _.omit(user.toJSON(), ['password', 'salt']);
-
-            if (USER_LEVEL[user.userType]) {
-                _.extend(user, USER_LEVEL[user.userType]);
-            }
-            delete user.userType;
-
-            console.log(user);
+            user = _.omit(user.toJSON(), ['password', 'salt', 'userType']);
 
             // Properly authenticated.
             done(null, user);
