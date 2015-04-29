@@ -1,40 +1,39 @@
 #listitem {
- 
-    margin: 120px 5% 0 5%;
 
-    .listitem-image {
-            width: 100%;
-            padding: 2% 0;
-            clear: both;   
-          }
-    #listitem-name h1{
-    	font-family: 'lovelo black';
-    	font-size: 5em;
-    	margin:0;
-    	padding: 0;
-    }
-    #listitem-name h2{
-    	font-style: italic;
-    }
+  margin: 80px 5% 0 5%;
 
-    #listitem-description p{
-    	font-size: 1.2em;
-    	font-style: normal;
-    	line-height: 170%;
-    }
+  .listitem-image {
+    width: 100%;
+    padding: 2% 0;
+    clear: both;
+  }
+  #listitem-name h1{
+    font-family: 'lovelo black';
+    font-size: 5em;
+    margin:0;
+    padding: 0;
+  }
+  #listitem-name h2{
+    font-style: italic;
+  }
 
-    #listitem-reviews h4{
-    	margin-top: 20%;
-    	padding-top: 10px;
-    	margin-left: 10%;
+  #listitem-description p{
+    font-size: 1.2em;
+    font-style: normal;
+    line-height: 170%;
+  }
 
-    }
-  
-    #addReview{
-    	margin-left: 1%;
-    }
-    .space-form{
-    	margin-top: 15px;
-    }
+  #listitem-reviews h4{
+    margin-top: 330px;
+    margin-left: 10%;
 
-    }
+  }
+
+  #addReview{
+    margin-left: 1%;
+  }
+  .space-form{
+    margin-top: 15px;
+  }
+
+}
