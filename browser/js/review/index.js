@@ -3,6 +3,7 @@
 app.controller('ReviewController', function ($stateParams, $scope, ReviewsFactory, AuthService, ListItemFactory) {
     var reviewCtrl = this;
 
+    reviewCtrl.creator = null;
     reviewCtrl.showForm = false;
     reviewCtrl.showButton = null;
     reviewCtrl.starsArr = [1, 2, 3, 4, 5];

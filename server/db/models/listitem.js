@@ -11,7 +11,7 @@ var ListItemSchema = new mongoose.Schema({
     product: {type : Schema.Types.ObjectId, ref : 'Product'},
     category: {type: Schema.Types.ObjectId, ref: 'Category'},
 	creator: {type: Schema.Types.ObjectId, ref: 'User'},
-	tags   : [String]
+	tags   : {type: [String], default: ['Fullstack Academy']}
 });
 
 var generalFilter = function(listItems, general) {

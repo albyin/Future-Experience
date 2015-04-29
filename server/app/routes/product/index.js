@@ -55,7 +55,7 @@ router.post('/upload', function (req, res, next) {
         console.log("IT WORKS: ", __dirname);
         var fstream = fs.createWriteStream(rootPath + "/browser/images/uploads/" + filename);
         fstream.on('close', function () {
-            res.send('uploads/' + filename);
+            res.send('images/uploads/' + filename);
         });
 
         file.pipe(fstream);

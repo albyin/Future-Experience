@@ -38,12 +38,14 @@
                             <p class="text-center">{{review.comment}}</p>
                         </div>
                     </div>
-                    <button id="addReview" ng-if="!reviewCtrl.showForm" ng-click="reviewCtrl.toggleReviewForm()"
-                            type="button" class="btn btn-primary space-button">Add Review
-                    </button>
-                    <button id="addReview" ng-if="reviewCtrl.showForm" ng-click="reviewCtrl.toggleReviewForm()"
-                            type="button" class="btn btn-primary">Close
-                    </button>
+                    <div ng-if="reviewCtrl.creator">
+                        <button id="addReview" ng-if="!reviewCtrl.showForm" ng-click="reviewCtrl.toggleReviewForm()"
+                                type="button" class="btn btn-primary space-button">Add Review
+                        </button>
+                        <button id="addReview" ng-if="reviewCtrl.showForm" ng-click="reviewCtrl.toggleReviewForm()"
+                                type="button" class="btn btn-primary">Close
+                        </button>
+                    </div>
                     <div class="space-form" ng-if="reviewCtrl.showForm">
                         <form name="review" ng-submit="reviewCtrl.addReviews()">
                             <fieldset class="form-group">

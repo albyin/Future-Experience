@@ -7,16 +7,14 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("ListItemController", function ($scope, ProductFactory, CategoryFactory, ListItemFactory, ReviewsFactory, $stateParams, CartFactory) {
+app.controller("ListItemController", function ($scope, ProductFactory, CategoryFactory, ListItemFactory, ReviewsFactory, $stateParams) {
 
     $scope.id = $stateParams.listItemId;
-
 
     ListItemFactory.getSingleListItem($stateParams.listItemId).then(function (listitem) {
         $scope.listitem = listitem;
         return listitem;
-    })
-
+    });
 });
 
 app.factory("ListItemFactory", function ($http) {
