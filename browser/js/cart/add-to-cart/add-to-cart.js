@@ -8,6 +8,7 @@ app.directive('addToCart', function (CartFactory) {
         link : function(scope, element, attr) {
             scope.addQuant = '';
             scope.addToCart = function() {
+                console.log("here");
                 CartFactory.pushCartItem(scope.item, scope.addQuant);
                 scope.addQuant = ""; //reset addQuant dropdown selection to default
             };

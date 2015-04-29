@@ -1,10 +1,12 @@
-<h1>Thank You for shopping with us!</h1>
+<div id="paid" class="container" ng-show="paid">
+	<h1>Thank You for shopping with us!</h1>
 
-<pre>
-    {{ order | json}}
-</pre>
+	<!-- <pre>
+	    {{ order | json}}
+	</pre> -->
 
-<h2>Your Order ID is: {{order._id}}</h2>
+	<h2>Your Order ID is: {{order._id}}</h2>
 
-<br/>
-<a ui-sref="home">Back To Shopping</a>
+	<br/>
+	<a ui-sref="home">Back To Shopping</a>
+</div>
