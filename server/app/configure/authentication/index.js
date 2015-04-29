@@ -17,14 +17,6 @@ var ENABLED_AUTH_STRATEGIES = [
 // 0 is non-member
 // 1 is member
 // 2 is admin
-var USER_LEVEL = {
-    2 : {
-        admin : true
-    },
-    3 : {
-        superUser : true
-    }
-};
 
 module.exports = function (app) {
 
@@ -51,14 +43,10 @@ module.exports = function (app) {
     // When we receive a cookie from the browser, we use that id to set our req.user
     // to a user found in the database.
     passport.deserializeUser(function (id, done) {
-        UserModel.findById(id).lean().exec(function(err, user) {
+        UserModel.findById(id).exec(function(err, user) {
             if (err) return done(err);
             if (!user) {
                 return done(new Error("Invalid User Session"));
-            }
-
-            if (USER_LEVEL[user.userType]) {
-                _.extend(user, USER_LEVEL[user.userType]);
             }
 
             delete user.userType;
@@ -88,7 +76,7 @@ module.exports = function (app) {
 
     // Each strategy enabled gets registered.
     ENABLED_AUTH_STRATEGIES.forEach(function (strategyName) {
-        require(path.join(__dirname, strategyName))(app, USER_LEVEL);
+        require(path.join(__dirname, strategyName))(app);
     });
 
 };
